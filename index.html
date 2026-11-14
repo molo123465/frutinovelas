@@ -72,12 +72,17 @@
   </script>
 
   <style>
+    html, body {
+      max-width: 100%;
+      overflow-x: hidden;
+    }
+
     body {
       background-color: #120a08;
       color: #fff8e7;
       font-family: 'Plus Jakarta Sans', sans-serif;
-      overflow-x: hidden;
       -webkit-tap-highlight-color: transparent;
+      padding-bottom: calc(5.5rem + env(safe-area-inset-bottom));
     }
 
     /* Fondo estilo barquillo / heladería oscura premium */
@@ -93,7 +98,7 @@
 
     /* Glassmorphism sabor chocolate y crema */
     .ice-glass {
-      background: rgba(34, 19, 15, 0.76);
+      background: rgba(34, 19, 15, 0.8);
       backdrop-filter: blur(18px);
       -webkit-backdrop-filter: blur(18px);
       border: 1px solid rgba(255, 248, 231, 0.12);
@@ -102,10 +107,11 @@
     }
 
     .ice-nav {
-      background: rgba(20, 11, 9, 0.92);
-      backdrop-filter: blur(22px);
-      -webkit-backdrop-filter: blur(22px);
-      border-top: 1px solid rgba(255, 209, 102, 0.16);
+      background: rgba(18, 10, 8, 0.96);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border-top: 1px solid rgba(255, 209, 102, 0.2);
+      padding-bottom: env(safe-area-inset-bottom);
     }
 
     .text-gradient-helado {
@@ -399,15 +405,52 @@
           </div>
 
           <div class="grid grid-cols-3 gap-2 pt-0.5">
-            <button onclick="switchTab('chat')" class="bg-mint/15 hover:bg-mint/25 border border-mint/30 text-mint font-display font-bold text-xs sm:text-sm py-3 rounded-2xl transition-all">
+            <button onclick="switchTab('chat')" class="bg-mint/15 hover:bg-mint/25 border border-mint/30 text-mint font-display font-bold text-xs sm:text-sm py-3 rounded-2xl transition-all active:scale-95">
               💬 Chat Común
             </button>
-            <button onclick="switchTab('arcade')" class="bg-vanilla/15 hover:bg-vanilla/25 border border-vanilla/30 text-vanilla font-display font-bold text-xs sm:text-sm py-3 rounded-2xl transition-all">
-              🕹️ Mini-Juego
+            <button onclick="switchTab('ranks')" class="bg-vanilla/15 hover:bg-vanilla/25 border border-vanilla/30 text-vanilla font-display font-bold text-xs sm:text-sm py-3 rounded-2xl transition-all active:scale-95">
+              🔥 Top Rachas
             </button>
-            <button onclick="downloadFanPassportPNG()" class="bg-strawberry/15 hover:bg-strawberry/25 border border-strawberry/30 text-strawberry font-display font-bold text-xs sm:text-sm py-3 rounded-2xl transition-all">
+            <button onclick="downloadFanPassportPNG()" class="bg-strawberry/15 hover:bg-strawberry/25 border border-strawberry/30 text-strawberry font-display font-bold text-xs sm:text-sm py-3 rounded-2xl transition-all active:scale-95">
               📲 Pase Story
             </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- MISIONES DIARIAS PARA VOLVER CADA DÍA (+FRUTI-COINS) -->
+      <div class="ice-glass rounded-[28px] p-4 sm:p-5 border-mint/25 space-y-3">
+        <div class="flex items-center justify-between">
+          <div>
+            <span class="text-[10px] font-black uppercase tracking-wider text-mint">Retos de Hoy • Se reinician cada día</span>
+            <h3 class="font-display font-bold text-base sm:text-lg text-cream">🎯 Misiones Diarias de la Heladería</h3>
+          </div>
+          <span id="daily-missions-progress" class="text-xs font-extrabold px-2.5 py-1 rounded-full bg-mint/15 text-mint border border-mint/30">0/3</span>
+        </div>
+
+        <div class="space-y-2">
+          <div class="flex items-center justify-between gap-2 bg-choco-950/80 p-3 rounded-2xl border border-cream/10">
+            <div class="min-w-0">
+              <p class="text-xs font-extrabold text-cream truncate">1. Ficha tu entrada diaria (+50 🪙)</p>
+              <p class="text-[10px] text-cream/60">Mantén viva tu racha de días seguidos</p>
+            </div>
+            <span id="mission-1-badge" class="shrink-0 text-[11px] font-extrabold px-2.5 py-1 rounded-xl bg-amber-400/20 text-amber-300">Pendiente</span>
+          </div>
+
+          <div class="flex items-center justify-between gap-2 bg-choco-950/80 p-3 rounded-2xl border border-cream/10">
+            <div class="min-w-0">
+              <p class="text-xs font-extrabold text-cream truncate">2. Saluda en el Chat Común (+25 🪙)</p>
+              <p class="text-[10px] text-cream/60">Escribe al menos 1 mensaje hoy</p>
+            </div>
+            <span id="mission-2-badge" class="shrink-0 text-[11px] font-extrabold px-2.5 py-1 rounded-xl bg-amber-400/20 text-amber-300">Pendiente</span>
+          </div>
+
+          <div class="flex items-center justify-between gap-2 bg-choco-950/80 p-3 rounded-2xl border border-cream/10">
+            <div class="min-w-0">
+              <p class="text-xs font-extrabold text-cream truncate">3. Vota una idea en el Muro (+25 🪙)</p>
+              <p class="text-[10px] text-cream/60">Apoya una propuesta para el próximo vídeo</p>
+            </div>
+            <span id="mission-3-badge" class="shrink-0 text-[11px] font-extrabold px-2.5 py-1 rounded-xl bg-amber-400/20 text-amber-300">Pendiente</span>
           </div>
         </div>
       </div>
@@ -517,171 +560,122 @@
     </section>
 
     <!-- =================================================================== -->
-    <!-- PESTAÑA 2: CHAT COMÚN EN VIVO PARA TODOS LOS FANS                   -->
+    <!-- PESTAÑA 2: CHAT COMÚN EN VIVO DE LA HELADERÍA                       -->
     <!-- =================================================================== -->
     <section id="tab-chat" class="hidden space-y-4">
-      <div class="ice-glass rounded-[28px] p-4 sm:p-5 border-mint/25 flex flex-col h-[72vh] max-h-[680px]">
-        
-        <!-- Cabecera de la sala -->
-        <div class="flex items-center justify-between pb-3 border-b border-cream/10 shrink-0">
+      <div class="ice-glass rounded-[28px] p-4 sm:p-5 border-mint/25 space-y-3">
+        <div class="flex items-center justify-between">
           <div>
-            <h3 class="font-display font-bold text-lg text-cream flex items-center gap-2">
-              <span>💬</span> Chat Común de la Heladería
-            </h3>
-            <p id="chat-room-subtitle" class="text-[11px] text-cream/65">Habla en directo con toda la comunidad de FrutiNovelas</p>
+            <span class="text-[10px] font-black uppercase tracking-wider text-mint">● Sala Global en Directo</span>
+            <h2 class="font-display font-bold text-xl text-cream">💬 Chat Común de la Heladería</h2>
           </div>
-          <span class="text-[11px] font-extrabold text-mint bg-mint/15 border border-mint/30 px-2.5 py-1 rounded-full">
-            ● En Directo
-          </span>
+          <span class="text-[11px] font-bold text-cream/60">100% Real</span>
         </div>
 
-        <!-- Mensaje Fijado por el Admin (si existe) -->
-        <div id="pinned-chat-banner" class="hidden mt-3 bg-amber-500/15 border border-amber-400/40 rounded-2xl p-3 flex items-start justify-between gap-2 shrink-0">
-          <div class="min-w-0">
-            <span class="text-[10px] font-black uppercase tracking-wider text-amber-300 block">📌 Mensaje Fijado por Cocardo</span>
-            <p id="pinned-chat-text" class="text-xs font-semibold text-cream mt-0.5 break-words"></p>
-          </div>
+        <!-- Mensaje Fijado por Admin -->
+        <div id="pinned-chat-banner" class="hidden bg-amber-400/15 border border-amber-400/40 px-3.5 py-2.5 rounded-2xl flex items-center gap-2">
+          <span class="text-sm shrink-0">📌</span>
+          <p id="pinned-chat-text" class="text-xs font-extrabold text-vanilla truncate"></p>
         </div>
 
-        <!-- Lista de Mensajes en Tiempo Real -->
-        <div id="chat-messages-box" class="flex-1 overflow-y-auto py-3 space-y-3 pr-1">
-          <div class="text-center py-10">
-            <p class="text-xs text-cream/55">Cargando mensajes de la comunidad...</p>
-          </div>
+        <!-- Lista de mensajes en tiempo real -->
+        <div id="chat-messages-box" class="space-y-2.5 max-h-[54vh] overflow-y-auto pr-1">
+          <p class="text-xs text-cream/55 text-center py-8">Conectando al chat común...</p>
         </div>
 
-        <!-- Barra de Envío de Mensaje -->
-        <div class="pt-3 border-t border-cream/10 shrink-0">
-          <!-- Aviso si no ha iniciado sesión -->
-          <div id="chat-login-prompt" class="flex items-center justify-between gap-3 bg-choco-950/90 p-3 rounded-2xl border border-cream/15">
-            <p class="text-xs font-semibold text-cream/80">Inicia sesión con Google para escribir en el chat común y tener tu #FrutiFan</p>
-            <button onclick="loginWithGoogle()" class="shrink-0 bg-white text-choco-950 font-extrabold text-xs px-3.5 py-2 rounded-xl shadow active:scale-95">
-              Entrar
-            </button>
-          </div>
-
-          <!-- Formulario activo si está logueado -->
-          <form id="chat-send-form" onsubmit="sendChatMessage(event)" class="hidden flex items-center gap-2">
-            <input id="chat-message-input"
-                   type="text"
-                   maxlength="280"
-                   required
-                   placeholder="Escribe un mensaje para todos los Fruti-Fans..."
-                   class="flex-1 bg-choco-950/90 text-sm text-cream placeholder-cream/40 px-4 py-3 rounded-2xl border border-cream/15 focus:border-mint focus:outline-none" />
-            <button id="chat-send-btn" type="submit"
-                    class="bg-gradient-to-r from-mint to-emerald-500 text-choco-950 font-display font-bold text-sm px-4 py-3 rounded-2xl shadow-lg active:scale-95 transition-all shrink-0">
-              Enviar
-            </button>
-          </form>
+        <!-- Aviso si no ha iniciado sesión -->
+        <div id="chat-login-prompt" class="bg-choco-950/90 p-4 rounded-2xl border border-cream/15 text-center space-y-2">
+          <p class="text-xs font-bold text-cream/80">Inicia sesión con Google para escribir en el chat común con tu número #FrutiFan</p>
+          <button onclick="loginWithGoogle()" class="bg-white text-choco-950 font-display font-bold text-xs px-4 py-2.5 rounded-xl shadow active:scale-95">
+            Entrar con Google para chatear
+          </button>
         </div>
 
+        <!-- Formulario para enviar mensaje -->
+        <form id="chat-send-form" onsubmit="sendChatMessage(event)" class="hidden flex items-center gap-2 pt-1">
+          <input id="chat-message-input" type="text" maxlength="200" required placeholder="Escribe algo a la comunidad..."
+                 class="flex-1 bg-choco-950/90 text-xs sm:text-sm text-cream placeholder-cream/40 px-4 py-3 rounded-2xl border border-cream/15 focus:border-mint focus:outline-none" />
+          <button type="submit" class="bg-gradient-to-r from-mint to-emerald-400 text-choco-950 font-display font-bold text-sm px-4 py-3 rounded-2xl shadow active:scale-95 shrink-0">
+            Enviar
+          </button>
+        </form>
       </div>
     </section>
 
     <!-- =================================================================== -->
-    <!-- PESTAÑA 3: FRUTI-TEST ANÓNIMO (8 PREGUNTAS SIN EMOJIS NI PISTAS)    -->
+    <!-- PESTAÑA 3: FRUTI-TEST ANÓNIMO (8 PREGUNTAS SIN PISTAS)              -->
     <!-- =================================================================== -->
     <section id="tab-quiz" class="hidden space-y-5">
-
-      <!-- Contenedor de Preguntas -->
-      <div id="quiz-play-card" class="ice-glass rounded-[28px] p-5 sm:p-7 border-cream/15">
-        <div class="flex items-center justify-between gap-2 mb-3">
-          <span class="text-xs font-extrabold uppercase tracking-wider text-vanilla">
-            Test de Personalidad • Modo Secreto
-          </span>
-          <span id="quiz-step-label" class="text-xs font-extrabold bg-choco-950/80 text-cream px-3 py-1 rounded-full border border-cream/15">
+      <div id="quiz-play-card" class="ice-glass rounded-[28px] p-5 sm:p-6 border-strawberry/30 space-y-4">
+        <div class="flex items-center justify-between gap-2">
+          <div>
+            <span class="text-[10px] font-black uppercase tracking-wider text-strawberry">Test Oficial • 100% Anónimo</span>
+            <h2 class="font-display font-bold text-xl text-cream">🎭 ¿Qué personaje eres?</h2>
+          </div>
+          <span id="quiz-step-label" class="text-xs font-black px-3 py-1 rounded-full bg-vanilla/15 text-vanilla border border-vanilla/30">
             1 / 8
           </span>
         </div>
 
-        <!-- Barra de progreso -->
-        <div class="w-full h-3 bg-choco-950 rounded-full overflow-hidden p-0.5 border border-cream/10 mb-6">
-          <div id="quiz-progress-bar" class="h-full bg-gradient-to-r from-vanilla via-strawberry to-mint rounded-full transition-all duration-500 ease-out" style="width: 12.5%;"></div>
+        <div class="w-full h-2.5 bg-choco-950 rounded-full overflow-hidden border border-cream/10">
+          <div id="quiz-progress-bar" class="h-full bg-gradient-to-r from-strawberry via-vanilla to-mint transition-all duration-300" style="width: 12.5%"></div>
         </div>
 
-        <!-- Pregunta y opciones limpias (SIN EMOJIS NI PISTAS) -->
-        <div id="quiz-question-box" class="transition-all duration-200">
-          <h3 id="quiz-question-text" class="font-display font-bold text-xl sm:text-2xl text-cream leading-snug mb-5">
+        <div id="quiz-question-box" class="space-y-3 transition-all duration-200 pt-1">
+          <h3 id="quiz-question-text" class="font-display font-bold text-base sm:text-lg text-cream leading-snug">
             Cargando pregunta...
           </h3>
-
-          <div id="quiz-options-list" class="space-y-3"></div>
+          <div id="quiz-options-list" class="space-y-2.5"></div>
         </div>
-
-        <p class="text-[11px] text-cream/50 text-center mt-5">
-          Responde con sinceridad: las opciones están mezcladas y sin pistas para descubrir tu verdadero personaje.
-        </p>
       </div>
 
-      <!-- Pantalla de Resultado + Tarjeta VIP estilo Story + Descarga PNG -->
-      <div id="quiz-result-wrapper" class="hidden space-y-4 animate-pop">
-        <div class="text-center space-y-1">
-          <span class="inline-block text-xs font-extrabold text-mint bg-mint/15 border border-mint/30 px-3.5 py-1 rounded-full">
-            ¡Carnet Oficial Generado!
-          </span>
-          <p class="text-xs text-cream/75">Descarga tu tarjeta para subirla a Stories o usarla en un vídeo de TikTok</p>
-        </div>
-
-        <!-- TARJETA VISUAL ESTILO STORY VERTICAL -->
+      <!-- Resultado final del Test -->
+      <div id="quiz-result-wrapper" class="hidden space-y-4">
         <div id="story-vip-card" class="max-w-sm mx-auto rounded-[32px] p-6 relative overflow-hidden border-2 shadow-2xl">
-          <div class="flex items-center justify-between text-[11px] font-extrabold uppercase tracking-widest mb-4 relative z-10">
-            <span class="px-2.5 py-1 rounded-lg bg-black/45 text-cream border border-white/15">CARNET VIP HELADERÍA</span>
-            <span id="vip-card-id" class="px-2.5 py-1 rounded-lg bg-black/45 text-vanilla border border-white/15">#FN-0482</span>
+          <div class="flex items-center justify-between text-[10px] font-black uppercase tracking-widest text-cream/80 mb-4">
+            <span>La Heladería de Cocardo</span>
+            <span id="vip-card-id" class="text-vanilla">#FN-0001</span>
           </div>
 
-          <div class="text-center my-3 relative z-10">
-            <div id="vip-avatar-circle" class="w-24 h-24 mx-auto rounded-3xl flex items-center justify-center text-6xl shadow-xl border-2 border-white/25 mb-3 animate-float">
+          <div class="text-center">
+            <div id="vip-avatar-circle" class="w-24 h-24 mx-auto rounded-3xl flex items-center justify-center text-6xl shadow-xl border-2 border-white/25 mb-3">
               🥥
             </div>
-            <p class="text-[11px] font-extrabold uppercase tracking-widest text-white/80">Resultado Oficial Fruti-Test</p>
-            <h3 id="vip-char-title" class="font-display font-bold text-3xl text-white mt-0.5 tracking-tight">
-              COCARDO
-            </h3>
-            <p id="vip-epic-subtitle" class="text-xs font-extrabold text-vanilla mt-1">
-              «El Dueño Estresado pero Legendario»
-            </p>
+            <span class="text-[10px] font-extrabold uppercase tracking-widest text-vanilla">Tu resultado oficial es</span>
+            <h3 id="vip-char-title" class="font-display font-bold text-3xl text-white mt-0.5">COCARDO</h3>
+            <p id="vip-epic-subtitle" class="text-xs font-bold text-cream/85 mt-1">«El Dueño Estresado»</p>
           </div>
 
-          <div class="bg-black/40 backdrop-blur-md rounded-2xl p-3.5 my-3 border border-white/15 relative z-10">
-            <div class="flex justify-between text-xs font-extrabold mb-1.5">
-              <span class="text-white/90">Afinidad de Personaje</span>
-              <span id="vip-affinity-pct" class="text-vanilla">89% Match</span>
+          <div class="mt-4 bg-black/35 p-3.5 rounded-2xl border border-white/10 space-y-2">
+            <div class="flex justify-between text-xs font-extrabold">
+              <span class="text-cream">Afinidad</span>
+              <span id="vip-affinity-pct" class="text-vanilla">90% Match</span>
             </div>
-            <div class="w-full h-2.5 bg-black/50 rounded-full overflow-hidden mb-2">
-              <div id="vip-affinity-bar" class="h-full rounded-full" style="width: 89%;"></div>
+            <div class="w-full h-2.5 bg-black/50 rounded-full overflow-hidden">
+              <div id="vip-affinity-bar" class="h-full rounded-full bg-vanilla" style="width: 90%"></div>
             </div>
-            <p id="vip-secondary-mix" class="text-[11px] font-semibold text-white/75 text-center">
-              Con un toque de 11% Lima
-            </p>
+            <p id="vip-secondary-mix" class="text-[11px] font-semibold text-cream/70">Con un toque de 10% LIMA</p>
           </div>
 
-          <div class="bg-white/10 backdrop-blur-md rounded-2xl p-3.5 border border-white/15 text-center relative z-10">
-            <p id="vip-description" class="text-xs sm:text-sm font-medium text-white leading-relaxed">
-              Descripción del personaje...
-            </p>
-          </div>
+          <p id="vip-description" class="text-xs text-cream/90 leading-relaxed mt-3 text-center"></p>
 
-          <div class="mt-4 pt-3 border-t border-white/15 flex items-center justify-between text-[11px] font-extrabold text-white/90 relative z-10">
-            <span class="text-vanilla">molo123465.github.io/frutinovelas</span>
-            <span class="bg-black/50 px-2.5 py-1 rounded-full text-white">@frutasalocadasoficiall</span>
+          <div class="mt-4 pt-3 border-t border-white/15 text-center">
+            <p class="text-[10px] font-extrabold text-vanilla">molo123465.github.io/frutinovelas/</p>
+            <p class="text-[10px] font-bold text-cream/65">@frutasalocadasoficiall</p>
           </div>
         </div>
 
-        <!-- Botones de Descarga PNG real + Reto TikTok + Repetir -->
         <div class="max-w-sm mx-auto space-y-2.5">
           <button onclick="downloadStoryPNG()"
-                  class="w-full flex items-center justify-center gap-2.5 bg-gradient-to-r from-vanilla via-amber-400 to-orange-500 hover:brightness-110 active:scale-[0.98] transition-all text-choco-950 font-display font-bold text-base py-3.5 px-5 rounded-2xl shadow-lg shadow-vanilla/25">
-            <span>📥</span> Descargar Imagen HD para Story / TikTok
+                  class="w-full bg-gradient-to-r from-strawberry via-pink-500 to-vanilla text-choco-950 font-display font-bold text-sm py-3.5 rounded-2xl shadow-lg active:scale-95 transition-all">
+            📲 Descargar Imagen HD para Story / TikTok
           </button>
-
-          <div class="grid grid-cols-2 gap-2.5">
-            <button onclick="copyChallengeText()"
-                    class="flex items-center justify-center gap-1.5 bg-strawberry hover:brightness-110 active:scale-95 transition-all text-white font-bold text-xs sm:text-sm py-3 px-3 rounded-2xl shadow-md">
-              <span>🎬</span> Copiar texto reto
+          <div class="grid grid-cols-2 gap-2">
+            <button onclick="copyChallengeText()" class="bg-choco-800 text-cream border border-cream/15 font-bold text-xs py-3 rounded-2xl active:scale-95">
+              📋 Copiar Reto + Link
             </button>
-            <button onclick="resetQuiz()"
-                    class="flex items-center justify-center gap-1.5 bg-choco-800 hover:bg-choco-700 active:scale-95 transition-all text-cream font-bold text-xs sm:text-sm py-3 px-3 rounded-2xl border border-cream/15">
-              <span>🔄</span> Repetir Test
+            <button onclick="resetQuiz()" class="bg-choco-950 text-vanilla border border-vanilla/30 font-bold text-xs py-3 rounded-2xl active:scale-95">
+              🔄 Repetir Test
             </button>
           </div>
         </div>
@@ -689,14 +683,51 @@
     </section>
 
     <!-- =================================================================== -->
-    <!-- PESTAÑA 4B: MINI-JUEGO ARCADE + TOP 10 MUNDIAL EN VIVO              -->
+    <!-- PESTAÑA 4B: CLASIFICACIÓN DE RACHAS + ARCADE + TIENDA DE TÍTULOS    -->
     <!-- =================================================================== -->
-    <section id="tab-arcade" class="hidden space-y-5">
-      <div class="ice-glass rounded-[28px] p-5 border-vanilla/30 space-y-4">
+    <section id="tab-ranks" class="hidden space-y-5">
+
+      <!-- TOP CLASIFICACIÓN MUNDIAL DE RACHAS DIARIAS -->
+      <div class="ice-glass rounded-[28px] p-5 border-orange-400/35 bg-gradient-to-br from-orange-950/30 via-choco-900 to-choco-950 space-y-3.5">
         <div class="flex items-center justify-between gap-2">
           <div>
-            <span class="text-[10px] font-black uppercase tracking-wider text-vanilla">Arcade Oficial • Récords Guardados</span>
-            <h3 class="font-display font-bold text-xl text-cream">🍦 Atrapa los Helados de Cocardo</h3>
+            <span class="text-[10px] font-black uppercase tracking-wider text-orange-400">Fidelidad Extrema • En Vivo</span>
+            <h3 class="font-display font-bold text-xl text-cream">🔥 Clasificación de Rachas</h3>
+          </div>
+          <span class="text-[11px] font-extrabold text-orange-300 bg-orange-500/15 border border-orange-400/30 px-2.5 py-1 rounded-full">
+            Top Constancia
+          </span>
+        </div>
+        <p class="text-xs text-cream/70">
+          Entra cada día y reclama tu bonus para subir en el ranking oficial de fans más fieles de Cocardo.
+        </p>
+
+        <div id="streak-leaderboard-list" class="space-y-2">
+          <p class="text-xs text-cream/55 text-center py-4">Cargando rachas de la comunidad...</p>
+        </div>
+      </div>
+
+      <!-- TIENDA DE TÍTULOS VIP (Canjeables con Fruti-Coins ganadas por racha y juego) -->
+      <div class="ice-glass rounded-[28px] p-5 border-vanilla/30 space-y-3">
+        <div class="flex items-center justify-between">
+          <div>
+            <span class="text-[10px] font-black uppercase tracking-wider text-vanilla">Canjea tus Fruti-Coins</span>
+            <h3 class="font-display font-bold text-lg text-cream">👑 Títulos VIP para el Chat</h3>
+          </div>
+          <span id="shop-user-coins-pill" class="text-xs font-black px-3 py-1 rounded-full bg-amber-400/20 text-amber-300 border border-amber-400/30">
+            🪙 0
+          </span>
+        </div>
+
+        <div id="vip-titles-shop-list" class="grid grid-cols-1 sm:grid-cols-2 gap-2.5"></div>
+      </div>
+
+      <!-- MINI-JUEGO ARCADE -->
+      <div class="ice-glass rounded-[28px] p-5 border-mint/30 space-y-4">
+        <div class="flex items-center justify-between gap-2">
+          <div>
+            <span class="text-[10px] font-black uppercase tracking-wider text-mint">Arcade Oficial • Gana Monedas</span>
+            <h3 class="font-display font-bold text-xl text-cream">🍦 Atrapa los Helados</h3>
           </div>
           <div class="text-right">
             <span class="text-[10px] text-cream/60 block">Tu Récord</span>
@@ -721,8 +752,8 @@
         </div>
 
         <!-- Arena de juego táctil -->
-        <div id="arcade-arena" class="relative w-full h-72 sm:h-80 rounded-3xl bg-gradient-to-b from-choco-950 via-choco-900 to-choco-950 border-2 border-cream/15 overflow-hidden select-none">
-          <div id="arcade-overlay" class="absolute inset-0 bg-black/70 backdrop-blur-sm flex flex-col items-center justify-center p-5 text-center z-20 space-y-3">
+        <div id="arcade-arena" class="relative w-full h-72 sm:h-80 rounded-3xl bg-gradient-to-b from-choco-950 via-choco-900 to-choco-950 border-2 border-cream/15 overflow-hidden select-none touch-manipulation">
+          <div id="arcade-overlay" class="absolute inset-0 bg-black/75 backdrop-blur-sm flex flex-col items-center justify-center p-5 text-center z-20 space-y-3">
             <span class="text-5xl animate-bounce">🍨</span>
             <h4 id="arcade-overlay-title" class="font-display font-bold text-xl text-cream">¿Listo para el turno de noche?</h4>
             <p id="arcade-overlay-desc" class="text-xs text-cream/75 max-w-xs">
@@ -734,18 +765,13 @@
             </button>
           </div>
         </div>
-      </div>
 
-      <!-- Tabla de Clasificación Top 10 Global Guardado en Firebase -->
-      <div class="ice-glass rounded-[28px] p-5 border-mint/25 space-y-3">
-        <div class="flex items-center justify-between">
-          <h3 class="font-display font-bold text-lg text-cream flex items-center gap-2">
-            <span>🏆</span> Ranking Mundial Top 10
-          </h3>
-          <span class="text-[11px] font-bold text-mint bg-mint/15 px-2.5 py-1 rounded-full">Tiempo Real</span>
-        </div>
-        <div id="arcade-leaderboard-list" class="space-y-2">
-          <p class="text-xs text-cream/55 text-center py-4">Cargando mejores puntuaciones...</p>
+        <!-- Top 10 Arcade -->
+        <div class="pt-2 space-y-2">
+          <h4 class="font-display font-bold text-sm text-vanilla">🏆 Top 10 Puntuaciones Arcade</h4>
+          <div id="arcade-leaderboard-list" class="space-y-2">
+            <p class="text-xs text-cream/55 text-center py-3">Cargando mejores puntuaciones...</p>
+          </div>
         </div>
       </div>
     </section>
@@ -1009,38 +1035,42 @@
         <div id="admin-users-manager" class="space-y-2 max-h-80 overflow-y-auto pr-1">
           <p class="text-xs text-cream/55">Aún no hay fans registrados con Google.</p>
         </div>
-  <!-- NAVEGACIÓN INFERIOR TIPO APP (5 PESTAÑAS COMPACTAS) -->
-  <nav class="fixed bottom-0 inset-x-0 z-40 ice-nav">
-    <div id="bottom-nav-grid" class="max-w-2xl mx-auto px-1.5 py-2 grid grid-cols-5 gap-1">
+      </div>
+    </section>
+  </main>
+
+  <!-- NAVEGACIÓN INFERIOR FIJA ESTILO APP MÓVIL (5 SECCIONES ABAJO) -->
+  <nav class="fixed bottom-0 left-0 right-0 z-40 ice-nav shadow-[0_-10px_30px_rgba(0,0,0,0.75)]">
+    <div id="bottom-nav-grid" class="max-w-2xl mx-auto px-2 py-2 grid grid-cols-5 gap-1.5">
       <button id="nav-home" onclick="switchTab('home')"
-              class="flex flex-col sm:flex-row items-center justify-center gap-0.5 sm:gap-1.5 py-2 px-1 rounded-2xl font-display font-bold text-[10px] sm:text-sm transition-all bg-vanilla/20 text-vanilla border border-vanilla/40">
-        <span class="text-base sm:text-lg">🏠</span>
+              class="flex flex-col items-center justify-center gap-0.5 py-2 px-1 rounded-2xl font-display font-bold text-[11px] transition-all bg-vanilla/20 text-vanilla border border-vanilla/40 active:scale-95">
+        <span class="text-lg leading-none">🏠</span>
         <span>Inicio</span>
       </button>
 
       <button id="nav-chat" onclick="switchTab('chat')"
-              class="flex flex-col sm:flex-row items-center justify-center gap-0.5 sm:gap-1.5 py-2 px-1 rounded-2xl font-display font-bold text-[10px] sm:text-sm transition-all text-cream/65 hover:text-cream hover:bg-white/5 border border-transparent">
-        <span class="text-base sm:text-lg">💬</span>
+              class="flex flex-col items-center justify-center gap-0.5 py-2 px-1 rounded-2xl font-display font-bold text-[11px] transition-all text-cream/70 hover:text-cream hover:bg-white/5 border border-transparent active:scale-95">
+        <span class="text-lg leading-none">💬</span>
         <span>Chat</span>
       </button>
 
+      <button id="nav-ranks" onclick="switchTab('ranks')"
+              class="flex flex-col items-center justify-center gap-0.5 py-2 px-1 rounded-2xl font-display font-bold text-[11px] transition-all text-cream/70 hover:text-cream hover:bg-white/5 border border-transparent active:scale-95">
+        <span class="text-lg leading-none">🔥</span>
+        <span>Rachas</span>
+      </button>
+
       <button id="nav-quiz" onclick="switchTab('quiz')"
-              class="flex flex-col sm:flex-row items-center justify-center gap-0.5 sm:gap-1.5 py-2 px-1 rounded-2xl font-display font-bold text-[10px] sm:text-sm transition-all text-cream/65 hover:text-cream hover:bg-white/5 border border-transparent">
-        <span class="text-base sm:text-lg">🎭</span>
+              class="flex flex-col items-center justify-center gap-0.5 py-2 px-1 rounded-2xl font-display font-bold text-[11px] transition-all text-cream/70 hover:text-cream hover:bg-white/5 border border-transparent active:scale-95">
+        <span class="text-lg leading-none">🎭</span>
         <span>Test</span>
       </button>
 
-      <button id="nav-arcade" onclick="switchTab('arcade')"
-              class="flex flex-col sm:flex-row items-center justify-center gap-0.5 sm:gap-1.5 py-2 px-1 rounded-2xl font-display font-bold text-[10px] sm:text-sm transition-all text-cream/65 hover:text-cream hover:bg-white/5 border border-transparent">
-        <span class="text-base sm:text-lg">🕹️</span>
-        <span>Jugar</span>
-      </button>
-
       <button id="nav-wall" onclick="switchTab('wall')"
-              class="flex flex-col sm:flex-row items-center justify-center gap-0.5 sm:gap-1.5 py-2 px-1 rounded-2xl font-display font-bold text-[10px] sm:text-sm transition-all text-cream/65 hover:text-cream hover:bg-white/5 border border-transparent relative">
-        <span class="text-base sm:text-lg">🍨</span>
+              class="flex flex-col items-center justify-center gap-0.5 py-2 px-1 rounded-2xl font-display font-bold text-[11px] transition-all text-cream/70 hover:text-cream hover:bg-white/5 border border-transparent relative active:scale-95">
+        <span class="text-lg leading-none">🍨</span>
         <span>Ideas</span>
-        <span id="nav-wall-badge" class="hidden sm:inline-block text-[10px] font-black bg-strawberry text-white px-1.5 py-0.5 rounded-full">0</span>
+        <span id="nav-wall-badge" class="absolute top-1 right-2 text-[9px] font-black bg-strawberry text-white px-1.5 rounded-full">0</span>
       </button>
     </div>
   </nav>
@@ -1236,6 +1266,11 @@
               coins: 100,
               streak: 1,
               lastDailyClaim: "",
+              lastActiveDate: new Date().toISOString().slice(0, 10),
+              dailyChatDone: "",
+              dailyVoteDone: "",
+              equippedTitle: "",
+              ownedTitles: [],
               highScore: 0,
               banned: false,
               isAdmin: isAdminUser,
@@ -1252,6 +1287,9 @@
           document.getElementById("welcome-fan-modal").classList.remove("hidden");
         }
 
+        // Verificar si perdió racha por pasar más de 1 día sin reclamar
+        await verifyAndSyncStreak();
+
         // Autocompletar su @ de TikTok en el Muro de Ideas si ya lo configuró
         if (fanProfile && fanProfile.tiktokUser) {
           const wallInput = document.getElementById("tt-username-input");
@@ -1264,6 +1302,22 @@
         updateAuthUI();
       } catch (err) {
         console.error("Error gestionando perfil FrutiFan:", err);
+      }
+    }
+
+    async function verifyAndSyncStreak() {
+      if (!db || !firebaseUser || !fanProfile) return;
+      const today = new Date();
+      const todayStr = today.toISOString().slice(0, 10);
+      const yesterday = new Date(today.getTime() - 86400000).toISOString().slice(0, 10);
+
+      if (fanProfile.lastDailyClaim && fanProfile.lastDailyClaim !== todayStr && fanProfile.lastDailyClaim !== yesterday) {
+        // Si pasó más de un día completo sin entrar, la racha vuelve a 1
+        try {
+          const userDocRef = doc(db, "artifacts", appId, "public", "data", "fan_profiles", firebaseUser.uid);
+          await updateDoc(userDocRef, { streak: 1 });
+          fanProfile.streak = 1;
+        } catch (_) {}
       }
     }
 
@@ -1363,19 +1417,27 @@
         document.getElementById("passport-coins-label").textContent = `🪙 ${coins}`;
         document.getElementById("passport-streak-label").textContent = `🔥 ${streak}d`;
         document.getElementById("arcade-personal-best").textContent = `${fanProfile.highScore || 0} pts`;
+        const shopCoinsEl = document.getElementById("shop-user-coins-pill");
+        if (shopCoinsEl) shopCoinsEl.textContent = `🪙 ${coins}`;
 
         // Rango dinámico según Fruti-Coins acumuladas
-        let rankLabel = "🍦 Aprendiz";
-        if (coins >= 1000) rankLabel = "👑 Socio de Cocardo";
-        else if (coins >= 400) rankLabel = "🍨 Maestro Heladero";
-        else if (coins >= 150) rankLabel = "🥥 Cliente VIP";
+        let rankLabel = fanProfile.equippedTitle || "🍦 Aprendiz";
+        if (!fanProfile.equippedTitle) {
+          if (coins >= 1000) rankLabel = "👑 Socio de Cocardo";
+          else if (coins >= 400) rankLabel = "🍨 Maestro Heladero";
+          else if (coins >= 150) rankLabel = "🥥 Cliente VIP";
+        }
         document.getElementById("passport-rank-badge").textContent = rankLabel;
 
-        // Estado del bonus diario
+        // Estado del bonus diario y misiones diarias
         const todayStr = new Date().toISOString().slice(0, 10);
         const claimBtn = document.getElementById("claim-daily-btn");
         const claimStatus = document.getElementById("daily-reward-status");
-        if (fanProfile.lastDailyClaim === todayStr) {
+        const m1Done = fanProfile.lastDailyClaim === todayStr;
+        const m2Done = fanProfile.dailyChatDone === todayStr;
+        const m3Done = fanProfile.dailyVoteDone === todayStr;
+
+        if (m1Done) {
           claimBtn.textContent = "✅ Reclamado hoy";
           claimBtn.classList.add("opacity-60");
           claimStatus.textContent = `Racha activa de ${streak} días • Vuelve mañana`;
@@ -1384,6 +1446,24 @@
           claimBtn.classList.remove("opacity-60");
           claimStatus.textContent = "Reclama +50 Fruti-Coins y sube tu racha";
         }
+
+        const setMissionBadge = (id, done) => {
+          const el = document.getElementById(id);
+          if (!el) return;
+          if (done) {
+            el.textContent = "✅ Hecho";
+            el.className = "shrink-0 text-[11px] font-extrabold px-2.5 py-1 rounded-xl bg-mint/20 text-mint";
+          } else {
+            el.textContent = "Pendiente";
+            el.className = "shrink-0 text-[11px] font-extrabold px-2.5 py-1 rounded-xl bg-amber-400/20 text-amber-300";
+          }
+        };
+        setMissionBadge("mission-1-badge", m1Done);
+        setMissionBadge("mission-2-badge", m2Done);
+        setMissionBadge("mission-3-badge", m3Done);
+        const completedCount = [m1Done, m2Done, m3Done].filter(Boolean).length;
+        const progEl = document.getElementById("daily-missions-progress");
+        if (progEl) progEl.textContent = `${completedCount}/3`;
 
         const roleBadge = document.getElementById("passport-role-badge");
         if (isAdminUser) roleBadge.classList.remove("hidden");
@@ -1401,6 +1481,7 @@
         chatLoginPrompt.classList.remove("hidden");
         chatSendForm.classList.add("hidden");
       }
+      renderVipTitlesShop();
     }
 
     // =========================================================================
@@ -1746,62 +1827,6 @@
       showToast(`¡Pase Fruti-Fan ${fanNum} con tu enlace descargado!`, "🎉");
     };
 
-    // Descarga también una tarjeta VIP con su número oficial #FrutiFan para compartir en redes
-    window.downloadFanPassportPNG = function () {
-      const fanNum = fanProfile ? `#${fanProfile.fanNumber}` : "#VIP";
-      const fanName = fanProfile ? (fanProfile.tiktokUser ? `@${fanProfile.tiktokUser}` : fanProfile.displayName) : "Fruti-Fan Oficial";
-
-      const canvas = document.createElement("canvas");
-      canvas.width = 1080;
-      canvas.height = 1920;
-      const ctx = canvas.getContext("2d");
-
-      const grad = ctx.createLinearGradient(0, 0, 1080, 1920);
-      grad.addColorStop(0, "#2b1914");
-      grad.addColorStop(0.5, "#1c100d");
-      grad.addColorStop(1, "#120a08");
-      ctx.fillStyle = grad;
-      ctx.fillRect(0, 0, 1080, 1920);
-
-      ctx.strokeStyle = "#ffd166";
-      ctx.lineWidth = 12;
-      ctx.strokeRect(65, 65, 950, 1790);
-
-      ctx.fillStyle = "#ffd166";
-      ctx.font = "bold 42px sans-serif";
-      ctx.textAlign = "center";
-      ctx.fillText("PASE OFICIAL DE MIEMBRO", 540, 210);
-
-      ctx.font = "220px sans-serif";
-      ctx.fillText("🍦", 540, 520);
-
-      ctx.fillStyle = "#fff8e7";
-      ctx.font = "bold 56px sans-serif";
-      ctx.fillText("SOY EL FRUTI-FAN", 540, 680);
-
-      ctx.fillStyle = "#ff4d79";
-      ctx.font = "900 190px sans-serif";
-      ctx.fillText(fanNum, 540, 890);
-
-      ctx.fillStyle = "#06d6a0";
-      ctx.font = "bold 54px sans-serif";
-      ctx.fillText(fanName, 540, 1020);
-
-      ctx.fillStyle = "rgba(255,248,231,0.85)";
-      ctx.font = "500 40px sans-serif";
-      ctx.fillText("Miembro verificado de La Heladería de Cocardo", 540, 1140);
-
-      ctx.fillStyle = "#ffd166";
-      ctx.font = "900 50px sans-serif";
-      ctx.fillText("@frutasalocadasoficiall", 540, 1700);
-
-      const link = document.createElement("a");
-      link.download = `Pase_FrutiFan_${fanNum.replace("#", "")}.png`;
-      link.href = canvas.toDataURL("image/png");
-      link.click();
-      showToast(`¡Pase Fruti-Fan ${fanNum} descargado para compartir!`, "🎉");
-    };
-
     function wrapCanvasText(ctx, text, x, y, maxWidth, lineHeight) {
       const words = text.split(" ");
       let line = "";
@@ -1941,6 +1966,7 @@
             document.getElementById("adm-stat-banned").textContent = allRegisteredFans.filter((f) => f.banned).length;
             renderAdminUsersManager();
           }
+          renderStreakLeaderboard();
           renderArcadeLeaderboard();
         },
         (err) => console.error("Error listener fans:", err)
@@ -2041,25 +2067,163 @@
           tiktokUser: fanProfile.tiktokUser || "",
           photoURL: fanProfile.photoURL || "",
           fanNumber: fanProfile.fanNumber,
+          equippedTitle: fanProfile.equippedTitle || "",
           isAdmin: isAdminUser,
           reactions: { lol: 0, fire: 0, coco: 0 },
           text: text,
           createdAt: now
         });
+
+        // Misión diaria #2: Saludar en el chat (+25 Fruti-Coins una vez al día)
+        const todayStr = new Date().toISOString().slice(0, 10);
+        if (fanProfile.dailyChatDone !== todayStr) {
+          const newCoins = (fanProfile.coins || 0) + 25;
+          const userDocRef = doc(db, "artifacts", appId, "public", "data", "fan_profiles", firebaseUser.uid);
+          await updateDoc(userDocRef, { dailyChatDone: todayStr, coins: newCoins });
+          fanProfile.dailyChatDone = todayStr;
+          fanProfile.coins = newCoins;
+          updateAuthUI();
+          showToast("¡Misión diaria completada! +25 Fruti-Coins 🪙", "🎯");
+        }
       } catch (err) {
         console.error("Error enviando mensaje:", err);
         showToast("Error al enviar mensaje", "⚠️");
       }
     };
 
-    window.reactToChatMessage = async function (msgId, key) {
+    function renderChatMessages() {
+      const box = document.getElementById("chat-messages-box");
+      if (!box) return;
+      if (allChatMessages.length === 0) {
+        box.innerHTML = `
+          <div class="text-center py-12 space-y-1">
+            <p class="text-3xl">💬</p>
+            <p class="font-display font-bold text-sm text-cream">El chat común está listo</p>
+            <p class="text-xs text-cream/55">¡Sé el primer Fruti-Fan en saludar a la comunidad!</p>
+          </div>
+        `;
+        return;
+      }
+
+      box.innerHTML = allChatMessages.map((msg) => {
+        const avatar = msg.tiktokUser
+          ? getTikTokProfilePic(msg.tiktokUser)
+          : (msg.photoURL || buildIceCreamFallbackAvatar(msg.displayName || "FN"));
+        const nameLabel = msg.tiktokUser ? `@${escapeHTML(msg.tiktokUser)}` : escapeHTML(msg.displayName || "Fan");
+        const titleBadge = msg.equippedTitle
+          ? `<span class="text-[9px] font-black px-1.5 py-0.5 rounded bg-vanilla/20 text-vanilla">${escapeHTML(msg.equippedTitle)}</span>`
+          : "";
+        const adminBadge = msg.isAdmin
+          ? `<span class="text-[9px] font-black px-1.5 py-0.5 rounded bg-strawberry text-white">COCARDO / ADMIN</span>`
+          : `<span class="text-[9px] font-bold px-1.5 py-0.5 rounded bg-mint/15 text-mint">Fan #${msg.fanNumber || "?"}</span>`;
+
+        const adminActions = isAdminUser
+          ? `<div class="flex items-center gap-2 mt-1.5 pt-1.5 border-t border-white/10 text-[10px]">
+               <button onclick="adminPinChatMessage('${escapeHTML(msg.text).replace(/'/g, "\\'")}')" class="text-amber-300 font-bold hover:underline">📌 Fijar</button>
+               <button onclick="adminDeleteChatMessage('${msg.id}')" class="text-red-400 font-bold hover:underline">🗑️ Borrar</button>
+             </div>`
+          : "";
+
+        return `
+          <div class="flex items-start gap-2.5 bg-choco-950/75 p-3 rounded-2xl border ${msg.isAdmin ? "border-strawberry/45" : "border-cream/10"}">
+            <img src="${avatar}"
+                 onerror="this.onerror=null;this.src='${buildIceCreamFallbackAvatar(msg.displayName || "FN")}';"
+                 class="w-9 h-9 rounded-xl object-cover shrink-0 border border-cream/20" />
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center justify-between gap-1.5 flex-wrap mb-1">
+                <div class="flex items-center gap-1.5 flex-wrap min-w-0">
+                  <span class="text-xs font-extrabold text-vanilla truncate">${nameLabel}</span>
+                  ${adminBadge}
+                  ${titleBadge}
+                </div>
+                <span class="text-[10px] text-cream/45">${formatRelativeTime(msg.createdAt)}</span>
+              </div>
+              <p class="text-xs sm:text-sm text-cream leading-snug break-words">${escapeHTML(msg.text)}</p>
+              <div class="flex items-center gap-1.5 mt-1.5">
+                <button onclick="reactToChatMessage('${msg.id}', 'lol')" class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-white/5 hover:bg-white/15 text-cream/80 transition-all active:scale-90">
+                  😂 ${(msg.reactions && msg.reactions.lol) || 0}
+                </button>
+                <button onclick="reactToChatMessage('${msg.id}', 'fire')" class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-white/5 hover:bg-white/15 text-cream/80 transition-all active:scale-90">
+                  🔥 ${(msg.reactions && msg.reactions.fire) || 0}
+                </button>
+                <button onclick="reactToChatMessage('${msg.id}', 'coco')" class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-white/5 hover:bg-white/15 text-cream/80 transition-all active:scale-90">
+                  🥥 ${(msg.reactions && msg.reactions.coco) || 0}
+                </button>
+              </div>
+              ${adminActions}
+            </div>
+          </div>
+        `;
+      }).join("");
+
+      box.scrollTop = box.scrollHeight;
+    }
+
+    window.reactToChatMessage = async function (msgId, reactionKey) {
       if (!db || !firebaseUser) return;
-      const localKey = `fn_chat_react_${msgId}_${key}`;
-      if (localStorage.getItem(localKey)) return;
-      localStorage.setItem(localKey, "1");
+      const voteKey = `fn_react_${msgId}_${reactionKey}`;
+      if (localStorage.getItem(voteKey)) return;
+      localStorage.setItem(voteKey, "1");
       try {
-        const msgRef = doc(db, "artifacts", appId, "public", "data", "heladeria_chat", msgId);
-        await updateDoc(msgRef, { [`reactions.${key}`]: increment(1) });
+        const msgDoc = doc(db, "artifacts", appId, "public", "data", "heladeria_chat", msgId);
+        await updateDoc(msgDoc, { [`reactions.${reactionKey}`]: increment(1) });
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    function renderLivePollCard() {
+      const card = document.getElementById("live-poll-card");
+      if (!card) return;
+      const poll = globalConfig.poll;
+      if (!poll || !poll.active) {
+        card.classList.add("hidden");
+        return;
+      }
+
+      card.classList.remove("hidden");
+      document.getElementById("live-poll-question").textContent = poll.question;
+      const v1 = poll.votes1 || 0;
+      const v2 = poll.votes2 || 0;
+      const total = v1 + v2;
+      document.getElementById("live-poll-total-votes").textContent = `${total} votos`;
+
+      const p1 = total > 0 ? Math.round((v1 / total) * 100) : 0;
+      const p2 = total > 0 ? 100 - p1 : 0;
+      const votedChoice = localStorage.getItem(`fn_poll_${poll.id}`);
+
+      document.getElementById("live-poll-options").innerHTML = `
+        <button onclick="voteLivePoll(1)" class="w-full text-left p-3.5 rounded-2xl bg-choco-950/90 border ${votedChoice === "1" ? "border-vanilla" : "border-cream/15"} relative overflow-hidden active:scale-[0.99] transition-all">
+          <div class="absolute inset-y-0 left-0 bg-vanilla/20 transition-all duration-500" style="width: ${p1}%"></div>
+          <div class="relative z-10 flex items-center justify-between text-xs sm:text-sm font-extrabold">
+            <span class="text-cream">${escapeHTML(poll.opt1)}</span>
+            <span class="text-vanilla">${p1}% (${v1})</span>
+          </div>
+        </button>
+        <button onclick="voteLivePoll(2)" class="w-full text-left p-3.5 rounded-2xl bg-choco-950/90 border ${votedChoice === "2" ? "border-strawberry" : "border-cream/15"} relative overflow-hidden active:scale-[0.99] transition-all">
+          <div class="absolute inset-y-0 left-0 bg-strawberry/20 transition-all duration-500" style="width: ${p2}%"></div>
+          <div class="relative z-10 flex items-center justify-between text-xs sm:text-sm font-extrabold">
+            <span class="text-cream">${escapeHTML(poll.opt2)}</span>
+            <span class="text-strawberry">${p2}% (${v2})</span>
+          </div>
+        </button>
+      `;
+    }
+
+    window.voteLivePoll = async function (optionNum) {
+      const poll = globalConfig.poll;
+      if (!db || !firebaseUser || !poll || !poll.active) return;
+      const key = `fn_poll_${poll.id}`;
+      if (localStorage.getItem(key)) {
+        showToast("Ya votaste en esta decisión oficial 🗳️", "🍦");
+        return;
+      }
+      localStorage.setItem(key, String(optionNum));
+      try {
+        const settingsDoc = doc(db, "artifacts", appId, "public", "data", "system_meta", "global_settings");
+        const field = optionNum === 1 ? "poll.votes1" : "poll.votes2";
+        await updateDoc(settingsDoc, { [field]: increment(1) });
+        showToast("¡Voto registrado en directo!", "🗳️");
       } catch (err) {
         console.error(err);
       }
@@ -2421,6 +2585,19 @@
         if (db && firebaseUser) {
           const docRef = doc(db, "artifacts", appId, "public", "data", "heladeria_ideas", ideaId);
           await updateDoc(docRef, { likes: increment(1) });
+
+          // Misión diaria #3: Votar en el muro (+25 Fruti-Coins una vez al día)
+          const todayStr = new Date().toISOString().slice(0, 10);
+          if (fanProfile && fanProfile.dailyVoteDone !== todayStr) {
+            const newCoins = (fanProfile.coins || 0) + 25;
+            const userDocRef = doc(db, "artifacts", appId, "public", "data", "fan_profiles", firebaseUser.uid);
+            await updateDoc(userDocRef, { dailyVoteDone: todayStr, coins: newCoins });
+            fanProfile.dailyVoteDone = todayStr;
+            fanProfile.coins = newCoins;
+            updateAuthUI();
+            showToast("¡Voto guardado +25 Fruti-Coins por misión diaria! 🎯", "❤️");
+            return;
+          }
         }
         showToast("¡Voto guardado permanentemente!", "❤️");
       } catch (err) {
@@ -2539,19 +2716,131 @@
 
                 <div class="mt-3 flex items-center justify-between">
                   <button type="button"
-              <p class="text-xs sm:text-sm text-cream leading-snug break-words">${escapeHTML(msg.text)}</p>
-              <div class="flex items-center gap-1.5 mt-1.5">
-                <button onclick="reactToChatMessage('${msg.id}', 'lol')" class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-white/5 hover:bg-white/15 text-cream/80 transition-all active:scale-90">
-                  😂 ${(msg.reactions && msg.reactions.lol) || 0}
-                </button>
-                <button onclick="reactToChatMessage('${msg.id}', 'fire')" class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-white/5 hover:bg-white/15 text-cream/80 transition-all active:scale-90">
-                  🔥 ${(msg.reactions && msg.reactions.fire) || 0}
-                </button>
-                <button onclick="reactToChatMessage('${msg.id}', 'coco')" class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-white/5 hover:bg-white/15 text-cream/80 transition-all active:scale-90">
-                  🥥 ${(msg.reactions && msg.reactions.coco) || 0}
-                </button>
+                          onclick="voteIdea('${item.id}')"
+                          class="inline-flex items-center gap-2 px-3.5 py-2 rounded-2xl text-xs font-extrabold transition-all active:scale-90 ${
+                            hasVoted
+                              ? "bg-strawberry text-white shadow-md shadow-strawberry/30"
+                              : "bg-choco-950/90 hover:bg-strawberry/20 text-cream border border-cream/15"
+                          }">
+                    <span>${hasVoted ? "❤️" : "🤍"}</span>
+                    <span>${item.likes || 0} votos</span>
+                  </button>
+                </div>
               </div>
-              ${adminActions}
+            </div>
+          </article>
+        `;
+      }).join("");
+    }
+
+    // =========================================================================
+    // 8. COCARDO INTERACTIVO, RECOMPENSA DIARIA, CLASIFICACIÓN DE RACHAS Y TIENDA
+    // =========================================================================
+    const vipTitlesCatalog = [
+      { id: "coco_taster", title: "🥥 Catador de Coco", cost: 100 },
+      { id: "cherry_gossip", title: "🍒 Rey del Salseo", cost: 250 },
+      { id: "pina_chaos", title: "🍍 Terror de Piña", cost: 450 },
+      { id: "cocardo_partner", title: "👑 Socio de Cocardo", cost: 800 }
+    ];
+
+    function renderVipTitlesShop() {
+      const container = document.getElementById("vip-titles-shop-list");
+      if (!container) return;
+      const owned = (fanProfile && fanProfile.ownedTitles) || [];
+      const equipped = (fanProfile && fanProfile.equippedTitle) || "";
+
+      container.innerHTML = vipTitlesCatalog.map((item) => {
+        const isOwned = owned.includes(item.title);
+        const isEquipped = equipped === item.title;
+        let btnHtml = "";
+        if (isEquipped) {
+          btnHtml = `<span class="text-[10px] font-black px-2.5 py-1 rounded-lg bg-mint text-choco-950">Equipado</span>`;
+        } else if (isOwned) {
+          btnHtml = `<button onclick="equipVipTitle('${item.title}')" class="text-[10px] font-black px-2.5 py-1 rounded-lg bg-vanilla text-choco-950 active:scale-95">Equipar</button>`;
+        } else {
+          btnHtml = `<button onclick="buyVipTitle('${item.title}', ${item.cost})" class="text-[10px] font-black px-2.5 py-1 rounded-lg bg-strawberry text-white active:scale-95">🪙 ${item.cost}</button>`;
+        }
+        return `
+          <div class="flex items-center justify-between gap-2 bg-choco-950/85 p-3 rounded-2xl border border-cream/10">
+            <span class="text-xs font-extrabold text-cream truncate">${item.title}</span>
+            ${btnHtml}
+          </div>
+        `;
+      }).join("");
+    }
+
+    window.buyVipTitle = async function (titleName, cost) {
+      if (!db || !firebaseUser || !fanProfile) {
+        await loginWithGoogle();
+        return;
+      }
+      if ((fanProfile.coins || 0) < cost) {
+        showToast(`Necesitas ${cost} Fruti-Coins. ¡Juega o mantén tu racha!`, "🪙");
+        return;
+      }
+      const newCoins = fanProfile.coins - cost;
+      const newOwned = [...new Set([...(fanProfile.ownedTitles || []), titleName])];
+      try {
+        const userDocRef = doc(db, "artifacts", appId, "public", "data", "fan_profiles", firebaseUser.uid);
+        await updateDoc(userDocRef, {
+          coins: newCoins,
+          ownedTitles: newOwned,
+          equippedTitle: titleName
+        });
+        fanProfile.coins = newCoins;
+        fanProfile.ownedTitles = newOwned;
+        fanProfile.equippedTitle = titleName;
+        updateAuthUI();
+        showToast(`¡Título ${titleName} desbloqueado y equipado!`, "👑");
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    window.equipVipTitle = async function (titleName) {
+      if (!db || !firebaseUser || !fanProfile) return;
+      try {
+        const userDocRef = doc(db, "artifacts", appId, "public", "data", "fan_profiles", firebaseUser.uid);
+        await updateDoc(userDocRef, { equippedTitle: titleName });
+        fanProfile.equippedTitle = titleName;
+        updateAuthUI();
+        showToast(`Título ${titleName} equipado`, "✨");
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    function renderStreakLeaderboard() {
+      const container = document.getElementById("streak-leaderboard-list");
+      if (!container) return;
+      const topStreaks = [...allRegisteredFans]
+        .sort((a, b) => (b.streak || 1) - (a.streak || 1) || (b.coins || 0) - (a.coins || 0))
+        .slice(0, 10);
+
+      if (topStreaks.length === 0) {
+        container.innerHTML = `<p class="text-xs text-cream/55 text-center py-4">Inicia sesión con Google para aparecer en la clasificación de rachas.</p>`;
+        return;
+      }
+
+      container.innerHTML = topStreaks.map((p, idx) => {
+        const medal = idx === 0 ? "🥇" : idx === 1 ? "🥈" : idx === 2 ? "🥉" : `#${idx + 1}`;
+        const label = p.tiktokUser ? `@${escapeHTML(p.tiktokUser)}` : escapeHTML(p.displayName);
+        const days = p.streak || 1;
+        return `
+          <div class="flex items-center justify-between gap-2 bg-choco-950/90 p-3 rounded-2xl border ${idx === 0 ? "border-orange-400/50" : "border-cream/10"}">
+            <div class="flex items-center gap-2.5 min-w-0">
+              <span class="font-display font-bold text-sm text-vanilla w-7 text-center shrink-0">${medal}</span>
+              <div class="min-w-0">
+                <div class="flex items-center gap-1.5">
+                  <span class="text-xs font-extrabold text-cream truncate">${label}</span>
+                  <span class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-mint/15 text-mint shrink-0">Fan #${p.fanNumber}</span>
+                </div>
+                ${p.equippedTitle ? `<span class="text-[10px] text-vanilla/80 block">${escapeHTML(p.equippedTitle)}</span>` : ""}
+              </div>
+            </div>
+            <div class="text-right shrink-0">
+              <strong class="font-display text-sm text-orange-400 block">🔥 ${days} ${days === 1 ? "día" : "días"}</strong>
+              <span class="text-[10px] text-amber-300/80">🪙 ${p.coins || 0}</span>
             </div>
           </div>
         `;
@@ -2811,7 +3100,7 @@
         return;
       }
 
-      const tabs = ["home", "chat", "quiz", "arcade", "wall", "admin"];
+      const tabs = ["home", "chat", "ranks", "quiz", "wall", "admin"];
       tabs.forEach((t) => {
         const sec = document.getElementById(`tab-${t}`);
         if (!sec) return;
@@ -2819,12 +3108,12 @@
         if (t === tabName) {
           sec.classList.remove("hidden");
           if (navBtn) {
-            navBtn.className = "flex flex-col sm:flex-row items-center justify-center gap-0.5 sm:gap-1.5 py-2 px-1 rounded-2xl font-display font-bold text-[10px] sm:text-sm transition-all bg-vanilla/20 text-vanilla border border-vanilla/40 relative";
+            navBtn.className = "flex flex-col items-center justify-center gap-0.5 py-2 px-1 rounded-2xl font-display font-bold text-[11px] transition-all bg-vanilla/20 text-vanilla border border-vanilla/40 relative active:scale-95";
           }
         } else {
           sec.classList.add("hidden");
           if (navBtn) {
-            navBtn.className = "flex flex-col sm:flex-row items-center justify-center gap-0.5 sm:gap-1.5 py-2 px-1 rounded-2xl font-display font-bold text-[10px] sm:text-sm transition-all text-cream/65 hover:text-cream hover:bg-white/5 border border-transparent relative";
+            navBtn.className = "flex flex-col items-center justify-center gap-0.5 py-2 px-1 rounded-2xl font-display font-bold text-[11px] transition-all text-cream/70 hover:text-cream hover:bg-white/5 border border-transparent relative active:scale-95";
           }
         }
       });
