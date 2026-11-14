@@ -329,11 +329,29 @@
           ¡Eres el Fruti-Fan <span id="modal-fan-number" class="text-gradient-helado">#1</span>, felicidades!
         </h2>
         <p class="text-xs sm:text-sm text-cream/80 mt-1.5 leading-relaxed">
-          Descarga tu <strong class="text-vanilla">Carnet Oficial VIP</strong> y súbelo a tu Story o vídeo mencionando a <strong class="text-vanilla">@frutasalocadasoficiall</strong>. <strong class="text-strawberry">¡Todos los que me mencionen los comparto!</strong>
+          Personaliza tu <strong class="text-vanilla">Carnet Oficial VIP</strong> con tu foto, súbelo a tu Story o vídeo mencionando a <strong class="text-vanilla">@frutasalocadasoficiall</strong> y <strong class="text-strawberry">¡lo comparto en mi cuenta!</strong>
         </p>
       </div>
 
       <div class="bg-choco-950/85 p-4 rounded-2xl border border-cream/15 text-left space-y-3">
+        <!-- Subida de foto de perfil propia -->
+        <div>
+          <label class="block text-[11px] font-extrabold uppercase tracking-wider text-strawberry mb-1.5">
+            Tu Foto de Perfil Oficial
+          </label>
+          <div class="flex items-center gap-3">
+            <img id="modal-tt-preview" src="" alt="Preview" class="w-14 h-14 rounded-2xl object-cover bg-choco-800 border-2 border-vanilla/60 shrink-0" />
+            <div class="flex-1 space-y-1">
+              <label for="modal-photo-file"
+                     class="inline-flex items-center justify-center gap-1.5 bg-strawberry/20 hover:bg-strawberry/30 text-strawberry border border-strawberry/40 font-extrabold text-xs px-3.5 py-2 rounded-xl cursor-pointer active:scale-95 transition-all">
+                <span>📷 Subir Foto de Galería</span>
+              </label>
+              <input id="modal-photo-file" type="file" accept="image/*" onchange="handleProfilePhotoUpload(event)" class="hidden" />
+              <p id="modal-photo-status" class="text-[10px] text-cream/60">Sube tu foto o usa la de tu @usuario</p>
+            </div>
+          </div>
+        </div>
+
         <div>
           <label for="modal-displayname-input" class="block text-[11px] font-extrabold uppercase tracking-wider text-mint mb-1">
             Tu Nombre Visible en la Heladería
@@ -346,14 +364,11 @@
           <label for="modal-tiktok-input" class="block text-[11px] font-extrabold uppercase tracking-wider text-vanilla mb-1">
             Tu @usuario único (no se puede repetir)
           </label>
-          <div class="flex items-center gap-2.5">
-            <img id="modal-tt-preview" src="" alt="Preview" class="w-11 h-11 rounded-xl object-cover bg-choco-800 border border-vanilla/50 shrink-0" />
-            <div class="flex-1 flex items-center bg-choco-900 px-3 py-2.5 rounded-xl border border-cream/15">
-              <span class="text-strawberry font-extrabold text-sm mr-1">@</span>
-              <input id="modal-tiktok-input" type="text" maxlength="32" placeholder="tu_usuario_unico"
-                     oninput="previewModalTikTok(this.value)"
-                     class="w-full bg-transparent text-sm font-bold text-cream placeholder-cream/35 focus:outline-none" />
-            </div>
+          <div class="flex items-center bg-choco-900 px-3 py-2.5 rounded-xl border border-cream/15">
+            <span class="text-strawberry font-extrabold text-sm mr-1">@</span>
+            <input id="modal-tiktok-input" type="text" maxlength="32" placeholder="tu_usuario_unico"
+                   oninput="previewModalTikTok(this.value)"
+                   class="w-full bg-transparent text-sm font-bold text-cream placeholder-cream/35 focus:outline-none" />
           </div>
           <p id="modal-username-availability" class="text-[10px] text-cream/55 mt-1">Comprobaremos que nadie más tenga ese @usuario.</p>
         </div>
@@ -386,11 +401,11 @@
   <main class="relative z-10 max-w-2xl mx-auto px-4 pt-5">
 
     <!-- =================================================================== -->
-    <!-- PESTAÑA 1: INICIO                                                   -->
+    <!-- PESTAÑA 1: INICIO (LO MÁS IMPORTANTE ARRIBA Y NADA AMONTONADO)      -->
     <!-- =================================================================== -->
-    <section id="tab-home" class="space-y-5 animate-pop">
+    <section id="tab-home" class="space-y-6 animate-pop">
 
-      <!-- Banner Visual Coco's Scoops con tu foto oficial del equipo -->
+      <!-- 1. BANNER VISUAL COCO'S SCOOPS -->
       <div class="relative rounded-[30px] overflow-hidden border-2 border-vanilla/35 shadow-2xl bg-choco-900">
         <img src="heladeria-saludo.jpg"
              onerror="this.parentElement.classList.add('p-6','bg-gradient-to-br','from-amber-900/50','via-choco-900','to-choco-950'); this.style.display='none';"
@@ -412,25 +427,23 @@
         </div>
       </div>
 
-      <!-- BANNER PROMINENTE PARA INSTALAR LA APP EN EL MÓVIL -->
-      <div id="home-install-banner" class="ice-glass rounded-[28px] p-4 border-2 border-mint/40 bg-gradient-to-r from-emerald-950/50 via-choco-900 to-choco-950 flex items-center justify-between gap-3">
-        <div class="flex items-center gap-3 min-w-0">
-          <div class="w-12 h-12 rounded-2xl bg-mint/20 border border-mint/40 flex items-center justify-center text-2xl shrink-0">
-            📲
-          </div>
-          <div class="min-w-0">
-            <span class="text-[10px] font-black uppercase tracking-wider text-mint">iPhone • Android • PC</span>
-            <h3 class="font-display font-bold text-sm sm:text-base text-cream truncate">Instala la App de Cocardo</h3>
-            <p class="text-[11px] text-cream/70 truncate">Acceso directo en tu pantalla sin ocupar espacio</p>
-          </div>
+      <!-- 2. ENCUESTA OFICIAL EN VIVO (LO PRIMERO SI HAY VOTACIÓN ACTIVA) -->
+      <div id="live-poll-card" class="hidden ice-glass rounded-[28px] p-5 border-strawberry/35 bg-gradient-to-br from-choco-800/80 to-choco-950/95 space-y-3.5">
+        <div class="flex items-center justify-between gap-2">
+          <span class="text-xs font-black uppercase tracking-wider text-strawberry flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-strawberry animate-ping"></span> Decisión Oficial en Vivo
+          </span>
+          <span id="live-poll-total-votes" class="text-xs font-bold text-cream/65">0 votos</span>
         </div>
-        <button onclick="triggerInstallApp()"
-                class="shrink-0 bg-gradient-to-r from-mint to-emerald-400 text-choco-950 font-display font-bold text-xs sm:text-sm px-4 py-3 rounded-2xl shadow-lg active:scale-95 transition-all">
-          Instalar App
-        </button>
+
+        <h3 id="live-poll-question" class="font-display font-bold text-lg text-cream leading-snug">
+          Pregunta oficial...
+        </h3>
+
+        <div id="live-poll-options" class="space-y-2.5"></div>
       </div>
 
-      <!-- TARJETA PRINCIPAL DE CARNET OFICIAL VIP (INVITADO VS CONECTADO) -->
+      <!-- 3. CARNET OFICIAL VIP DEL FAN (ARRIBA Y PROTAGONISTA) -->
       <div id="passport-logged-out" class="ice-glass rounded-[30px] p-6 border-vanilla/30 text-center space-y-3.5 relative overflow-hidden">
         <span class="inline-flex items-center gap-1.5 text-[11px] font-extrabold uppercase tracking-wider px-3 py-1 rounded-full bg-vanilla/15 text-vanilla border border-vanilla/30">
           🎫 Club Oficial • @frutasalocadasoficiall
@@ -475,7 +488,7 @@
             </div>
 
             <button onclick="openEditProfileModal()" class="text-xs font-bold text-cream/75 hover:text-white bg-choco-950/80 px-3 py-2 rounded-xl border border-cream/15 shrink-0">
-              ✏️ Editar
+              ✏️ Foto / Perfil
             </button>
           </div>
 
@@ -501,28 +514,29 @@
             </p>
           </div>
 
-          <!-- Recompensa Diaria -->
-          <div class="flex items-center justify-between gap-2 bg-choco-950/85 p-3 rounded-2xl border border-amber-400/25">
-            <div class="min-w-0">
-              <p class="text-xs font-extrabold text-vanilla">🎁 Bonus Diario de la Heladería</p>
-              <p id="daily-reward-status" class="text-[11px] text-cream/65 truncate">Reclama +50 Fruti-Coins y sube tu racha</p>
+          <!-- Recompensa Diaria + Ruleta en una fila limpia -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+            <div class="flex items-center justify-between gap-2 bg-choco-950/85 p-3 rounded-2xl border border-amber-400/25">
+              <div class="min-w-0">
+                <p class="text-xs font-extrabold text-vanilla">🎁 Bonus Diario</p>
+                <p id="daily-reward-status" class="text-[10px] text-cream/65 truncate">+50 Coins y +1d racha</p>
+              </div>
+              <button id="claim-daily-btn" onclick="claimDailyReward()"
+                      class="shrink-0 bg-gradient-to-r from-amber-400 to-orange-500 text-choco-950 font-extrabold text-[11px] px-3 py-2 rounded-xl shadow active:scale-95 transition-all">
+                +50 🪙
+              </button>
             </div>
-            <button id="claim-daily-btn" onclick="claimDailyReward()"
-                    class="shrink-0 bg-gradient-to-r from-amber-400 to-orange-500 text-choco-950 font-extrabold text-xs px-3.5 py-2 rounded-xl shadow active:scale-95 transition-all">
-              Reclamar +50 🪙
-            </button>
-          </div>
 
-          <!-- Ruleta Diaria -->
-          <div class="flex items-center justify-between gap-2 bg-choco-950/85 p-3 rounded-2xl border border-mint/25">
-            <div class="min-w-0">
-              <p class="text-xs font-extrabold text-mint">🎡 Ruleta de Sabores de Cocardo</p>
-              <p id="wheel-status-text" class="text-[11px] text-cream/65 truncate">Gira gratis 1 vez al día (hasta +200 🪙)</p>
+            <div class="flex items-center justify-between gap-2 bg-choco-950/85 p-3 rounded-2xl border border-mint/25">
+              <div class="min-w-0">
+                <p class="text-xs font-extrabold text-mint">🎡 Ruleta Diaria</p>
+                <p id="wheel-status-text" class="text-[10px] text-cream/65 truncate">Gana hasta +200 🪙</p>
+              </div>
+              <button id="spin-wheel-btn" onclick="spinDailyIceWheel()"
+                      class="shrink-0 bg-gradient-to-r from-mint to-emerald-400 text-choco-950 font-extrabold text-[11px] px-3 py-2 rounded-xl shadow active:scale-95 transition-all">
+                🎰 Girar
+              </button>
             </div>
-            <button id="spin-wheel-btn" onclick="spinDailyIceWheel()"
-                    class="shrink-0 bg-gradient-to-r from-mint to-emerald-400 text-choco-950 font-extrabold text-xs px-3.5 py-2 rounded-xl shadow active:scale-95 transition-all">
-              🎰 Girar Hoy
-            </button>
           </div>
 
           <div class="grid grid-cols-3 gap-2 pt-0.5">
@@ -559,7 +573,31 @@
         </div>
       </div>
 
-      <!-- MISIONES DIARIAS -->
+      <!-- 4. ACCESOS RÁPIDOS A LO QUE MÁS ENGANCHA (CHAT Y TEST) -->
+      <div class="grid grid-cols-2 gap-3">
+        <button onclick="switchTab('chat')" class="ice-glass rounded-[26px] p-4 border-mint/30 text-left space-y-1.5 hover:border-mint transition-all active:scale-95">
+          <span class="text-2xl block">💬</span>
+          <h3 class="font-display font-bold text-base text-cream">Chat en Vivo</h3>
+          <p class="text-[11px] text-cream/70 leading-snug">Habla en directo con toda la comunidad</p>
+        </button>
+
+        <button onclick="switchTab('quiz')" class="ice-glass rounded-[26px] p-4 border-strawberry/30 text-left space-y-1.5 hover:border-strawberry transition-all active:scale-95">
+          <span class="text-2xl block">🎭</span>
+          <h3 class="font-display font-bold text-base text-cream">Fruti-Test VIP</h3>
+          <p class="text-[11px] text-cream/70 leading-snug">Descubre qué personaje eres y súbelo a Story</p>
+        </button>
+      </div>
+
+      <!-- 5. IDEA #1 MÁS VOTADA POR LA COMUNIDAD -->
+      <div id="home-top-idea-box" class="hidden ice-glass rounded-[28px] p-5 border-vanilla/30">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-xs font-extrabold text-vanilla uppercase tracking-wider">👑 Idea #1 Más Votada por Fans</span>
+          <button onclick="switchTab('wall')" class="text-xs font-bold text-strawberry hover:underline">Ver muro →</button>
+        </div>
+        <div id="home-top-idea-content"></div>
+      </div>
+
+      <!-- 6. MISIONES DIARIAS -->
       <div class="ice-glass rounded-[28px] p-4 sm:p-5 border-mint/25 space-y-3">
         <div class="flex items-center justify-between">
           <div>
@@ -596,7 +634,7 @@
         </div>
       </div>
 
-      <!-- COCARDO INTERACTIVO CON TU IMAGEN REAL DEL DELANTAL -->
+      <!-- 7. COCARDO INTERACTIVO -->
       <div class="ice-glass rounded-[28px] p-4 sm:p-5 border-amber-400/30 flex items-center gap-4 relative overflow-hidden">
         <button id="cocardo-mascot-btn" onclick="pokeCocardoMascot(event)"
                 class="w-20 h-24 rounded-3xl bg-white border-2 border-vanilla/70 flex items-center justify-center overflow-hidden shrink-0 shadow-lg active:scale-90 transition-transform animate-bounce-slow cursor-pointer select-none">
@@ -614,23 +652,7 @@
         </div>
       </div>
 
-      <!-- ENCUESTA OFICIAL EN VIVO -->
-      <div id="live-poll-card" class="hidden ice-glass rounded-[28px] p-5 border-strawberry/35 bg-gradient-to-br from-choco-800/80 to-choco-950/95 space-y-3.5">
-        <div class="flex items-center justify-between gap-2">
-          <span class="text-xs font-black uppercase tracking-wider text-strawberry flex items-center gap-1.5">
-            <span class="w-2 h-2 rounded-full bg-strawberry animate-ping"></span> Decisión Oficial en Vivo
-          </span>
-          <span id="live-poll-total-votes" class="text-xs font-bold text-cream/65">0 votos</span>
-        </div>
-
-        <h3 id="live-poll-question" class="font-display font-bold text-lg text-cream leading-snug">
-          Pregunta oficial...
-        </h3>
-
-        <div id="live-poll-options" class="space-y-2.5"></div>
-      </div>
-
-      <!-- Métricas reales en tiempo real -->
+      <!-- 8. MÉTRICAS REALES EN VIVO -->
       <div class="grid grid-cols-3 gap-2.5">
         <div class="ice-glass rounded-3xl p-3.5 border-cream/10 text-center">
           <p class="text-[10px] font-extrabold uppercase tracking-wider text-mint">Fruti-Fans</p>
@@ -646,16 +668,7 @@
         </div>
       </div>
 
-      <!-- Idea #1 Más votada -->
-      <div id="home-top-idea-box" class="hidden ice-glass rounded-[28px] p-5 border-vanilla/30">
-        <div class="flex items-center justify-between mb-2">
-          <span class="text-xs font-extrabold text-vanilla uppercase tracking-wider">👑 Idea #1 Más Votada por Fans</span>
-          <button onclick="switchTab('wall')" class="text-xs font-bold text-strawberry hover:underline">Ver muro →</button>
-        </div>
-        <div id="home-top-idea-content"></div>
-      </div>
-
-      <!-- Elenco Oficial con tu foto grupal en el parque -->
+      <!-- 9. ELENCO OFICIAL -->
       <div class="ice-glass rounded-[28px] p-5 border-cream/10 space-y-4">
         <div class="flex items-center justify-between">
           <h3 class="font-display font-bold text-lg text-cream">🍧 Elenco de Coco's Scoops</h3>
@@ -1221,13 +1234,16 @@
         name: "FrutiNovelas | Coco's Scoops Oficial",
         short_name: "Coco's Scoops",
         description: "App oficial de fans de Cocardo y FrutiNovelas",
-        start_url: "./",
+        id: "/frutinovelas/",
+        start_url: "/frutinovelas/",
+        scope: "/frutinovelas/",
         display: "standalone",
+        orientation: "portrait",
         background_color: "#120a08",
         theme_color: "#120a08",
         icons: [
-          { src: "cocardo-cara.jpg", sizes: "192x192", type: "image/jpeg" },
-          { src: "cocardo-cara.jpg", sizes: "512x512", type: "image/jpeg" }
+          { src: "https://molo123465.github.io/frutinovelas/cocardo-cara.jpg", sizes: "192x192", type: "image/jpeg", purpose: "any maskable" },
+          { src: "https://molo123465.github.io/frutinovelas/cocardo-cara.jpg", sizes: "512x512", type: "image/jpeg", purpose: "any maskable" }
         ]
       };
       const manifestBlob = new Blob([JSON.stringify(pwaManifest)], { type: "application/manifest+json" });
@@ -1240,6 +1256,13 @@
       deferredInstallPrompt = e;
       const nativeBox = document.getElementById("install-native-action-box");
       if (nativeBox) nativeBox.classList.remove("hidden");
+    });
+
+    window.addEventListener("appinstalled", () => {
+      deferredInstallPrompt = null;
+      const headerBtn = document.getElementById("install-app-header-btn");
+      if (headerBtn) headerBtn.classList.add("hidden");
+      showToast("¡App de Coco's Scoops instalada en tu cajón de apps!", "📲");
     });
 
     window.addEventListener("appinstalled", () => {
@@ -1349,9 +1372,11 @@
       }
 
       if (fanProfile) {
-        const avatarUrl = fanProfile.tiktokUser
-          ? getTikTokProfilePic(fanProfile.tiktokUser)
-          : (fanProfile.photoURL || buildIceCreamFallbackAvatar(fanProfile.displayName));
+        const avatarUrl = fanProfile.customAvatarData
+          ? fanProfile.customAvatarData
+          : (fanProfile.tiktokUser
+              ? getTikTokProfilePic(fanProfile.tiktokUser)
+              : (fanProfile.photoURL || buildIceCreamFallbackAvatar(fanProfile.displayName)));
 
         if (headerAvatar) {
           headerAvatar.src = avatarUrl;
@@ -1768,67 +1793,88 @@
               coins: 100,
               streak: 1,
               lastDailyClaim: "",
-              lastWheelSpin: "",
-              dailyChatDone: "",
-              dailyVoteDone: "",
-              equippedTitle: "",
-              ownedTitles: [],
-              following: [],
-              followersCount: 0,
-              verifiedFan: isAdminUser,
               highScore: 0,
-              banned: false,
+              followersCount: 0,
+              following: [],
+              ownedTitles: [],
+              equippedTitle: "",
               isAdmin: isAdminUser,
-              joinedAt: Date.now()
+              banned: false,
+              verifiedFan: false,
+              createdAt: Date.now()
             };
+
             transaction.set(userDocRef, newProfile);
-            fanProfile = newProfile;
             return nextNum;
           });
 
-          document.getElementById("modal-fan-number").textContent = `#${assignedNumber}`;
-          document.getElementById("modal-displayname-input").value = user.displayName || "FrutiFan";
-          document.getElementById("modal-tt-preview").src = user.photoURL || buildIceCreamFallbackAvatar(user.displayName || "FN");
-          document.getElementById("welcome-fan-modal").classList.remove("hidden");
+          const createdSnap = await getDoc(userDocRef);
+          fanProfile = createdSnap.exists() ? createdSnap.data() : {
+            uid: user.uid,
+            fanNumber: assignedNumber,
+            displayName: user.displayName || "FrutiFan",
+            email: emailLower,
+            photoURL: user.photoURL || "",
+            tiktokUser: "",
+            coins: 100,
+            streak: 1
+          };
+
+          updateAuthUI();
+          openEditProfileModal();
+          return;
         }
-
-        await verifyAndSyncStreak();
-
-        if (fanProfile && fanProfile.tiktokUser) {
-          const wallInput = document.getElementById("tt-username-input");
-          if (wallInput && !wallInput.value) {
-            wallInput.value = fanProfile.tiktokUser;
-            handleTikTokUsernameDebounce(fanProfile.tiktokUser);
-          }
-        }
-
-        updateAuthUI();
       } catch (err) {
-        console.error("Error gestionando perfil FrutiFan:", err);
+        console.error("Error cargando o registrando perfil de fan:", err);
       }
+
+      updateAuthUI();
     }
 
-    async function verifyAndSyncStreak() {
-      if (!db || !firebaseUser || !fanProfile) return;
-      const today = new Date();
-      const todayStr = today.toISOString().slice(0, 10);
-      const yesterday = new Date(today.getTime() - 86400000).toISOString().slice(0, 10);
+    let pendingUploadedAvatarData = null;
 
-      if (fanProfile.lastDailyClaim && fanProfile.lastDailyClaim !== todayStr && fanProfile.lastDailyClaim !== yesterday) {
-        try {
-          const userDocRef = doc(db, "artifacts", appId, "public", "data", "fan_profiles", firebaseUser.uid);
-          await updateDoc(userDocRef, { streak: 1 });
-          fanProfile.streak = 1;
-        } catch (_) {}
-      }
-    }
+    window.handleProfilePhotoUpload = function (event) {
+      const file = event.target.files && event.target.files[0];
+      if (!file) return;
+      const statusEl = document.getElementById("modal-photo-status");
+      if (statusEl) statusEl.textContent = "Optimizando imagen...";
+
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        const img = new Image();
+        img.onload = function () {
+          const canvas = document.createElement("canvas");
+          const size = 220;
+          canvas.width = size;
+          canvas.height = size;
+          const ctx = canvas.getContext("2d");
+
+          const minSide = Math.min(img.width, img.height);
+          const sx = (img.width - minSide) / 2;
+          const sy = (img.height - minSide) / 2;
+          ctx.drawImage(img, sx, sy, minSide, minSide, 0, 0, size, size);
+
+          pendingUploadedAvatarData = canvas.toDataURL("image/jpeg", 0.78);
+          const preview = document.getElementById("modal-tt-preview");
+          if (preview) preview.src = pendingUploadedAvatarData;
+          if (statusEl) {
+            statusEl.textContent = "✅ Foto lista para guardar en tu perfil";
+            statusEl.className = "text-[10px] font-bold text-mint";
+          }
+        };
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    };
 
     window.previewModalTikTok = function (val) {
       const clean = cleanTikTokUser(val);
       const preview = document.getElementById("modal-tt-preview");
       const availEl = document.getElementById("modal-username-availability");
       if (!clean) {
-        preview.src = (fanProfile && fanProfile.photoURL) || buildIceCreamFallbackAvatar("FN");
+        if (!pendingUploadedAvatarData) {
+          preview.src = (fanProfile && (fanProfile.customAvatarData || fanProfile.photoURL)) || buildIceCreamFallbackAvatar("FN");
+        }
         if (availEl) {
           availEl.textContent = "Comprobaremos que nadie más tenga ese @usuario.";
           availEl.className = "text-[10px] text-cream/55 mt-1";
@@ -1847,11 +1893,13 @@
           availEl.className = "text-[10px] font-bold text-mint mt-1";
         }
       }
-      preview.onerror = () => {
-        preview.onerror = null;
-        preview.src = buildIceCreamFallbackAvatar(clean);
-      };
-      preview.src = getTikTokProfilePic(clean);
+      if (!pendingUploadedAvatarData) {
+        preview.onerror = () => {
+          preview.onerror = null;
+          preview.src = buildIceCreamFallbackAvatar(clean);
+        };
+        preview.src = getTikTokProfilePic(clean);
+      }
     };
 
     window.saveUserTikTokAndCloseModal = async function () {
@@ -1879,6 +1927,10 @@
           updates.tiktokUser = clean;
           fanProfile.tiktokUser = clean;
         }
+        if (pendingUploadedAvatarData) {
+          updates.customAvatarData = pendingUploadedAvatarData;
+          fanProfile.customAvatarData = pendingUploadedAvatarData;
+        }
         if (Object.keys(updates).length > 0) {
           try {
             const userDocRef = doc(db, "artifacts", appId, "public", "data", "fan_profiles", firebaseUser.uid);
@@ -1887,21 +1939,32 @@
               document.getElementById("tt-username-input").value = clean;
               handleTikTokUsernameDebounce(clean);
             }
-            showToast(`¡Perfil único guardado (${clean ? "@" + clean : fanProfile.displayName})!`, "🍦");
+            showToast("¡Foto y perfil único guardados!", "📷");
           } catch (err) {
             console.error(err);
           }
         }
       }
+      pendingUploadedAvatarData = null;
       document.getElementById("welcome-fan-modal").classList.add("hidden");
       updateAuthUI();
     };
 
     window.openEditProfileModal = function () {
       if (!fanProfile) return;
+      pendingUploadedAvatarData = null;
       document.getElementById("modal-fan-number").textContent = `#${fanProfile.fanNumber}`;
       document.getElementById("modal-displayname-input").value = fanProfile.displayName || "";
       document.getElementById("modal-tiktok-input").value = fanProfile.tiktokUser || "";
+      const currentPic = fanProfile.customAvatarData
+        || (fanProfile.tiktokUser ? getTikTokProfilePic(fanProfile.tiktokUser) : fanProfile.photoURL)
+        || buildIceCreamFallbackAvatar(fanProfile.displayName || "FN");
+      document.getElementById("modal-tt-preview").src = currentPic;
+      const statusEl = document.getElementById("modal-photo-status");
+      if (statusEl) {
+        statusEl.textContent = "Sube tu foto o usa la de tu @usuario";
+        statusEl.className = "text-[10px] text-cream/60";
+      }
       previewModalTikTok(fanProfile.tiktokUser || "");
       document.getElementById("welcome-fan-modal").classList.remove("hidden");
     };
