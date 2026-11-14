@@ -281,6 +281,39 @@
     </div>
   </div>
 
+  <!-- MODAL DE ENTRADA RÁPIDA CON GOOGLE -->
+  <div id="entry-login-modal" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
+    <div class="ice-glass rounded-[32px] max-w-md w-full p-6 border-2 border-vanilla/45 relative animate-pop text-center space-y-4">
+      <button onclick="dismissEntryLoginModal()" aria-label="Cerrar"
+              class="absolute top-4 right-4 w-8 h-8 rounded-full bg-choco-950/80 text-cream/70 hover:text-white flex items-center justify-center text-sm font-bold border border-cream/15">
+        ✕
+      </button>
+
+      <div class="w-20 h-20 mx-auto rounded-3xl bg-gradient-to-br from-vanilla via-strawberry to-mint p-[3px] shadow-xl overflow-hidden">
+        <img src="cocardo-cara.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" alt="Cocardo" class="w-full h-full object-cover rounded-[21px] bg-white" />
+        <div class="hidden w-full h-full bg-choco-950 rounded-[21px] items-center justify-center text-4xl">🥥</div>
+      </div>
+
+      <div>
+        <span class="text-[11px] font-black uppercase tracking-widest text-vanilla">Coco's Scoops Oficial • @frutasalocadasoficiall</span>
+        <h2 class="font-display font-bold text-2xl text-cream mt-1">Entra a La Heladería de Cocardo</h2>
+        <p class="text-xs sm:text-sm text-cream/80 mt-1.5 leading-relaxed">
+          Inicia sesión con Google en 1 toque para reclamar tu <strong class="text-vanilla">Carnet Oficial VIP #FrutiFan</strong>, chatear en directo y guardar tu racha.
+        </p>
+      </div>
+
+      <button onclick="loginWithGoogle()"
+              class="w-full bg-white hover:bg-cream text-choco-950 font-display font-bold text-base py-3.5 rounded-2xl shadow-xl active:scale-95 transition-all flex items-center justify-center gap-2.5">
+        <span>🔑</span>
+        <span>Entrar con Google y Reclamar #Fan</span>
+      </button>
+
+      <button onclick="dismissEntryLoginModal()" class="text-xs font-bold text-cream/55 hover:text-cream">
+        Mirar primero como invitado
+      </button>
+    </div>
+  </div>
+
   <!-- MODAL DE BIENVENIDA FRUTIFAN #X & PASE VIP PARA STORY -->
   <div id="welcome-fan-modal" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto">
     <div class="ice-glass rounded-[32px] max-w-md w-full p-5 sm:p-6 border-2 border-vanilla/50 relative animate-pop text-center space-y-4 my-auto">
@@ -395,6 +428,135 @@
                 class="shrink-0 bg-gradient-to-r from-mint to-emerald-400 text-choco-950 font-display font-bold text-xs sm:text-sm px-4 py-3 rounded-2xl shadow-lg active:scale-95 transition-all">
           Instalar App
         </button>
+      </div>
+
+      <!-- TARJETA PRINCIPAL DE CARNET OFICIAL VIP (INVITADO VS CONECTADO) -->
+      <div id="passport-logged-out" class="ice-glass rounded-[30px] p-6 border-vanilla/30 text-center space-y-3.5 relative overflow-hidden">
+        <span class="inline-flex items-center gap-1.5 text-[11px] font-extrabold uppercase tracking-wider px-3 py-1 rounded-full bg-vanilla/15 text-vanilla border border-vanilla/30">
+          🎫 Club Oficial • @frutasalocadasoficiall
+        </span>
+        <h2 class="font-display font-bold text-2xl sm:text-3xl leading-tight text-cream">
+          Consigue tu <span class="text-gradient-helado">Carnet Oficial VIP</span>
+        </h2>
+        <p class="text-xs sm:text-sm text-cream/75 max-w-md mx-auto">
+          Inicia sesión con Google para reclamar tu número único de miembro para siempre, hablar en el chat común y descargar tu tarjeta oficial para Stories.
+        </p>
+        <button onclick="loginWithGoogle()"
+                class="w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-white hover:bg-cream text-choco-950 font-display font-bold text-sm sm:text-base px-6 py-3.5 rounded-2xl shadow-xl active:scale-95 transition-all">
+          <svg class="w-5 h-5" viewBox="0 0 24 24"><path fill="#EA4335" d="M12 5c1.6 0 3 .6 4.1 1.6l3.1-3.1C17.3 1.7 14.8 1 12 1 7.4 1 3.5 3.6 1.6 7.4l3.7 2.8C6.2 7.2 8.9 5 12 5z"/><path fill="#4285F4" d="M23.5 12.3c0-.8-.1-1.6-.2-2.3H12v4.5h6.5c-.3 1.5-1.1 2.8-2.4 3.6l3.7 2.9c2.2-2 3.7-5 3.7-8.7z"/><path fill="#FBBC05" d="M5.3 14.8c-.2-.7-.4-1.5-.4-2.3s.2-1.6.4-2.3L1.6 7.4C.6 9.4 0 11.6 0 14s.6 4.6 1.6 6.6l3.7-2.8z"/><path fill="#34A853" d="M12 23c3.2 0 6-1.1 8-3l-3.7-2.9c-1.1.7-2.5 1.2-4.3 1.2-3.1 0-5.8-2.1-6.7-5l-3.7 2.8C3.5 20.4 7.4 23 12 23z"/></svg>
+          <span>Continuar con Google</span>
+        </button>
+      </div>
+
+      <!-- Carnet VIP cuando ya inició sesión -->
+      <div id="passport-logged-in" class="hidden space-y-4">
+        <div class="ice-glass ticket-cutout rounded-[30px] p-5 border-2 border-vanilla/45 bg-gradient-to-br from-choco-800/90 via-choco-900 to-choco-950 space-y-3.5 shadow-2xl">
+          <div class="flex items-center justify-between gap-3">
+            <div class="flex items-center gap-3 min-w-0">
+              <img id="passport-avatar" src="" alt="Fan" class="w-14 h-14 rounded-2xl object-cover border-2 border-vanilla shadow-md shrink-0" />
+              <div class="min-w-0">
+                <div class="flex items-center gap-1.5 flex-wrap">
+                  <span id="passport-fan-badge" class="text-[11px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-vanilla text-choco-950">
+                    Fruti-Fan #1
+                  </span>
+                  <span id="passport-rank-badge" class="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-mint/20 text-mint border border-mint/40">
+                    🍦 Aprendiz
+                  </span>
+                  <span id="passport-role-badge" class="hidden text-[10px] font-black px-2 py-0.5 rounded-full bg-amber-400/20 text-amber-300 border border-amber-400/40">
+                    👑 Creador
+                  </span>
+                  <span id="passport-verified-badge" class="hidden text-[10px] font-black px-2 py-0.5 rounded-full bg-sky-400/20 text-sky-300 border border-sky-400/40">
+                    ✔ Oficial
+                  </span>
+                </div>
+                <h3 id="passport-name" class="font-display font-bold text-lg text-cream truncate mt-1">Nombre Fan</h3>
+                <p id="passport-tiktok-handle" class="text-xs font-bold text-vanilla/85 truncate">@usuario</p>
+              </div>
+            </div>
+
+            <button onclick="openEditProfileModal()" class="text-xs font-bold text-cream/75 hover:text-white bg-choco-950/80 px-3 py-2 rounded-xl border border-cream/15 shrink-0">
+              ✏️ Editar
+            </button>
+          </div>
+
+          <div class="grid grid-cols-3 gap-2 pt-1 border-t border-cream/10 text-center">
+            <div class="bg-choco-950/75 rounded-xl py-2 px-1 border border-cream/10">
+              <span class="text-[10px] text-cream/60 block">Coins</span>
+              <strong id="passport-coins-label" class="font-display text-sm text-amber-300">🪙 100</strong>
+            </div>
+            <div class="bg-choco-950/75 rounded-xl py-2 px-1 border border-cream/10">
+              <span class="text-[10px] text-cream/60 block">Racha</span>
+              <strong id="passport-streak-label" class="font-display text-sm text-orange-400">🔥 1d</strong>
+            </div>
+            <div class="bg-choco-950/75 rounded-xl py-2 px-1 border border-cream/10">
+              <span class="text-[10px] text-cream/60 block">Seguidores</span>
+              <strong id="passport-followers-label" class="font-display text-sm text-mint">👥 0</strong>
+            </div>
+          </div>
+
+          <!-- Aviso Viral de Repost en TikTok / Stories -->
+          <div class="bg-gradient-to-r from-strawberry/20 via-pink-500/15 to-vanilla/20 border border-strawberry/40 rounded-2xl p-3 text-center">
+            <p class="text-xs font-extrabold text-cream">
+              📣 ¡Sube tu <span class="text-vanilla">Carnet Oficial VIP</span> o tu <span class="text-orange-300">Story de Racha 🔥</span> mencionando a <span class="text-strawberry">@frutasalocadasoficiall</span> y <span class="underline">lo comparto en mi cuenta</span>!
+            </p>
+          </div>
+
+          <!-- Recompensa Diaria -->
+          <div class="flex items-center justify-between gap-2 bg-choco-950/85 p-3 rounded-2xl border border-amber-400/25">
+            <div class="min-w-0">
+              <p class="text-xs font-extrabold text-vanilla">🎁 Bonus Diario de la Heladería</p>
+              <p id="daily-reward-status" class="text-[11px] text-cream/65 truncate">Reclama +50 Fruti-Coins y sube tu racha</p>
+            </div>
+            <button id="claim-daily-btn" onclick="claimDailyReward()"
+                    class="shrink-0 bg-gradient-to-r from-amber-400 to-orange-500 text-choco-950 font-extrabold text-xs px-3.5 py-2 rounded-xl shadow active:scale-95 transition-all">
+              Reclamar +50 🪙
+            </button>
+          </div>
+
+          <!-- Ruleta Diaria -->
+          <div class="flex items-center justify-between gap-2 bg-choco-950/85 p-3 rounded-2xl border border-mint/25">
+            <div class="min-w-0">
+              <p class="text-xs font-extrabold text-mint">🎡 Ruleta de Sabores de Cocardo</p>
+              <p id="wheel-status-text" class="text-[11px] text-cream/65 truncate">Gira gratis 1 vez al día (hasta +200 🪙)</p>
+            </div>
+            <button id="spin-wheel-btn" onclick="spinDailyIceWheel()"
+                    class="shrink-0 bg-gradient-to-r from-mint to-emerald-400 text-choco-950 font-extrabold text-xs px-3.5 py-2 rounded-xl shadow active:scale-95 transition-all">
+              🎰 Girar Hoy
+            </button>
+          </div>
+
+          <div class="grid grid-cols-3 gap-2 pt-0.5">
+            <button onclick="downloadFanPassportPNG('carnet')" class="bg-gradient-to-r from-strawberry to-pink-500 text-white font-display font-bold text-xs sm:text-sm py-3 rounded-2xl shadow-md transition-all active:scale-95">
+              🎫 Carnet VIP
+            </button>
+            <button onclick="downloadFanPassportPNG('streak')" class="bg-gradient-to-r from-orange-500 to-amber-400 text-choco-950 font-display font-bold text-xs sm:text-sm py-3 rounded-2xl shadow-md transition-all active:scale-95">
+              🔥 Story Racha
+            </button>
+            <button onclick="shareFanPassportNative()" class="bg-mint/15 hover:bg-mint/25 border border-mint/30 text-mint font-display font-bold text-xs sm:text-sm py-3 rounded-2xl transition-all active:scale-95">
+              🚀 Compartir
+            </button>
+          </div>
+
+          <!-- BARRA DE COMPARTIR DIRECTO EN REDES SOCIALES -->
+          <div class="grid grid-cols-4 gap-1.5 pt-1">
+            <button onclick="shareToSocialPlatform('whatsapp', 'passport')"
+                    class="bg-[#25D366]/20 hover:bg-[#25D366]/30 border border-[#25D366]/45 text-[#4ade80] font-extrabold text-[11px] py-2.5 rounded-xl active:scale-95 transition-all">
+              WhatsApp
+            </button>
+            <button onclick="shareToSocialPlatform('tiktok', 'passport')"
+                    class="bg-white/10 hover:bg-white/15 border border-white/25 text-white font-extrabold text-[11px] py-2.5 rounded-xl active:scale-95 transition-all">
+              TikTok
+            </button>
+            <button onclick="shareToSocialPlatform('instagram', 'passport')"
+                    class="bg-pink-500/20 hover:bg-pink-500/30 border border-pink-400/45 text-pink-300 font-extrabold text-[11px] py-2.5 rounded-xl active:scale-95 transition-all">
+              Instagram
+            </button>
+            <button onclick="shareToSocialPlatform('facebook', 'passport')"
+                    class="bg-[#1877F2]/20 hover:bg-[#1877F2]/30 border border-[#1877F2]/45 text-sky-300 font-extrabold text-[11px] py-2.5 rounded-xl active:scale-95 transition-all">
+              Facebook
+            </button>
+          </div>
+        </div>
       </div>
 
       <!-- MISIONES DIARIAS -->
@@ -613,54 +775,76 @@
           <div class="flex items-center justify-between text-[10px] font-black uppercase tracking-widest text-cream/85 mb-4">
             <span>COCO'S SCOOPS • TEST OFICIAL</span>
             <span id="vip-card-id" class="text-vanilla">#FN-0001</span>
-          <!-- Aviso Viral de Repost en TikTok / Stories -->
-          <div class="bg-gradient-to-r from-strawberry/20 via-pink-500/15 to-vanilla/20 border border-strawberry/40 rounded-2xl p-3 text-center">
-            <p class="text-xs font-extrabold text-cream">
-              📣 ¡Sube tu <span class="text-vanilla">Carnet Oficial VIP</span> o tu <span class="text-orange-300">Story de Racha 🔥</span> mencionando a <span class="text-strawberry">@frutasalocadasoficiall</span> y <span class="underline">lo comparto en mi cuenta</span>!
+          </div>
+
+          <div class="text-center">
+            <div id="vip-avatar-circle" class="w-24 h-24 mx-auto rounded-3xl flex items-center justify-center text-6xl shadow-xl border-2 border-white/25 mb-3 animate-float">
+              🥥
+            </div>
+            <span class="text-[11px] font-extrabold uppercase tracking-widest text-cream/80">Tu personaje oficial es</span>
+            <h3 id="vip-char-title" class="font-display font-bold text-3xl sm:text-4xl text-white tracking-tight mt-0.5">
+              COCARDO
+            </h3>
+            <p id="vip-epic-subtitle" class="text-xs font-extrabold text-vanilla mt-1">
+              «El Dueño Estresado pero Legendario»
             </p>
           </div>
 
-          <!-- Recompensa Diaria + Ruleta -->
-          <div class="flex items-center justify-between gap-2 bg-choco-950/85 p-3 rounded-2xl border border-amber-400/25">
-            <div class="min-w-0">
-              <p class="text-xs font-extrabold text-vanilla">🎁 Bonus Diario de la Heladería</p>
-              <p id="daily-reward-status" class="text-[11px] text-cream/65 truncate">Reclama +50 Fruti-Coins y sube tu racha</p>
+          <div class="my-4 bg-black/40 backdrop-blur-md rounded-2xl p-3.5 border border-white/15">
+            <div class="flex justify-between text-xs font-extrabold mb-1.5">
+              <span class="text-cream/80">Afinidad de personalidad</span>
+              <span id="vip-affinity-pct" class="text-vanilla">88% Match</span>
             </div>
-            <button id="claim-daily-btn" onclick="claimDailyReward()"
-                    class="shrink-0 bg-gradient-to-r from-amber-400 to-orange-500 text-choco-950 font-extrabold text-xs px-3.5 py-2 rounded-xl shadow active:scale-95 transition-all">
-              Reclamar +50 🪙
-            </button>
+            <div class="w-full h-2.5 bg-black/50 rounded-full overflow-hidden">
+              <div id="vip-affinity-bar" class="h-full rounded-full bg-vanilla" style="width: 88%"></div>
+            </div>
+            <p id="vip-secondary-mix" class="text-[11px] text-cream/75 mt-2 text-center font-semibold">
+              Con un toque de 12% Lima
+            </p>
           </div>
 
-          <div class="grid grid-cols-3 gap-2 pt-0.5">
-            <button onclick="downloadFanPassportPNG('carnet')" class="bg-gradient-to-r from-strawberry to-pink-500 text-white font-display font-bold text-xs sm:text-sm py-3 rounded-2xl shadow-md transition-all active:scale-95">
-              🎫 Carnet VIP
-            </button>
-            <button onclick="downloadFanPassportPNG('streak')" class="bg-gradient-to-r from-orange-500 to-amber-400 text-choco-950 font-display font-bold text-xs sm:text-sm py-3 rounded-2xl shadow-md transition-all active:scale-95">
-              🔥 Story Racha
-            </button>
-            <button onclick="shareFanPassportNative()" class="bg-mint/15 hover:bg-mint/25 border border-mint/30 text-mint font-display font-bold text-xs sm:text-sm py-3 rounded-2xl transition-all active:scale-95">
-              🚀 Compartir
-            </button>
-          </div>
+          <p id="vip-description" class="text-xs sm:text-sm text-cream/95 text-center leading-relaxed mb-4">
+            Descripción del personaje...
+          </p>
 
-          <!-- BARRA DE COMPARTIR DIRECTO EN REDES SOCIALES -->
-          <div class="grid grid-cols-4 gap-1.5 pt-1">
-            <button onclick="shareToSocialPlatform('whatsapp', 'passport')"
-                    class="bg-[#25D366]/20 hover:bg-[#25D366]/30 border border-[#25D366]/45 text-[#4ade80] font-extrabold text-[11px] py-2.5 rounded-xl active:scale-95 transition-all">
+          <div class="pt-3 border-t border-white/15 flex items-center justify-between text-[11px] font-extrabold text-cream/85">
+            <span>@frutasalocadasoficiall</span>
+            <span class="text-vanilla">molo123465.github.io/frutinovelas</span>
+          </div>
+        </div>
+
+        <div class="max-w-sm mx-auto space-y-2.5">
+          <button onclick="downloadStoryPNG()"
+                  class="w-full bg-gradient-to-r from-strawberry via-pink-500 to-vanilla text-choco-950 font-display font-bold text-sm py-3.5 rounded-2xl shadow-lg active:scale-95 transition-all">
+            📲 Descargar Tarjeta HD para Story / TikTok
+          </button>
+
+          <!-- Botones Directos Redes Sociales del Resultado -->
+          <div class="grid grid-cols-4 gap-1.5">
+            <button onclick="shareToSocialPlatform('whatsapp', 'quiz')"
+                    class="bg-[#25D366]/20 hover:bg-[#25D366]/30 border border-[#25D366]/45 text-[#4ade80] font-extrabold text-[11px] py-2.5 rounded-xl active:scale-95">
               WhatsApp
             </button>
-            <button onclick="shareToSocialPlatform('tiktok', 'passport')"
-                    class="bg-white/10 hover:bg-white/15 border border-white/25 text-white font-extrabold text-[11px] py-2.5 rounded-xl active:scale-95 transition-all">
+            <button onclick="shareToSocialPlatform('tiktok', 'quiz')"
+                    class="bg-white/10 hover:bg-white/15 border border-white/25 text-white font-extrabold text-[11px] py-2.5 rounded-xl active:scale-95">
               TikTok
             </button>
-            <button onclick="shareToSocialPlatform('instagram', 'passport')"
-                    class="bg-pink-500/20 hover:bg-pink-500/30 border border-pink-400/45 text-pink-300 font-extrabold text-[11px] py-2.5 rounded-xl active:scale-95 transition-all">
+            <button onclick="shareToSocialPlatform('instagram', 'quiz')"
+                    class="bg-pink-500/20 hover:bg-pink-500/30 border border-pink-400/45 text-pink-300 font-extrabold text-[11px] py-2.5 rounded-xl active:scale-95">
               Instagram
             </button>
-            <button onclick="shareToSocialPlatform('facebook', 'passport')"
-                    class="bg-[#1877F2]/20 hover:bg-[#1877F2]/30 border border-[#1877F2]/45 text-sky-300 font-extrabold text-[11px] py-2.5 rounded-xl active:scale-95 transition-all">
+            <button onclick="shareToSocialPlatform('facebook', 'quiz')"
+                    class="bg-[#1877F2]/20 hover:bg-[#1877F2]/30 border border-[#1877F2]/45 text-sky-300 font-extrabold text-[11px] py-2.5 rounded-xl active:scale-95">
               Facebook
+            </button>
+          </div>
+
+          <div class="grid grid-cols-2 gap-2">
+            <button onclick="copyChallengeText()" class="bg-choco-800 text-cream border border-cream/15 font-bold text-xs py-3 rounded-2xl active:scale-95">
+              📋 Copiar Reto + Link
+            </button>
+            <button onclick="resetQuiz()" class="bg-choco-950 text-vanilla border border-vanilla/30 font-bold text-xs py-3 rounded-2xl active:scale-95">
+              🔄 Repetir Test
             </button>
           </div>
         </div>
@@ -720,39 +904,30 @@
           </div>
         </div>
 
-        <div class="max-w-sm mx-auto space-y-2.5">
-          <button onclick="downloadStoryPNG()"
-                  class="w-full bg-gradient-to-r from-strawberry via-pink-500 to-vanilla text-choco-950 font-display font-bold text-sm py-3.5 rounded-2xl shadow-lg active:scale-95 transition-all">
-            📲 Descargar Tarjeta HD para Story / TikTok
-          </button>
+        <div class="flex items-center justify-between bg-choco-950/90 px-4 py-2.5 rounded-2xl border border-cream/10 text-xs font-extrabold">
+          <span>Puntos: <strong id="arcade-score" class="text-vanilla text-base">0</strong></span>
+          <span>Combo: <strong id="arcade-combo" class="text-mint text-base">x1</strong></span>
+          <span>Tiempo: <strong id="arcade-timer" class="text-strawberry text-base">25s</strong></span>
+        </div>
 
-          <!-- Botones Directos Redes Sociales del Resultado -->
-          <div class="grid grid-cols-4 gap-1.5">
-            <button onclick="shareToSocialPlatform('whatsapp', 'quiz')"
-                    class="bg-[#25D366]/20 hover:bg-[#25D366]/30 border border-[#25D366]/45 text-[#4ade80] font-extrabold text-[11px] py-2.5 rounded-xl active:scale-95">
-              WhatsApp
-            </button>
-            <button onclick="shareToSocialPlatform('tiktok', 'quiz')"
-                    class="bg-white/10 hover:bg-white/15 border border-white/25 text-white font-extrabold text-[11px] py-2.5 rounded-xl active:scale-95">
-              TikTok
-            </button>
-            <button onclick="shareToSocialPlatform('instagram', 'quiz')"
-                    class="bg-pink-500/20 hover:bg-pink-500/30 border border-pink-400/45 text-pink-300 font-extrabold text-[11px] py-2.5 rounded-xl active:scale-95">
-              Instagram
-            </button>
-            <button onclick="shareToSocialPlatform('facebook', 'quiz')"
-                    class="bg-[#1877F2]/20 hover:bg-[#1877F2]/30 border border-[#1877F2]/45 text-sky-300 font-extrabold text-[11px] py-2.5 rounded-xl active:scale-95">
-              Facebook
+        <div id="arcade-arena" class="relative w-full h-72 rounded-3xl bg-gradient-to-b from-choco-950 via-choco-900 to-choco-800 border-2 border-cream/15 overflow-hidden select-none">
+          <div id="arcade-overlay" class="absolute inset-0 bg-black/75 backdrop-blur-sm flex flex-col items-center justify-center p-5 text-center z-10 space-y-3">
+            <span class="text-4xl">🍨</span>
+            <h4 id="arcade-overlay-title" class="font-display font-bold text-lg text-cream">¡Ayuda a Cocardo con los pedidos!</h4>
+            <p id="arcade-overlay-desc" class="text-xs text-cream/75 max-w-xs">
+              Toca los helados (🍦🍨🥥) antes de que caigan al suelo y esquiva las facturas (🧾) de Señor Piña.
+            </p>
+            <button onclick="startArcadeGame()"
+                    class="bg-gradient-to-r from-mint to-emerald-400 text-choco-950 font-display font-bold text-sm px-6 py-3 rounded-2xl shadow-lg active:scale-95 transition-all">
+              🎮 Jugar Turno (25s)
             </button>
           </div>
+        </div>
 
-          <div class="grid grid-cols-2 gap-2">
-            <button onclick="copyChallengeText()" class="bg-choco-800 text-cream border border-cream/15 font-bold text-xs py-3 rounded-2xl active:scale-95">
-              📋 Copiar Reto + Link
-            </button>
-            <button onclick="resetQuiz()" class="bg-choco-950 text-vanilla border border-vanilla/30 font-bold text-xs py-3 rounded-2xl active:scale-95">
-              🔄 Repetir Test
-            </button>
+        <div class="space-y-2 pt-2">
+          <h4 class="font-display font-bold text-sm text-vanilla">🏆 Top 10 Récords del Mini-Juego</h4>
+          <div id="arcade-leaderboard-list" class="space-y-2">
+            <p class="text-xs text-cream/55 text-center py-3">Cargando récords...</p>
           </div>
         </div>
       </div>
@@ -762,364 +937,253 @@
     <!-- PESTAÑA 5: MURO DE HELADERÍA (IDEAS EN VIVO SIN RELLENO FALSO)      -->
     <!-- =================================================================== -->
     <section id="tab-wall" class="hidden space-y-5">
-
-      <!-- Banner con tu foto de Cocardo y Cherry en el mostrador -->
-      <div class="relative rounded-[28px] overflow-hidden border border-strawberry/35 shadow-xl bg-choco-900">
-        <img src="cocardo-cherry.jpg"
-             onerror="this.style.display='none';"
-             alt="Cocardo y Cherry en el mostrador de Coco's Scoops"
-             class="w-full h-44 sm:h-52 object-cover object-center" />
-        <div class="p-4 bg-gradient-to-r from-choco-950 via-choco-900 to-choco-950 flex items-center justify-between gap-2">
+      <div class="ice-glass rounded-[28px] p-5 border-vanilla/30 space-y-4">
+        <div class="flex items-center justify-between gap-2">
           <div>
-            <span class="text-[10px] font-black uppercase tracking-wider text-strawberry">Guion Colaborativo</span>
-            <h3 class="font-display font-bold text-base sm:text-lg text-cream">¿Qué pasa en el próximo capítulo?</h3>
+            <span class="text-[10px] font-black uppercase tracking-wider text-vanilla">Buzón Oficial • Todo se guarda</span>
+            <h2 class="font-display font-bold text-xl text-cream">🍨 Muro de Ideas & Guiones</h2>
           </div>
-          <span class="text-xs font-extrabold text-vanilla">100% Real</span>
-        </div>
-      </div>
-
-      <!-- Formulario para enviar idea global -->
-      <div class="ice-glass rounded-[28px] p-5 border-cream/15">
-        <div class="flex items-center justify-between mb-3">
-          <h3 class="font-display font-bold text-lg text-cream flex items-center gap-2">
-            <span>🍨</span> Propón tu Idea Real
-          </h3>
-          <span class="text-[11px] font-extrabold text-mint bg-mint/15 px-2.5 py-1 rounded-full border border-mint/30">
-            100% Comunidad
+          <span class="text-xs font-extrabold px-2.5 py-1 rounded-full bg-vanilla/15 text-vanilla border border-vanilla/30">
+            <span id="wall-total-count">0</span> ideas
           </span>
         </div>
 
-        <form id="idea-form" onsubmit="submitIdeaToFirestore(event)" class="space-y-3.5">
-          <div class="flex items-center gap-3 bg-choco-950/80 p-3 rounded-2xl border border-cream/15 focus-within:border-strawberry transition-colors">
-            <div class="relative shrink-0">
-              <img id="tt-preview-img"
-                   src=""
-                   alt="Avatar TikTok"
-                   class="w-12 h-12 rounded-2xl object-cover bg-choco-800 border-2 border-vanilla/60 shadow-md" />
-              <span class="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-choco-950 text-[10px] flex items-center justify-center border border-cream/25">
-                🎵
-              </span>
-            </div>
+        <div class="rounded-2xl overflow-hidden border border-cream/15">
+          <img src="cocardo-cherry.jpg" onerror="this.parentElement.style.display='none';" alt="Cocardo y Cherry en Coco's Scoops" class="w-full h-36 sm:h-44 object-cover" />
+        </div>
 
+        <form onsubmit="submitIdeaToFirestore(event)" class="space-y-3">
+          <div class="flex items-center gap-3 bg-choco-950/90 p-3 rounded-2xl border border-cream/15">
+            <img id="tt-preview-img" src="" alt="Avatar" class="w-11 h-11 rounded-xl object-cover bg-choco-800 border border-vanilla/50 shrink-0" />
             <div class="flex-1 min-w-0">
-              <label for="tt-username-input" class="block text-[10px] font-extrabold uppercase tracking-wider text-vanilla/85">
-                Tu @ de TikTok (carga tu foto de perfil)
-              </label>
-              <div class="flex items-center mt-0.5">
-                <span class="text-strawberry font-extrabold text-sm mr-0.5">@</span>
-                <input id="tt-username-input"
-                       type="text"
-                       required
-                       maxlength="32"
-                       placeholder="tu_usuario_tiktok"
+              <div class="flex items-center">
+                <span class="text-strawberry font-extrabold text-sm mr-1">@</span>
+                <input id="tt-username-input" type="text" maxlength="32" required placeholder="tu_usuario_tiktok"
                        oninput="handleTikTokUsernameDebounce(this.value)"
                        class="w-full bg-transparent text-sm font-bold text-cream placeholder-cream/35 focus:outline-none" />
               </div>
-              <p id="tt-avatar-status" class="text-[10px] text-cream/55 truncate mt-0.5">
-                Escribe tu usuario para ver tu foto de perfil...
-              </p>
+              <p id="tt-avatar-status" class="text-[10px] text-cream/55 truncate mt-0.5">Escribe tu usuario para ver tu foto de perfil...</p>
             </div>
           </div>
 
-          <div>
-            <label for="idea-category" class="block text-[11px] font-bold text-cream/80 mb-1.5 px-1">
-              ¿Qué quieres proponer para la cuenta?
-            </label>
-            <select id="idea-category"
-                    class="w-full bg-choco-950/90 text-sm font-bold text-cream px-3.5 py-3 rounded-2xl border border-cream/15 focus:border-vanilla focus:outline-none">
-              <option value="🎬 Guion / Vídeo para TikTok">🎬 Guion / Vídeo para TikTok</option>
-              <option value="🍨 Nuevo sabor de helado">🍨 Nuevo sabor de helado</option>
-              <option value="🔥 Drama en la heladería">🔥 Drama en la heladería</option>
-              <option value="🎭 Nuevo personaje">🎭 Nuevo personaje</option>
-              <option value="🥥 Reto para Cocardo">🥥 Reto para Cocardo</option>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+            <select id="idea-category" class="bg-choco-950/90 text-xs font-extrabold text-cream px-3.5 py-3 rounded-2xl border border-cream/15 focus:border-vanilla focus:outline-none">
+              <option value="🎬 Guión / Vídeo para TikTok">🎬 Guión / Vídeo para TikTok</option>
+              <option value="🍦 Nuevo sabor loco de helado">🍦 Nuevo sabor loco de helado</option>
+              <option value="🍒 Drama en el mostrador">🍒 Drama en el mostrador</option>
+              <option value="🍍 Nuevo personaje invitado">🍍 Nuevo personaje invitado</option>
             </select>
-          </div>
-
-          <div>
-            <textarea id="idea-content-input"
-                      rows="3"
-                      required
-                      maxlength="240"
-                      placeholder="Escribe aquí tu idea real para que la voten todos los fans y Cocardo la grabe..."
-                      class="w-full bg-choco-950/80 text-sm text-cream placeholder-cream/35 p-3.5 rounded-2xl border border-cream/15 focus:border-strawberry focus:outline-none resize-none transition-colors"></textarea>
-            <div class="flex justify-between items-center mt-1 px-1">
-              <span class="text-[11px] text-cream/55">Guardado permanente en la nube</span>
-              <span id="idea-char-count" class="text-[11px] font-bold text-vanilla/80">0/240</span>
+            <div class="flex items-center justify-end px-3 py-2 rounded-2xl bg-choco-950/60 border border-cream/10 text-[11px] font-bold text-cream/65">
+              Caracteres: <span id="idea-char-count" class="text-vanilla ml-1">0/240</span>
             </div>
           </div>
+
+          <textarea id="idea-content-input" rows="3" maxlength="240" required
+                    placeholder="Escribe tu idea o guión para el próximo vídeo de Cocardo, Cherry y Señor Piña..."
+                    class="w-full bg-choco-950/90 text-sm text-cream placeholder-cream/40 p-3.5 rounded-2xl border border-cream/15 focus:border-vanilla focus:outline-none resize-none"></textarea>
 
           <button id="submit-idea-btn" type="submit"
-                  class="w-full bg-gradient-to-r from-strawberry via-pink-500 to-vanilla hover:brightness-110 active:scale-[0.98] transition-all text-choco-950 font-display font-bold text-base py-3.5 rounded-2xl shadow-lg shadow-strawberry/25 flex items-center justify-center gap-2">
-            <span>🚀</span> Publicar Idea para Todos
+                  class="w-full bg-gradient-to-r from-vanilla via-amber-400 to-strawberry text-choco-950 font-display font-bold text-sm sm:text-base py-3.5 rounded-2xl shadow-lg active:scale-95 transition-all">
+            🍨 Publicar Idea en el Muro Oficial
           </button>
         </form>
       </div>
 
-      <!-- Barra de Filtros -->
+      <!-- Filtros y Orden del Muro -->
       <div class="space-y-2.5">
         <div class="flex items-center justify-between gap-2">
-          <h3 class="font-display font-bold text-base text-cream flex items-center gap-1.5">
-            <span>🏆</span> Muro en Directo (<span id="wall-total-count">0</span>)
-          </h3>
-
-          <div class="flex bg-choco-950/90 p-1 rounded-xl border border-cream/15">
-            <button id="sort-votes-btn" onclick="setSortMode('votes')"
-                    class="px-3 py-1.5 rounded-lg text-xs font-extrabold transition-all bg-strawberry text-white shadow">
-              ❤️ Más votadas
+          <div class="flex items-center gap-1.5 bg-choco-900 p-1 rounded-xl border border-cream/10">
+            <button id="sort-votes-btn" type="button" onclick="setSortMode('votes')" class="px-3 py-1.5 rounded-lg text-xs font-extrabold transition-all bg-strawberry text-white shadow">
+              🔥 Más votadas
             </button>
-            <button id="sort-recent-btn" onclick="setSortMode('recent')"
-                    class="px-3 py-1.5 rounded-lg text-xs font-bold transition-all text-cream/65 hover:text-cream">
-              🕒 Más recientes
+            <button id="sort-recent-btn" type="button" onclick="setSortMode('recent')" class="px-3 py-1.5 rounded-lg text-xs font-bold transition-all text-cream/65 hover:text-cream">
+              🕒 Recientes
             </button>
           </div>
         </div>
 
-        <div class="flex gap-2 overflow-x-auto no-scrollbar pb-1">
-          <button onclick="setCategoryFilter('ALL')" data-cat="ALL" class="cat-chip shrink-0 px-3 py-1.5 rounded-full text-xs font-extrabold bg-vanilla text-choco-950 transition-all">
-            Todas
-          </button>
-          <button onclick="setCategoryFilter('🎬 Guion / Vídeo para TikTok')" data-cat="🎬 Guion / Vídeo para TikTok" class="cat-chip shrink-0 px-3 py-1.5 rounded-full text-xs font-bold bg-choco-800/80 text-cream/80 border border-cream/10 transition-all">
-            🎬 Vídeos TikTok
-          </button>
-          <button onclick="setCategoryFilter('🍨 Nuevo sabor de helado')" data-cat="🍨 Nuevo sabor de helado" class="cat-chip shrink-0 px-3 py-1.5 rounded-full text-xs font-bold bg-choco-800/80 text-cream/80 border border-cream/10 transition-all">
-            🍨 Nuevo sabor
-          </button>
-          <button onclick="setCategoryFilter('🔥 Drama en la heladería')" data-cat="🔥 Drama en la heladería" class="cat-chip shrink-0 px-3 py-1.5 rounded-full text-xs font-bold bg-choco-800/80 text-cream/80 border border-cream/10 transition-all">
-            🔥 Drama
-          </button>
-          <button onclick="setCategoryFilter('🎭 Nuevo personaje')" data-cat="🎭 Nuevo personaje" class="cat-chip shrink-0 px-3 py-1.5 rounded-full text-xs font-bold bg-choco-800/80 text-cream/80 border border-cream/10 transition-all">
-            🎭 Personaje
-          </button>
-          <button onclick="setCategoryFilter('🥥 Reto para Cocardo')" data-cat="🥥 Reto para Cocardo" class="cat-chip shrink-0 px-3 py-1.5 rounded-full text-xs font-bold bg-choco-800/80 text-cream/80 border border-cream/10 transition-all">
-            🥥 Reto
-          </button>
+        <div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar pb-1">
+          <button type="button" data-cat="ALL" onclick="setCategoryFilter('ALL')" class="cat-chip shrink-0 px-3 py-1.5 rounded-full text-xs font-extrabold bg-vanilla text-choco-950 transition-all">Todas</button>
+          <button type="button" data-cat="🎬 Guión / Vídeo para TikTok" onclick="setCategoryFilter('🎬 Guión / Vídeo para TikTok')" class="cat-chip shrink-0 px-3 py-1.5 rounded-full text-xs font-bold bg-choco-800/80 text-cream/80 border border-cream/10 transition-all">🎬 Guiones</button>
+          <button type="button" data-cat="🍦 Nuevo sabor loco de helado" onclick="setCategoryFilter('🍦 Nuevo sabor loco de helado')" class="cat-chip shrink-0 px-3 py-1.5 rounded-full text-xs font-bold bg-choco-800/80 text-cream/80 border border-cream/10 transition-all">🍦 Sabores</button>
+          <button type="button" data-cat="🍒 Drama en el mostrador" onclick="setCategoryFilter('🍒 Drama en el mostrador')" class="cat-chip shrink-0 px-3 py-1.5 rounded-full text-xs font-bold bg-choco-800/80 text-cream/80 border border-cream/10 transition-all">🍒 Drama</button>
+          <button type="button" data-cat="🍍 Nuevo personaje invitado" onclick="setCategoryFilter('🍍 Nuevo personaje invitado')" class="cat-chip shrink-0 px-3 py-1.5 rounded-full text-xs font-bold bg-choco-800/80 text-cream/80 border border-cream/10 transition-all">🍍 Personajes</button>
         </div>
       </div>
 
-      <!-- Feed de Ideas -->
       <div id="ideas-live-list" class="space-y-3">
-        <div class="ice-glass rounded-3xl p-6 text-center border-cream/10">
-          <div class="w-8 h-8 border-4 border-strawberry border-t-transparent rounded-full animate-spin mx-auto mb-2"></div>
-          <p class="text-xs font-bold text-cream/70">Conectando con la heladería en vivo...</p>
-        </div>
+        <p class="text-xs text-cream/55 text-center py-6">Cargando ideas reales de la comunidad...</p>
       </div>
     </section>
 
     <!-- =================================================================== -->
-    <!-- PESTAÑA 6: PANEL DE ADMINISTRACIÓN (SOLO ishaktopro@gmail.com)      -->
+    <!-- PESTAÑA 6: PANEL DE ADMINISTRACIÓN EXCLUSIVO (ishaktopro@gmail.com) -->
     <!-- =================================================================== -->
     <section id="tab-admin" class="hidden space-y-5">
-      <div class="ice-glass rounded-[28px] p-5 border-2 border-amber-400/50 bg-gradient-to-br from-amber-950/40 via-choco-900 to-choco-950">
-        <div class="flex items-center justify-between gap-2">
+      <div class="ice-glass rounded-[28px] p-5 border-amber-400/50 bg-gradient-to-br from-amber-950/40 via-choco-900 to-choco-950 space-y-4">
+        <div class="flex items-center justify-between">
           <div>
-            <span class="text-[10px] font-black uppercase tracking-widest px-2.5 py-1 rounded-full bg-amber-400 text-choco-950">
-              Acceso Verificado • Fundador
-            </span>
-            <h2 class="font-display font-bold text-2xl text-cream mt-1.5">
-              🛡️ Centro de Control FrutiNovelas
-            </h2>
-            <p class="text-xs text-cream/70">Sesión maestra activa: <strong class="text-amber-300">ishaktopro@gmail.com</strong></p>
+            <span class="text-[10px] font-black uppercase tracking-widest text-amber-400">Control Maestro • ishaktopro@gmail.com</span>
+            <h2 class="font-display font-bold text-xl text-cream">🛡️ Panel de Administración</h2>
           </div>
+          <button onclick="adminExportBackupJSON()" class="text-xs font-extrabold px-3 py-2 rounded-xl bg-mint/20 text-mint border border-mint/40 active:scale-95">
+            💾 Backup JSON
+          </button>
         </div>
 
-        <div class="grid grid-cols-4 gap-2 mt-4">
-          <div class="bg-choco-950/80 p-2.5 rounded-2xl border border-cream/10 text-center">
+        <!-- Métricas Admin -->
+        <div class="grid grid-cols-4 gap-2 text-center">
+          <div class="bg-choco-950/90 p-2.5 rounded-2xl border border-cream/10">
             <span class="text-[10px] text-cream/60 block">Fans</span>
             <strong id="adm-stat-fans" class="font-display text-lg text-mint">0</strong>
           </div>
-          <div class="bg-choco-950/80 p-2.5 rounded-2xl border border-cream/10 text-center">
+          <div class="bg-choco-950/90 p-2.5 rounded-2xl border border-cream/10">
             <span class="text-[10px] text-cream/60 block">Ideas</span>
             <strong id="adm-stat-ideas" class="font-display text-lg text-vanilla">0</strong>
           </div>
-          <div class="bg-choco-950/80 p-2.5 rounded-2xl border border-cream/10 text-center">
+          <div class="bg-choco-950/90 p-2.5 rounded-2xl border border-cream/10">
             <span class="text-[10px] text-cream/60 block">Chat</span>
             <strong id="adm-stat-chat" class="font-display text-lg text-strawberry">0</strong>
           </div>
-          <div class="bg-choco-950/80 p-2.5 rounded-2xl border border-cream/10 text-center">
-            <span class="text-[10px] text-cream/60 block">Baneados</span>
+          <div class="bg-choco-950/90 p-2.5 rounded-2xl border border-cream/10">
+            <span class="text-[10px] text-cream/60 block">Bans</span>
             <strong id="adm-stat-banned" class="font-display text-lg text-red-400">0</strong>
           </div>
         </div>
-      </div>
 
-      <div class="ice-glass rounded-[28px] p-5 border-cream/15 space-y-3">
-        <h3 class="font-display font-bold text-base text-vanilla">1. 📢 Megáfono Global (Banner Superior en Vivo)</h3>
-        <p class="text-xs text-cream/65">Aparece arriba del todo a todos los fans conectados al instante.</p>
-        <div class="flex gap-2">
-          <input id="adm-announcement-input" type="text" maxlength="140" placeholder="Ej: ¡Nuevo capítulo de Cocardo ya subido en TikTok!"
-                 class="flex-1 bg-choco-950/90 text-xs sm:text-sm text-cream px-3.5 py-2.5 rounded-xl border border-cream/15 focus:border-amber-400 focus:outline-none" />
-          <button onclick="adminSaveAnnouncement()" class="bg-amber-400 text-choco-950 font-extrabold text-xs px-4 py-2.5 rounded-xl shrink-0">
-            Activar
-          </button>
-          <button onclick="adminClearAnnouncement()" class="bg-choco-800 text-cream/80 font-bold text-xs px-3 py-2.5 rounded-xl border border-cream/15 shrink-0">
-            Quitar
-          </button>
-        </div>
-      </div>
-
-      <div class="ice-glass rounded-[28px] p-5 border-cream/15 space-y-3">
-        <div class="flex items-center justify-between">
-          <h3 class="font-display font-bold text-base text-strawberry">2. 🗳️ Encuesta Oficial de Guion (En Inicio)</h3>
-          <button onclick="adminClosePoll()" class="text-[11px] font-bold text-red-400 hover:underline">Cerrar encuesta</button>
-        </div>
-        <input id="adm-poll-question" type="text" maxlength="120" placeholder="Pregunta: ¿Qué hace Cocardo en el próximo vídeo?"
-               class="w-full bg-choco-950/90 text-xs sm:text-sm text-cream px-3.5 py-2.5 rounded-xl border border-cream/15" />
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
-          <input id="adm-poll-opt1" type="text" maxlength="60" placeholder="Opción 1 (Ej: Despide a Señor Piña)"
-                 class="bg-choco-950/90 text-xs text-cream px-3.5 py-2.5 rounded-xl border border-cream/15" />
-          <input id="adm-poll-opt2" type="text" maxlength="60" placeholder="Opción 2 (Ej: Sube el helado a 50€)"
-                 class="bg-choco-950/90 text-xs text-cream px-3.5 py-2.5 rounded-xl border border-cream/15" />
-        </div>
-        <button onclick="adminLaunchPoll()" class="w-full bg-strawberry text-white font-display font-bold text-sm py-3 rounded-xl shadow">
-          🚀 Lanzar Encuesta en Tiempo Real
-        </button>
-      </div>
-
-      <div class="ice-glass rounded-[28px] p-5 border-cream/15 space-y-3.5">
-        <h3 class="font-display font-bold text-base text-mint">3. ⚙️ Control de Sala y Heladería</h3>
-        
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-          <button onclick="adminToggleChatLock()" id="adm-btn-lock-chat"
-                  class="bg-choco-950/90 hover:bg-choco-800 border border-cream/15 p-3 rounded-2xl text-left transition-all">
-            <span class="text-xs font-extrabold text-cream block">🔒 Bloquear / Abrir Chat Común</span>
-            <span id="adm-chat-lock-status" class="text-[11px] text-mint">Estado: Abierto para todos</span>
-          </button>
-
-          <button onclick="adminToggleSlowMode()" id="adm-btn-slow-mode"
-                  class="bg-choco-950/90 hover:bg-choco-800 border border-cream/15 p-3 rounded-2xl text-left transition-all">
-            <span class="text-xs font-extrabold text-cream block">⏱️ Modo Lento Anti-Spam (10s)</span>
-            <span id="adm-slow-mode-status" class="text-[11px] text-cream/60">Estado: Desactivado</span>
-          </button>
-
-          <button onclick="adminPurgeAllChat()"
-                  class="bg-red-950/40 hover:bg-red-900/50 border border-red-500/30 p-3 rounded-2xl text-left transition-all">
-            <span class="text-xs font-extrabold text-red-300 block">🧹 Vaciar Todo el Chat Común</span>
-            <span class="text-[11px] text-red-200/70">Borra todos los mensajes actuales</span>
-          </button>
-
-          <button onclick="adminExportCommunityJSON()"
-                  class="bg-choco-950/90 hover:bg-choco-800 border border-vanilla/30 p-3 rounded-2xl text-left transition-all">
-            <span class="text-xs font-extrabold text-vanilla block">💾 Exportar Backup Completo (.JSON)</span>
-            <span class="text-[11px] text-cream/60">Descarga fans, ideas y mensajes</span>
-          </button>
-
-          <button onclick="adminMassGiftCoins(150)"
-                  class="bg-amber-500/15 hover:bg-amber-500/25 border border-amber-400/40 p-3 rounded-2xl text-left transition-all">
-            <span class="text-xs font-extrabold text-amber-300 block">🎁 Lluvia de Coins Global (+150 🪙)</span>
-            <span class="text-[11px] text-cream/70">Regala +150 monedas a TODOS los fans</span>
-          </button>
-
-          <button onclick="adminResetAllStreaksWarning()"
-                  class="bg-orange-500/15 hover:bg-orange-500/25 border border-orange-400/40 p-3 rounded-2xl text-left transition-all">
-            <span class="text-xs font-extrabold text-orange-300 block">🔥 Evento Doble Racha (+1d Global)</span>
-            <span class="text-[11px] text-cream/70">Suma +1 día de racha a todos los fans</span>
-          </button>
-
-          <button onclick="adminResetAllIdeaVotes()"
-                  class="bg-purple-500/15 hover:bg-purple-500/25 border border-purple-400/40 p-3 rounded-2xl text-left transition-all">
-            <span class="text-xs font-extrabold text-purple-300 block">🔄 Nueva Temporada (Reset Votos)</span>
-            <span class="text-[11px] text-cream/70">Reinicia a 1 los votos de todas las ideas</span>
-          </button>
-
-          <button onclick="adminToggleMaintenanceNotice()"
-                  class="bg-sky-500/15 hover:bg-sky-500/25 border border-sky-400/40 p-3 rounded-2xl text-left transition-all">
-            <span class="text-xs font-extrabold text-sky-300 block">🎬 Aviso Grabando Capítulo</span>
-            <span class="text-[11px] text-cream/70">Pone estado «Grabando nuevo vídeo»</span>
+        <!-- 1. Anuncio Global + Estado del Local -->
+        <div class="bg-choco-950/85 p-4 rounded-2xl border border-cream/15 space-y-3">
+          <h3 class="font-display font-bold text-sm text-vanilla">📢 1. Megáfono Global y Estado del Local</h3>
+          <div class="flex gap-2">
+            <input id="adm-announcement-input" type="text" placeholder="Ej: ¡Nuevo capítulo hoy a las 19:00 en TikTok!"
+                   class="flex-1 bg-choco-900 text-xs text-cream px-3 py-2.5 rounded-xl border border-cream/15" />
+            <button onclick="adminSaveAnnouncement()" class="px-3 py-2.5 rounded-xl bg-vanilla text-choco-950 font-extrabold text-xs">Publicar</button>
+            <button onclick="adminClearAnnouncement()" class="px-3 py-2.5 rounded-xl bg-red-500/20 text-red-300 font-extrabold text-xs">Quitar</button>
+          </div>
+          <div class="flex gap-2">
+            <input id="adm-shop-status-input" type="text" placeholder="Ej: 🟢 Abierto • Cocardo sirviendo helados"
+                   class="flex-1 bg-choco-900 text-xs text-cream px-3 py-2.5 rounded-xl border border-cream/15" />
+            <button onclick="adminUpdateShopStatus()" class="px-3 py-2.5 rounded-xl bg-mint text-choco-950 font-extrabold text-xs">Estado</button>
+          </div>
+          <button onclick="adminToggleMaintenanceNotice()" class="w-full py-2.5 rounded-xl bg-strawberry/20 text-strawberry border border-strawberry/40 font-extrabold text-xs active:scale-95">
+            🎬 Activar Aviso «Grabando Nuevo Capítulo» en toda la web
           </button>
         </div>
 
-        <!-- Cambiar Estado del Local en Vivo -->
-        <div class="flex gap-2 pt-1">
-          <input id="adm-shop-status-input" type="text" maxlength="70" placeholder="Estado del local (Ej: 🟢 Abierto • Cocardo sirviendo)"
-                 class="flex-1 bg-choco-950/90 text-xs text-cream px-3.5 py-2.5 rounded-xl border border-mint/40" />
-          <button onclick="adminUpdateShopStatus()" class="bg-mint text-choco-950 font-extrabold text-xs px-4 py-2.5 rounded-xl shrink-0">
-            Cambiar Estado
+        <!-- 2. Mensaje Oficial en Chat + Control de Sala -->
+        <div class="bg-choco-950/85 p-4 rounded-2xl border border-cream/15 space-y-3">
+          <h3 class="font-display font-bold text-sm text-mint">💬 2. Control del Chat Común</h3>
+          <div class="flex gap-2">
+            <input id="adm-broadcast-chat-input" type="text" placeholder="Escribir mensaje oficial como COCARDO..."
+                   class="flex-1 bg-choco-900 text-xs text-cream px-3 py-2.5 rounded-xl border border-cream/15" />
+            <button onclick="adminSendOfficialChatBroadcast()" class="px-3.5 py-2.5 rounded-xl bg-amber-400 text-choco-950 font-extrabold text-xs">Enviar</button>
+          </div>
+          <div class="grid grid-cols-2 gap-2 text-xs">
+            <button onclick="adminToggleChatLock()" class="p-2.5 rounded-xl bg-choco-900 border border-cream/15 text-left">
+              <strong class="text-cream block">🔒 Bloquear Chat</strong>
+              <span id="adm-chat-lock-status" class="text-[10px] text-cream/60">Estado: Abierto</span>
+            </button>
+            <button onclick="adminToggleSlowMode()" class="p-2.5 rounded-xl bg-choco-900 border border-cream/15 text-left">
+              <strong class="text-cream block">⏱️ Modo Lento (10s)</strong>
+              <span id="adm-slow-mode-status" class="text-[10px] text-cream/60">Estado: Desactivado</span>
+            </button>
+          </div>
+          <button onclick="adminPurgeAllChat()" class="w-full py-2 rounded-xl bg-red-500/20 text-red-300 border border-red-500/35 font-extrabold text-xs">
+            🧹 Vaciar todos los mensajes del Chat Común
           </button>
         </div>
 
-        <!-- Regalo Directo por Número #FrutiFan -->
-        <div class="flex gap-2 pt-1">
-          <input id="adm-gift-fannum-input" type="number" min="1" placeholder="Nº Fan (ej: 4)"
-                 class="w-28 bg-choco-950/90 text-xs text-cream px-3 py-2.5 rounded-xl border border-amber-400/40" />
-          <input id="adm-gift-coins-input" type="number" min="10" value="250" placeholder="Coins"
-                 class="w-24 bg-choco-950/90 text-xs text-cream px-3 py-2.5 rounded-xl border border-amber-400/40" />
-          <button onclick="adminGiftSpecificFanNumber()" class="flex-1 bg-amber-400 text-choco-950 font-extrabold text-xs px-3 py-2.5 rounded-xl">
-            🎁 Premiar #Fan en Vivo
-          </button>
+        <!-- 3. Encuesta Oficial en Vivo -->
+        <div class="bg-choco-950/85 p-4 rounded-2xl border border-cream/15 space-y-2.5">
+          <h3 class="font-display font-bold text-sm text-strawberry">🗳️ 3. Encuesta Oficial en Portada</h3>
+          <input id="adm-poll-question" type="text" placeholder="Pregunta: ¿Quién debe atender hoy la caja?"
+                 class="w-full bg-choco-900 text-xs text-cream px-3 py-2 rounded-xl border border-cream/15" />
+          <div class="grid grid-cols-2 gap-2">
+            <input id="adm-poll-opt1" type="text" placeholder="Opción 1 (ej: Cherry)" class="bg-choco-900 text-xs text-cream px-3 py-2 rounded-xl border border-cream/15" />
+            <input id="adm-poll-opt2" type="text" placeholder="Opción 2 (ej: Señor Piña)" class="bg-choco-900 text-xs text-cream px-3 py-2 rounded-xl border border-cream/15" />
+          </div>
+          <div class="grid grid-cols-2 gap-2">
+            <button onclick="adminLaunchPoll()" class="py-2.5 rounded-xl bg-strawberry text-white font-extrabold text-xs">Lanzar Encuesta</button>
+            <button onclick="adminClosePoll()" class="py-2.5 rounded-xl bg-choco-800 text-cream/80 font-extrabold text-xs">Cerrar Encuesta</button>
+          </div>
         </div>
 
-        <div class="flex gap-2 pt-1">
-          <input id="adm-broadcast-chat-input" type="text" maxlength="180" placeholder="Enviar mensaje oficial destacado al Chat Común..."
-                 class="flex-1 bg-choco-950/90 text-xs text-cream px-3.5 py-2.5 rounded-xl border border-strawberry/40" />
-          <button onclick="adminSendOfficialChatBroadcast()" class="bg-strawberry text-white font-extrabold text-xs px-4 py-2.5 rounded-xl shrink-0">
-            Publicar en Chat
-          </button>
+        <!-- 4. Premios Masivos, Premiar por #Fan y Nueva Temporada -->
+        <div class="bg-choco-950/85 p-4 rounded-2xl border border-cream/15 space-y-3">
+          <h3 class="font-display font-bold text-sm text-amber-300">🎁 4. Premios Masivos y Nueva Temporada</h3>
+          <div class="grid grid-cols-3 gap-2">
+            <button onclick="adminMassGiftCoins(150)" class="py-2.5 px-2 rounded-xl bg-amber-400/20 text-amber-300 font-extrabold text-[11px]">+150 🪙 a Todos</button>
+            <button onclick="adminResetAllStreaksWarning()" class="py-2.5 px-2 rounded-xl bg-orange-500/20 text-orange-300 font-extrabold text-[11px]">+1d 🔥 a Todos</button>
+            <button onclick="adminResetAllIdeaVotes()" class="py-2.5 px-2 rounded-xl bg-sky-500/20 text-sky-300 font-extrabold text-[11px]">🔄 Reset Votos</button>
+          </div>
+          <div class="flex items-center gap-2 pt-1">
+            <input id="adm-gift-fannum-input" type="number" min="1" placeholder="Nº Fan (ej: 4)" class="w-28 bg-choco-900 text-xs text-cream px-3 py-2 rounded-xl border border-cream/15" />
+            <input id="adm-gift-coins-input" type="number" min="10" value="250" placeholder="Coins" class="w-24 bg-choco-900 text-xs text-cream px-3 py-2 rounded-xl border border-cream/15" />
+            <button onclick="adminGiftSpecificFanNumber()" class="flex-1 py-2 rounded-xl bg-mint text-choco-950 font-extrabold text-xs">Premiar + Anunciar</button>
+          </div>
         </div>
-      </div>
 
-      <div class="ice-glass rounded-[28px] p-5 border-cream/15 space-y-3">
-        <h3 class="font-display font-bold text-base text-vanilla">4. 🍨 Moderación del Muro de Ideas (Editar / Destacar / Borrar)</h3>
-        <div id="admin-ideas-manager" class="space-y-2.5 max-h-80 overflow-y-auto pr-1">
-          <p class="text-xs text-cream/55">No hay ideas publicadas todavía.</p>
+        <!-- 5. Moderar Ideas -->
+        <div class="bg-choco-950/85 p-4 rounded-2xl border border-cream/15 space-y-2.5">
+          <h3 class="font-display font-bold text-sm text-cream">🍨 5. Moderar Ideas del Muro</h3>
+          <div id="admin-ideas-manager" class="space-y-2 max-h-60 overflow-y-auto pr-1"></div>
         </div>
-      </div>
 
-      <div class="ice-glass rounded-[28px] p-5 border-cream/15 space-y-3">
-        <h3 class="font-display font-bold text-base text-cream">5. 👥 Gestión Avanzada de Fruti-Fans (Coins / Racha / Sanciones)</h3>
-        <div id="admin-users-manager" class="space-y-2.5 max-h-96 overflow-y-auto pr-1">
-          <p class="text-xs text-cream/55">Aún no hay fans registrados con Google.</p>
+        <!-- 6. Gestión de Fruti-Fans -->
+        <div class="bg-choco-950/85 p-4 rounded-2xl border border-cream/15 space-y-2.5">
+          <h3 class="font-display font-bold text-sm text-cream">👥 6. Gestión de Fans Registrados</h3>
+          <div id="admin-users-manager" class="space-y-2 max-h-72 overflow-y-auto pr-1"></div>
         </div>
       </div>
     </section>
+
   </main>
 
-  <!-- NAVEGACIÓN INFERIOR FIJA ESTILO APP MÓVIL -->
-  <nav class="fixed bottom-0 left-0 right-0 z-40 ice-nav shadow-[0_-10px_30px_rgba(0,0,0,0.75)]">
-    <div id="bottom-nav-grid" class="max-w-2xl mx-auto px-2 py-2 grid grid-cols-5 gap-1.5">
+  <!-- BARRA DE NAVEGACIÓN INFERIOR FIJA ESTILO APP NATIVA MÓVIL -->
+  <nav class="ice-nav fixed bottom-0 inset-x-0 z-40">
+    <div class="max-w-2xl mx-auto px-2 py-1.5 grid grid-cols-5 gap-1">
       <button id="nav-home" onclick="switchTab('home')"
-              class="flex flex-col items-center justify-center gap-0.5 py-2 px-1 rounded-2xl font-display font-bold text-[11px] transition-all bg-vanilla/20 text-vanilla border border-vanilla/40 active:scale-95">
-        <span class="text-lg leading-none">🏠</span>
+              class="flex flex-col items-center justify-center gap-0.5 py-2 px-1 rounded-2xl font-display font-bold text-[11px] transition-all bg-vanilla/20 text-vanilla border border-vanilla/40 relative active:scale-95">
+        <span class="text-base leading-none">🍦</span>
         <span>Inicio</span>
       </button>
 
       <button id="nav-chat" onclick="switchTab('chat')"
-              class="flex flex-col items-center justify-center gap-0.5 py-2 px-1 rounded-2xl font-display font-bold text-[11px] transition-all text-cream/70 hover:text-cream hover:bg-white/5 border border-transparent active:scale-95">
-        <span class="text-lg leading-none">💬</span>
+              class="flex flex-col items-center justify-center gap-0.5 py-2 px-1 rounded-2xl font-display font-bold text-[11px] transition-all text-cream/70 hover:text-cream hover:bg-white/5 border border-transparent relative active:scale-95">
+        <span class="text-base leading-none">💬</span>
         <span>Chat</span>
       </button>
 
       <button id="nav-ranks" onclick="switchTab('ranks')"
-              class="flex flex-col items-center justify-center gap-0.5 py-2 px-1 rounded-2xl font-display font-bold text-[11px] transition-all text-cream/70 hover:text-cream hover:bg-white/5 border border-transparent active:scale-95">
-        <span class="text-lg leading-none">🔥</span>
+              class="flex flex-col items-center justify-center gap-0.5 py-2 px-1 rounded-2xl font-display font-bold text-[11px] transition-all text-cream/70 hover:text-cream hover:bg-white/5 border border-transparent relative active:scale-95">
+        <span class="text-base leading-none">🔥</span>
         <span>Rachas</span>
       </button>
 
       <button id="nav-quiz" onclick="switchTab('quiz')"
-              class="flex flex-col items-center justify-center gap-0.5 py-2 px-1 rounded-2xl font-display font-bold text-[11px] transition-all text-cream/70 hover:text-cream hover:bg-white/5 border border-transparent active:scale-95">
-        <span class="text-lg leading-none">🎭</span>
+              class="flex flex-col items-center justify-center gap-0.5 py-2 px-1 rounded-2xl font-display font-bold text-[11px] transition-all text-cream/70 hover:text-cream hover:bg-white/5 border border-transparent relative active:scale-95">
+        <span class="text-base leading-none">🎭</span>
         <span>Test</span>
       </button>
 
       <button id="nav-wall" onclick="switchTab('wall')"
               class="flex flex-col items-center justify-center gap-0.5 py-2 px-1 rounded-2xl font-display font-bold text-[11px] transition-all text-cream/70 hover:text-cream hover:bg-white/5 border border-transparent relative active:scale-95">
-        <span class="text-lg leading-none">🍨</span>
+        <span class="text-base leading-none">🍨</span>
         <span>Ideas</span>
-        <span id="nav-wall-badge" class="absolute top-1 right-2 text-[9px] font-black bg-strawberry text-white px-1.5 rounded-full">0</span>
+        <span id="nav-wall-badge" class="absolute top-1 right-2 text-[9px] font-black px-1.5 py-0.2 rounded-full bg-strawberry text-white">0</span>
       </button>
     </div>
   </nav>
 
-  <!-- ===================================================================== -->
-  <!-- MÓDULO PRINCIPAL (FIREBASE + PASES STORY PRO + RULETA + ADMIN)        -->
-  <!-- ===================================================================== -->
+  <!-- SCRIPT PRINCIPAL CON FIREBASE REAL -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
     import {
       getAuth,
-      GoogleAuthProvider,
-      signInWithPopup,
       signInAnonymously,
       signInWithCustomToken,
+      GoogleAuthProvider,
+      signInWithPopup,
       onAuthStateChanged
     } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
     import {
@@ -1127,14 +1191,14 @@
       collection,
       doc,
       getDoc,
+      getDocs,
       setDoc,
       addDoc,
       updateDoc,
       deleteDoc,
-      onSnapshot,
-      getDocs,
+      increment,
       runTransaction,
-      increment
+      onSnapshot
     } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
     const ADMIN_EMAIL = "ishaktopro@gmail.com";
@@ -1149,6 +1213,422 @@
       messagingSenderId: "755934045939",
       appId: "1:755934045939:web:f072101313d4aedc3df986",
       measurementId: "G-FM38917KE4"
+    };
+
+    let deferredInstallPrompt = null;
+    try {
+      const pwaManifest = {
+        name: "FrutiNovelas | Coco's Scoops Oficial",
+        short_name: "Coco's Scoops",
+        description: "App oficial de fans de Cocardo y FrutiNovelas",
+        start_url: "./",
+        display: "standalone",
+        background_color: "#120a08",
+        theme_color: "#120a08",
+        icons: [
+          { src: "cocardo-cara.jpg", sizes: "192x192", type: "image/jpeg" },
+          { src: "cocardo-cara.jpg", sizes: "512x512", type: "image/jpeg" }
+        ]
+      };
+      const manifestBlob = new Blob([JSON.stringify(pwaManifest)], { type: "application/manifest+json" });
+      const manifestEl = document.getElementById("dynamic-pwa-manifest");
+      if (manifestEl) manifestEl.href = URL.createObjectURL(manifestBlob);
+    } catch (_) {}
+
+    window.addEventListener("beforeinstallprompt", (e) => {
+      e.preventDefault();
+      deferredInstallPrompt = e;
+      const nativeBox = document.getElementById("install-native-action-box");
+      if (nativeBox) nativeBox.classList.remove("hidden");
+    });
+
+    window.addEventListener("appinstalled", () => {
+      deferredInstallPrompt = null;
+      const headerBtn = document.getElementById("install-app-header-btn");
+      const homeBanner = document.getElementById("home-install-banner");
+      if (headerBtn) headerBtn.classList.add("hidden");
+      if (homeBanner) homeBanner.classList.add("hidden");
+      showToast("¡App de Coco's Scoops instalada en tu pantalla!", "📲");
+    });
+
+    window.triggerInstallApp = async function () {
+      if (deferredInstallPrompt) {
+        try {
+          deferredInstallPrompt.prompt();
+          const choice = await deferredInstallPrompt.userChoice;
+          if (choice.outcome === "accepted") {
+            deferredInstallPrompt = null;
+            return;
+          }
+        } catch (_) {}
+      }
+      const modal = document.getElementById("install-app-modal");
+      const nativeBox = document.getElementById("install-native-action-box");
+      if (nativeBox) {
+        if (deferredInstallPrompt) nativeBox.classList.remove("hidden");
+        else nativeBox.classList.add("hidden");
+      }
+      if (modal) modal.classList.remove("hidden");
+    };
+
+    window.executeNativeInstallPrompt = async function () {
+      if (!deferredInstallPrompt) return;
+      deferredInstallPrompt.prompt();
+      const choice = await deferredInstallPrompt.userChoice;
+      if (choice.outcome === "accepted") {
+        deferredInstallPrompt = null;
+        closeInstallModal();
+      }
+    };
+
+    window.closeInstallModal = function () {
+      const modal = document.getElementById("install-app-modal");
+      if (modal) modal.classList.add("hidden");
+    };
+
+    window.shareToSocialPlatform = async function (platform, sourceType = "passport") {
+      const fanNum = fanProfile ? `#${fanProfile.fanNumber}` : "#VIP";
+      const shareText = sourceType === "quiz" && finalQuizResult
+        ? `Me ha salido ${finalQuizResult.affinityPct}% ${finalQuizResult.name} (${finalQuizResult.vipCode}) en Coco's Scoops 🍦🥥 Haz el test y consigue tu Carnet Oficial VIP aquí: ${OFFICIAL_WEB_URL} @frutasalocadasoficiall`
+        : `¡Ya tengo mi Carnet Oficial VIP de Fruti-Fan ${fanNum} en Coco's Scoops! 🍦🥥 Consigue el tuyo aquí: ${OFFICIAL_WEB_URL} @frutasalocadasoficiall`;
+
+      if (platform === "whatsapp") {
+        window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(shareText)}`, "_blank", "noopener,noreferrer");
+        return;
+      }
+      if (platform === "facebook") {
+        window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(OFFICIAL_WEB_URL)}&quote=${encodeURIComponent(shareText)}`, "_blank", "noopener,noreferrer");
+        return;
+      }
+
+      if (sourceType === "quiz") {
+        await window.downloadStoryPNG();
+      } else {
+        await window.downloadFanPassportPNG("carnet");
+      }
+
+      const ta = document.createElement("textarea");
+      ta.value = shareText;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand("copy");
+      document.body.removeChild(ta);
+
+      if (platform === "tiktok") {
+        showToast("¡Foto descargada y texto copiado! Súbela a TikTok etiquetando @frutasalocadasoficiall", "🎵");
+        setTimeout(() => {
+          window.open("https://www.tiktok.com/@frutasalocadasoficiall", "_blank", "noopener,noreferrer");
+        }, 900);
+      } else if (platform === "instagram") {
+        showToast("¡Tarjeta descargada y enlace copiado! Súbela a tu Story de Instagram", "📸");
+        setTimeout(() => {
+          window.open("https://www.instagram.com/", "_blank", "noopener,noreferrer");
+        }, 900);
+      }
+    };
+
+    function updateAuthUI() {
+      const adminBtn = document.getElementById("admin-header-btn");
+      const headerAvatar = document.getElementById("header-user-avatar");
+      const headerLabel = document.getElementById("header-user-label");
+
+      const loggedOutCard = document.getElementById("passport-logged-out");
+      const loggedInCard = document.getElementById("passport-logged-in");
+
+      const chatLoginPrompt = document.getElementById("chat-login-prompt");
+      const chatSendForm = document.getElementById("chat-send-form");
+
+      if (adminBtn) {
+        if (isAdminUser) {
+          adminBtn.classList.remove("hidden");
+          adminBtn.classList.add("flex");
+        } else {
+          adminBtn.classList.add("hidden");
+          adminBtn.classList.remove("flex");
+        }
+      }
+
+      if (fanProfile) {
+        const avatarUrl = fanProfile.tiktokUser
+          ? getTikTokProfilePic(fanProfile.tiktokUser)
+          : (fanProfile.photoURL || buildIceCreamFallbackAvatar(fanProfile.displayName));
+
+        if (headerAvatar) {
+          headerAvatar.src = avatarUrl;
+          headerAvatar.onerror = () => {
+            headerAvatar.onerror = null;
+            headerAvatar.src = buildIceCreamFallbackAvatar(fanProfile.displayName);
+          };
+          headerAvatar.classList.remove("hidden");
+        }
+        if (headerLabel) headerLabel.textContent = `Fan #${fanProfile.fanNumber}`;
+
+        if (loggedOutCard) loggedOutCard.classList.add("hidden");
+        if (loggedInCard) loggedInCard.classList.remove("hidden");
+
+        const pAvatar = document.getElementById("passport-avatar");
+        if (pAvatar) pAvatar.src = avatarUrl;
+        const pBadge = document.getElementById("passport-fan-badge");
+        if (pBadge) pBadge.textContent = `Fruti-Fan #${fanProfile.fanNumber}`;
+        const pName = document.getElementById("passport-name");
+        if (pName) pName.textContent = fanProfile.displayName;
+        const pHandle = document.getElementById("passport-tiktok-handle");
+        if (pHandle) {
+          pHandle.textContent = fanProfile.tiktokUser
+            ? `@${fanProfile.tiktokUser}`
+            : "Sin @ de TikTok vinculado aún";
+        }
+
+        const coins = fanProfile.coins || 0;
+        const streak = fanProfile.streak || 1;
+        const followers = fanProfile.followersCount || 0;
+        const pCoins = document.getElementById("passport-coins-label");
+        if (pCoins) pCoins.textContent = `🪙 ${coins}`;
+        const pStreak = document.getElementById("passport-streak-label");
+        if (pStreak) pStreak.textContent = `🔥 ${streak}d`;
+        const pFollowers = document.getElementById("passport-followers-label");
+        if (pFollowers) pFollowers.textContent = `👥 ${followers}`;
+        const arcadeBest = document.getElementById("arcade-personal-best");
+        if (arcadeBest) arcadeBest.textContent = `${fanProfile.highScore || 0} pts`;
+        const shopCoinsEl = document.getElementById("shop-user-coins-pill");
+        if (shopCoinsEl) shopCoinsEl.textContent = `🪙 ${coins}`;
+
+        let rankLabel = fanProfile.equippedTitle || "🍦 Aprendiz";
+        if (!fanProfile.equippedTitle) {
+          if (coins >= 1000) rankLabel = "👑 Socio de Cocardo";
+          else if (coins >= 400) rankLabel = "🍨 Maestro Heladero";
+          else if (coins >= 150) rankLabel = "🥥 Cliente VIP";
+        }
+        const pRank = document.getElementById("passport-rank-badge");
+        if (pRank) pRank.textContent = rankLabel;
+
+        const todayStr = new Date().toISOString().slice(0, 10);
+        const claimBtn = document.getElementById("claim-daily-btn");
+        const claimStatus = document.getElementById("daily-reward-status");
+        const m1Done = fanProfile.lastDailyClaim === todayStr;
+        const m2Done = fanProfile.dailyChatDone === todayStr;
+        const m3Done = fanProfile.dailyVoteDone === todayStr;
+
+        if (claimBtn && claimStatus) {
+          if (m1Done) {
+            claimBtn.textContent = "✅ Reclamado hoy";
+            claimBtn.classList.add("opacity-60");
+            claimStatus.textContent = `Racha activa de ${streak} días • Vuelve mañana`;
+          } else {
+            claimBtn.textContent = "Reclamar +50 🪙";
+            claimBtn.classList.remove("opacity-60");
+            claimStatus.textContent = "Reclama +50 Fruti-Coins y sube tu racha";
+          }
+        }
+
+        const wheelBtn = document.getElementById("spin-wheel-btn");
+        const wheelText = document.getElementById("wheel-status-text");
+        if (wheelBtn && wheelText) {
+          if (fanProfile.lastWheelSpin === todayStr) {
+            wheelBtn.textContent = "✅ Girada hoy";
+            wheelBtn.classList.add("opacity-60");
+            wheelText.textContent = "Vuelve mañana para otra tirada gratis";
+          } else {
+            wheelBtn.textContent = "🎰 Girar Hoy";
+            wheelBtn.classList.remove("opacity-60");
+            wheelText.textContent = "Gira para ganar entre +25 y +200 Fruti-Coins";
+          }
+        }
+
+        const setMissionBadge = (id, done) => {
+          const el = document.getElementById(id);
+          if (!el) return;
+          if (done) {
+            el.textContent = "✅ Hecho";
+            el.className = "shrink-0 text-[11px] font-extrabold px-2.5 py-1 rounded-xl bg-mint/20 text-mint";
+          } else {
+            el.textContent = "Pendiente";
+            el.className = "shrink-0 text-[11px] font-extrabold px-2.5 py-1 rounded-xl bg-amber-400/20 text-amber-300";
+          }
+        };
+        setMissionBadge("mission-1-badge", m1Done);
+        setMissionBadge("mission-2-badge", m2Done);
+        setMissionBadge("mission-3-badge", m3Done);
+        const completedCount = [m1Done, m2Done, m3Done].filter(Boolean).length;
+        const progEl = document.getElementById("daily-missions-progress");
+        if (progEl) progEl.textContent = `${completedCount}/3`;
+
+        const roleBadge = document.getElementById("passport-role-badge");
+        if (roleBadge) {
+          if (isAdminUser) roleBadge.classList.remove("hidden");
+          else roleBadge.classList.add("hidden");
+        }
+
+        const verBadge = document.getElementById("passport-verified-badge");
+        if (verBadge) {
+          if (fanProfile.verifiedFan) verBadge.classList.remove("hidden");
+          else verBadge.classList.add("hidden");
+        }
+
+        if (chatLoginPrompt) chatLoginPrompt.classList.add("hidden");
+        if (chatSendForm) chatSendForm.classList.remove("hidden");
+      } else {
+        if (headerAvatar) headerAvatar.classList.add("hidden");
+        if (headerLabel) headerLabel.textContent = "Entrar con Google";
+
+        if (loggedOutCard) loggedOutCard.classList.remove("hidden");
+        if (loggedInCard) loggedInCard.classList.add("hidden");
+
+        if (chatLoginPrompt) chatLoginPrompt.classList.remove("hidden");
+        if (chatSendForm) chatSendForm.classList.add("hidden");
+      }
+
+      renderVipTitlesShop();
+    }
+
+    async function createPassportCanvas(mode = "carnet") {
+      const fanNum = fanProfile ? `#${fanProfile.fanNumber}` : "#VIP";
+      const displayName = (fanProfile && fanProfile.displayName) || "Fruti-Fan Oficial";
+      const handleText = fanProfile && fanProfile.tiktokUser ? `@${fanProfile.tiktokUser}` : "@frutifan_vip";
+      const streakDays = (fanProfile && fanProfile.streak) || 1;
+      const fanCoins = (fanProfile && fanProfile.coins) || 100;
+      const followersCount = (fanProfile && fanProfile.followersCount) || 0;
+      const rankTitle = (fanProfile && fanProfile.equippedTitle) || "MIEMBRO FUNDADOR DE COCO'S SCOOPS";
+      const isStreakCard = mode === "streak";
+
+      const canvas = document.createElement("canvas");
+      canvas.width = 1080;
+      canvas.height = 1920;
+      const ctx = canvas.getContext("2d");
+
+      const grad = ctx.createLinearGradient(0, 0, 1080, 1920);
+      grad.addColorStop(0, isStreakCard ? "#7c2d12" : "#2b1914");
+      grad.addColorStop(0.5, "#180d0a");
+      grad.addColorStop(1, "#0f0705");
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, 1080, 1920);
+
+      drawRoundedRect(ctx, 48, 56, 984, 1808, 52);
+      ctx.fillStyle = "rgba(18, 10, 8, 0.86)";
+      ctx.fill();
+      ctx.lineWidth = 8;
+      ctx.strokeStyle = isStreakCard ? "#fb923c" : "#ffd166";
+      ctx.stroke();
+
+      drawRoundedRect(ctx, 72, 80, 936, 1760, 40);
+      ctx.lineWidth = 3;
+      ctx.strokeStyle = "rgba(255, 209, 102, 0.35)";
+      ctx.stroke();
+
+      const groupImg = await loadCanvasImageSafe("tropa-parque.jpg");
+      if (groupImg) {
+        ctx.save();
+        drawRoundedRect(ctx, 98, 106, 884, 380, 34);
+        ctx.clip();
+        ctx.drawImage(groupImg, 98, 106, 884, 380);
+        const shade = ctx.createLinearGradient(0, 310, 0, 486);
+        shade.addColorStop(0, "rgba(18,10,8,0)");
+        shade.addColorStop(1, "rgba(18,10,8,0.95)");
+        ctx.fillStyle = shade;
+        ctx.fillRect(98, 106, 884, 380);
+        ctx.restore();
+
+        drawRoundedRect(ctx, 98, 106, 884, 380, 34);
+        ctx.lineWidth = 4;
+        ctx.strokeStyle = "#ffd166";
+        ctx.stroke();
+      }
+
+      ctx.textAlign = "center";
+      ctx.fillStyle = "#ffd166";
+      ctx.font = "900 30px sans-serif";
+      ctx.fillText("CLUB EXCLUSIVO FRUTINOVELAS • COCO'S SCOOPS", 540, 545);
+
+      ctx.fillStyle = "#ffffff";
+      ctx.font = "900 58px sans-serif";
+      ctx.fillText(isStreakCard ? "RACHA OFICIAL ACTIVA 🔥" : "CARNET OFICIAL VIP", 540, 622);
+
+      ctx.strokeStyle = "#ffd166";
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+      ctx.moveTo(220, 655);
+      ctx.lineTo(860, 655);
+      ctx.stroke();
+
+      ctx.fillStyle = "rgba(255,248,231,0.8)";
+      ctx.font = "italic 34px sans-serif";
+      ctx.fillText("Pase personal e intransferible de:", 540, 725);
+
+      ctx.fillStyle = "#ffd166";
+      ctx.font = "900 66px sans-serif";
+      ctx.fillText(displayName.toUpperCase(), 540, 815);
+
+      ctx.fillStyle = "#06d6a0";
+      ctx.font = "900 42px sans-serif";
+      ctx.fillText(`${handleText}  •  MIEMBRO ${fanNum}`, 540, 882);
+
+      drawRoundedRect(ctx, 130, 935, 820, 250, 36);
+      ctx.fillStyle = isStreakCard ? "rgba(249, 115, 22, 0.16)" : "rgba(255, 209, 102, 0.10)";
+      ctx.fill();
+      ctx.lineWidth = 4;
+      ctx.strokeStyle = isStreakCard ? "#fb923c" : "#ffd166";
+      ctx.stroke();
+
+      if (isStreakCard) {
+        ctx.fillStyle = "#fb923c";
+        ctx.font = "900 125px sans-serif";
+        ctx.fillText(`🔥 ${streakDays} ${streakDays === 1 ? "DÍA" : "DÍAS"}`, 540, 1085);
+        ctx.fillStyle = "#fff8e7";
+        ctx.font = "bold 32px sans-serif";
+        ctx.fillText("RACHA ACTIVA EN LA HELADERÍA DE COCARDO", 540, 1148);
+      } else {
+        ctx.fillStyle = "#ff4d79";
+        ctx.font = "900 120px sans-serif";
+        ctx.fillText(`FAN ${fanNum}`, 540, 1075);
+        ctx.fillStyle = "#fff8e7";
+        ctx.font = "900 32px sans-serif";
+        ctx.fillText(rankTitle.toUpperCase(), 540, 1145);
+      }
+
+      ctx.fillStyle = "rgba(255,248,231,0.88)";
+      ctx.font = "bold 30px sans-serif";
+      ctx.fillText(`🪙 ${fanCoins} Fruti-Coins   •   🔥 ${streakDays}d Racha   •   👥 ${followersCount} Seguidores`, 540, 1260);
+
+      ctx.beginPath();
+      ctx.arc(540, 1385, 76, 0, Math.PI * 2);
+      ctx.fillStyle = "rgba(255, 209, 102, 0.18)";
+      ctx.fill();
+      ctx.lineWidth = 5;
+      ctx.strokeStyle = "#ffd166";
+      ctx.stroke();
+      ctx.fillStyle = "#ffd166";
+      ctx.font = "900 22px sans-serif";
+      ctx.fillText("PASE", 540, 1378);
+      ctx.fillText("VERIFICADO", 540, 1406);
+
+      ctx.fillStyle = "rgba(255,248,231,0.78)";
+      ctx.font = "bold 30px sans-serif";
+      ctx.fillText("Reclama tu Carnet VIP y únete al club en:", 540, 1545);
+
+      drawRoundedRect(ctx, 110, 1575, 860, 96, 28);
+      ctx.fillStyle = "#ffd166";
+      ctx.fill();
+
+      ctx.fillStyle = "#120a08";
+      ctx.font = "900 36px sans-serif";
+      ctx.fillText("molo123465.github.io/frutinovelas/", 540, 1636);
+
+      ctx.fillStyle = "rgba(255,248,231,0.75)";
+      ctx.font = "bold 30px sans-serif";
+      ctx.fillText("TikTok Oficial: @frutasalocadasoficiall", 540, 1745);
+
+      return { canvas, fanNum };
+    }
+
+    window.downloadFanPassportPNG = async function (mode = "carnet") {
+      const { canvas, fanNum } = await createPassportCanvas(mode);
+      const link = document.createElement("a");
+      link.download = mode === "streak"
+        ? `Racha_FrutiFan_${fanNum.replace("#", "")}.png`
+        : `Carnet_VIP_FrutiFan_${fanNum.replace("#", "")}.png`;
+      link.href = canvas.toDataURL("image/png");
+      link.click();
+      showToast(mode === "streak" ? "¡Story de Racha descargada!" : `¡Carnet Oficial VIP ${fanNum} descargado!`, "🎫");
     };
 
     const firebaseConfig = typeof __firebase_config !== "undefined"
@@ -1432,296 +1912,6 @@
       } else {
         openEditProfileModal();
       }
-    };
-
-    function updateAuthUI() {
-      const adminBtn = document.getElementById("admin-header-btn");
-      const headerAvatar = document.getElementById("header-user-avatar");
-      const headerLabel = document.getElementById("header-user-label");
-
-      const loggedOutCard = document.getElementById("passport-logged-out");
-      const loggedInCard = document.getElementById("passport-logged-in");
-
-      const chatLoginPrompt = document.getElementById("chat-login-prompt");
-      const chatSendForm = document.getElementById("chat-send-form");
-
-      if (isAdminUser) {
-        adminBtn.classList.remove("hidden");
-        adminBtn.classList.add("flex");
-      } else {
-        adminBtn.classList.add("hidden");
-        adminBtn.classList.remove("flex");
-      }
-
-      if (fanProfile) {
-        const avatarUrl = fanProfile.tiktokUser
-          ? getTikTokProfilePic(fanProfile.tiktokUser)
-          : (fanProfile.photoURL || buildIceCreamFallbackAvatar(fanProfile.displayName));
-
-        headerAvatar.src = avatarUrl;
-        headerAvatar.onerror = () => {
-          headerAvatar.onerror = null;
-          headerAvatar.src = buildIceCreamFallbackAvatar(fanProfile.displayName);
-        };
-        headerAvatar.classList.remove("hidden");
-        headerLabel.textContent = `Fan #${fanProfile.fanNumber}`;
-
-        loggedOutCard.classList.add("hidden");
-        loggedInCard.classList.remove("hidden");
-
-        document.getElementById("passport-avatar").src = avatarUrl;
-        document.getElementById("passport-fan-badge").textContent = `Fruti-Fan #${fanProfile.fanNumber}`;
-        document.getElementById("passport-name").textContent = fanProfile.displayName;
-        document.getElementById("passport-tiktok-handle").textContent = fanProfile.tiktokUser
-          ? `@${fanProfile.tiktokUser}`
-          : "Sin @ de TikTok vinculado aún";
-
-        const coins = fanProfile.coins || 0;
-        const streak = fanProfile.streak || 1;
-        const followers = fanProfile.followersCount || 0;
-        document.getElementById("passport-coins-label").textContent = `🪙 ${coins}`;
-        document.getElementById("passport-streak-label").textContent = `🔥 ${streak}d`;
-        document.getElementById("passport-followers-label").textContent = `👥 ${followers}`;
-        document.getElementById("arcade-personal-best").textContent = `${fanProfile.highScore || 0} pts`;
-        const shopCoinsEl = document.getElementById("shop-user-coins-pill");
-        if (shopCoinsEl) shopCoinsEl.textContent = `🪙 ${coins}`;
-
-        let rankLabel = fanProfile.equippedTitle || "🍦 Aprendiz";
-        if (!fanProfile.equippedTitle) {
-          if (coins >= 1000) rankLabel = "👑 Socio de Cocardo";
-          else if (coins >= 400) rankLabel = "🍨 Maestro Heladero";
-          else if (coins >= 150) rankLabel = "🥥 Cliente VIP";
-        }
-        document.getElementById("passport-rank-badge").textContent = rankLabel;
-
-        const todayStr = new Date().toISOString().slice(0, 10);
-        const claimBtn = document.getElementById("claim-daily-btn");
-        const claimStatus = document.getElementById("daily-reward-status");
-        const m1Done = fanProfile.lastDailyClaim === todayStr;
-        const m2Done = fanProfile.dailyChatDone === todayStr;
-        const m3Done = fanProfile.dailyVoteDone === todayStr;
-
-        if (m1Done) {
-          claimBtn.textContent = "✅ Reclamado hoy";
-          claimBtn.classList.add("opacity-60");
-          claimStatus.textContent = `Racha activa de ${streak} días • Vuelve mañana`;
-        } else {
-          claimBtn.textContent = "Reclamar +50 🪙";
-          claimBtn.classList.remove("opacity-60");
-          claimStatus.textContent = "Reclama +50 Fruti-Coins y sube tu racha";
-        }
-
-        const wheelBtn = document.getElementById("spin-wheel-btn");
-        const wheelText = document.getElementById("wheel-status-text");
-        if (fanProfile.lastWheelSpin === todayStr) {
-          wheelBtn.textContent = "✅ Girada hoy";
-          wheelBtn.classList.add("opacity-60");
-          wheelText.textContent = "Vuelve mañana para otra tirada gratis";
-        } else {
-          wheelBtn.textContent = "🎰 Girar Hoy";
-          wheelBtn.classList.remove("opacity-60");
-          wheelText.textContent = "Gira para ganar entre +25 y +200 Fruti-Coins";
-        }
-
-        const setMissionBadge = (id, done) => {
-          const el = document.getElementById(id);
-          if (!el) return;
-          if (done) {
-            el.textContent = "✅ Hecho";
-            el.className = "shrink-0 text-[11px] font-extrabold px-2.5 py-1 rounded-xl bg-mint/20 text-mint";
-          } else {
-            el.textContent = "Pendiente";
-            el.className = "shrink-0 text-[11px] font-extrabold px-2.5 py-1 rounded-xl bg-amber-400/20 text-amber-300";
-          }
-        };
-        setMissionBadge("mission-1-badge", m1Done);
-        setMissionBadge("mission-2-badge", m2Done);
-        setMissionBadge("mission-3-badge", m3Done);
-        const completedCount = [m1Done, m2Done, m3Done].filter(Boolean).length;
-        const progEl = document.getElementById("daily-missions-progress");
-        if (progEl) progEl.textContent = `${completedCount}/3`;
-
-        const roleBadge = document.getElementById("passport-role-badge");
-        if (isAdminUser) roleBadge.classList.remove("hidden");
-        else roleBadge.classList.add("hidden");
-
-        const verBadge = document.getElementById("passport-verified-badge");
-        if (fanProfile.verifiedFan) verBadge.classList.remove("hidden");
-        else verBadge.classList.add("hidden");
-
-        chatLoginPrompt.classList.add("hidden");
-        chatSendForm.classList.remove("hidden");
-      } else {
-        headerAvatar.classList.add("hidden");
-        headerLabel.textContent = "Entrar con Google";
-
-        loggedOutCard.classList.remove("hidden");
-        loggedInCard.classList.add("hidden");
-
-        chatLoginPrompt.classList.remove("hidden");
-        chatSendForm.classList.add("hidden");
-      }
-
-      renderVipTitlesShop();
-    }
-
-    async function createPassportCanvas(mode = "diploma") {
-      const fanNum = fanProfile ? `#${fanProfile.fanNumber}` : "#VIP";
-      const displayName = (fanProfile && fanProfile.displayName) || "Fruti-Fan Oficial";
-      const handleText = fanProfile && fanProfile.tiktokUser ? `@${fanProfile.tiktokUser}` : "@frutifan_vip";
-      const streakDays = (fanProfile && fanProfile.streak) || 1;
-      const fanCoins = (fanProfile && fanProfile.coins) || 100;
-      const followersCount = (fanProfile && fanProfile.followersCount) || 0;
-      const rankTitle = (fanProfile && fanProfile.equippedTitle) || "MIEMBRO FUNDADOR DE COCO'S SCOOPS";
-      const isStreakCard = mode === "streak";
-
-      const canvas = document.createElement("canvas");
-      canvas.width = 1080;
-      canvas.height = 1920;
-      const ctx = canvas.getContext("2d");
-
-      // Fondo pergamino oscuro de lujo + degradado dorado/tropical
-      const grad = ctx.createLinearGradient(0, 0, 1080, 1920);
-      grad.addColorStop(0, isStreakCard ? "#7c2d12" : "#2b1914");
-      grad.addColorStop(0.5, "#180d0a");
-      grad.addColorStop(1, "#0f0705");
-      ctx.fillStyle = grad;
-      ctx.fillRect(0, 0, 1080, 1920);
-
-      // Doble marco ornamental tipo Diploma Oficial
-      drawRoundedRect(ctx, 48, 56, 984, 1808, 52);
-      ctx.fillStyle = "rgba(18, 10, 8, 0.86)";
-      ctx.fill();
-      ctx.lineWidth = 8;
-      ctx.strokeStyle = isStreakCard ? "#fb923c" : "#ffd166";
-      ctx.stroke();
-
-      drawRoundedRect(ctx, 72, 80, 936, 1760, 40);
-      ctx.lineWidth = 3;
-      ctx.strokeStyle = "rgba(255, 209, 102, 0.35)";
-      ctx.stroke();
-
-      // Foto grupal oficial de toda la tropa junta (tropa-parque.jpg)
-      const groupImg = await loadCanvasImageSafe("tropa-parque.jpg");
-      if (groupImg) {
-        ctx.save();
-        drawRoundedRect(ctx, 98, 106, 884, 380, 34);
-        ctx.clip();
-        ctx.drawImage(groupImg, 98, 106, 884, 380);
-        const shade = ctx.createLinearGradient(0, 310, 0, 486);
-        shade.addColorStop(0, "rgba(18,10,8,0)");
-        shade.addColorStop(1, "rgba(18,10,8,0.95)");
-        ctx.fillStyle = shade;
-        ctx.fillRect(98, 106, 884, 380);
-        ctx.restore();
-
-        drawRoundedRect(ctx, 98, 106, 884, 380, 34);
-        ctx.lineWidth = 4;
-        ctx.strokeStyle = "#ffd166";
-        ctx.stroke();
-      }
-
-      ctx.textAlign = "center";
-      ctx.fillStyle = "#ffd166";
-      ctx.font = "900 30px sans-serif";
-      ctx.fillText("REPÚBLICA TROPICAL DE FRUTINOVELAS • COCO'S SCOOPS", 540, 545);
-
-      ctx.fillStyle = "#ffffff";
-      ctx.font = "900 58px sans-serif";
-      ctx.fillText(isStreakCard ? "CERTIFICADO DE RACHA 🔥" : "DIPLOMA OFICIAL VIP", 540, 622);
-
-      // Línea ornamental dorada
-      ctx.strokeStyle = "#ffd166";
-      ctx.lineWidth = 3;
-      ctx.beginPath();
-      ctx.moveTo(220, 655);
-      ctx.lineTo(860, 655);
-      ctx.stroke();
-
-      ctx.fillStyle = "rgba(255,248,231,0.8)";
-      ctx.font = "italic 34px sans-serif";
-      ctx.fillText("Por la presente se acredita oficialmente a:", 540, 725);
-
-      // Nombre y Usuario
-      ctx.fillStyle = "#ffd166";
-      ctx.font = "900 66px sans-serif";
-      ctx.fillText(displayName.toUpperCase(), 540, 815);
-
-      ctx.fillStyle = "#06d6a0";
-      ctx.font = "900 42px sans-serif";
-      ctx.fillText(`${handleText}  •  MIEMBRO ${fanNum}`, 540, 882);
-
-      // Bloque central protagonista (Racha gigante o Rango Diploma)
-      drawRoundedRect(ctx, 130, 935, 820, 250, 36);
-      ctx.fillStyle = isStreakCard ? "rgba(249, 115, 22, 0.16)" : "rgba(255, 209, 102, 0.10)";
-      ctx.fill();
-      ctx.lineWidth = 4;
-      ctx.strokeStyle = isStreakCard ? "#fb923c" : "#ffd166";
-      ctx.stroke();
-
-      if (isStreakCard) {
-        ctx.fillStyle = "#fb923c";
-        ctx.font = "900 125px sans-serif";
-        ctx.fillText(`🔥 ${streakDays} ${streakDays === 1 ? "DÍA" : "DÍAS"}`, 540, 1085);
-        ctx.fillStyle = "#fff8e7";
-        ctx.font = "bold 32px sans-serif";
-        ctx.fillText("RACHA ACTIVA EN LA HELADERÍA DE COCARDO", 540, 1148);
-      } else {
-        ctx.fillStyle = "#ff4d79";
-        ctx.font = "900 120px sans-serif";
-        ctx.fillText(`FAN ${fanNum}`, 540, 1075);
-        ctx.fillStyle = "#fff8e7";
-        ctx.font = "900 32px sans-serif";
-        ctx.fillText(rankTitle.toUpperCase(), 540, 1145);
-      }
-
-      // Estadísticas verificadas + Sello Oficial Dorado
-      ctx.fillStyle = "rgba(255,248,231,0.88)";
-      ctx.font = "bold 30px sans-serif";
-      ctx.fillText(`🪙 ${fanCoins} Fruti-Coins   •   🔥 ${streakDays}d Racha   •   👥 ${followersCount} Seguidores`, 540, 1260);
-
-      // Sello circular de autenticidad
-      ctx.beginPath();
-      ctx.arc(540, 1385, 76, 0, Math.PI * 2);
-      ctx.fillStyle = "rgba(255, 209, 102, 0.18)";
-      ctx.fill();
-      ctx.lineWidth = 5;
-      ctx.strokeStyle = "#ffd166";
-      ctx.stroke();
-      ctx.fillStyle = "#ffd166";
-      ctx.font = "900 22px sans-serif";
-      ctx.fillText("SELLO", 540, 1378);
-      ctx.fillText("OFICIAL", 540, 1406);
-
-      // Pie limpio con el link de tu web
-      ctx.fillStyle = "rgba(255,248,231,0.78)";
-      ctx.font = "bold 30px sans-serif";
-      ctx.fillText("Reclama tu Diploma VIP y únete al club en:", 540, 1545);
-
-      drawRoundedRect(ctx, 110, 1575, 860, 96, 28);
-      ctx.fillStyle = "#ffd166";
-      ctx.fill();
-
-      ctx.fillStyle = "#120a08";
-      ctx.font = "900 36px sans-serif";
-      ctx.fillText("molo123465.github.io/frutinovelas/", 540, 1636);
-
-      ctx.fillStyle = "rgba(255,248,231,0.75)";
-      ctx.font = "bold 30px sans-serif";
-      ctx.fillText("TikTok Oficial: @frutasalocadasoficiall", 540, 1745);
-
-      return { canvas, fanNum };
-    }
-
-    window.downloadFanPassportPNG = async function (mode = "diploma") {
-      const { canvas, fanNum } = await createPassportCanvas(mode);
-      const link = document.createElement("a");
-      link.download = mode === "streak"
-        ? `Racha_FrutiFan_${fanNum.replace("#", "")}.png`
-        : `Diploma_Oficial_FrutiFan_${fanNum.replace("#", "")}.png`;
-      link.href = canvas.toDataURL("image/png");
-      link.click();
-      showToast(mode === "streak" ? "¡Story de Racha descargada!" : `¡Diploma Oficial ${fanNum} descargado!`, "📜");
     };
 
     // =========================================================================
@@ -2089,16 +2279,16 @@
     };
 
     window.shareFanPassportNative = async function () {
-      const { canvas, fanNum } = await createPassportCanvas("diploma");
-      const shareText = `¡Ya tengo mi Diploma Oficial VIP de Fruti-Fan ${fanNum} en Coco's Scoops! 🍦🥥 Consigue el tuyo aquí: ${OFFICIAL_WEB_URL} @frutasalocadasoficiall`;
+      const { canvas, fanNum } = await createPassportCanvas("carnet");
+      const shareText = `¡Ya tengo mi Carnet Oficial VIP de Fruti-Fan ${fanNum} en Coco's Scoops! 🍦🥥 Consigue el tuyo aquí: ${OFFICIAL_WEB_URL} @frutasalocadasoficiall`;
 
       if (navigator.share && navigator.canShare) {
         try {
           const blob = await new Promise((res) => canvas.toBlob(res, "image/png"));
-          const file = new File([blob], `Diploma_FrutiFan_${fanNum.replace("#", "")}.png`, { type: "image/png" });
+          const file = new File([blob], `Carnet_VIP_FrutiFan_${fanNum.replace("#", "")}.png`, { type: "image/png" });
           if (navigator.canShare({ files: [file] })) {
             await navigator.share({
-              title: `Diploma VIP Fruti-Fan ${fanNum}`,
+              title: `Carnet VIP Fruti-Fan ${fanNum}`,
               text: shareText,
               files: [file]
             });
@@ -2116,33 +2306,34 @@
       showToast("¡Texto y link oficial copiados para compartir!", "🚀");
     };
 
-    function wrapCanvasText(ctx, text, x, y, maxWidth, lineHeight) {
-      const words = text.split(" ");
-      let line = "";
-      for (let n = 0; n < words.length; n++) {
-        const testLine = line + words[n] + " ";
-        if (ctx.measureText(testLine).width > maxWidth && n > 0) {
-          ctx.fillText(line, x, y);
-          line = words[n] + " ";
-          y += lineHeight;
-        } else {
-          line = testLine;
-        }
-      }
-      ctx.fillText(line, x, y);
-    }
-
     window.copyChallengeText = function () {
       if (!finalQuizResult) return;
-      const msg = `Me ha salido ${finalQuizResult.affinityPct}% ${finalQuizResult.name} (${finalQuizResult.vipCode}) en Coco's Scoops 🍦🥥 Haz el test y consigue tu Pase VIP aquí: ${OFFICIAL_WEB_URL} (@frutasalocadasoficiall)`;
+      const msg = `Me ha salido ${finalQuizResult.affinityPct}% ${finalQuizResult.name} (${finalQuizResult.vipCode}) en Coco's Scoops 🍦🥥 Descubre qué personaje eres aquí: ${OFFICIAL_WEB_URL} @frutasalocadasoficiall`;
       const ta = document.createElement("textarea");
       ta.value = msg;
       document.body.appendChild(ta);
       ta.select();
       document.execCommand("copy");
       document.body.removeChild(ta);
-      showToast("¡Texto y link de tu web copiados!", "📋");
+      showToast("¡Reto y enlace copiados al portapapeles!", "📋");
     };
+
+    function wrapCanvasText(ctx, text, x, y, maxWidth, lineHeight) {
+      const words = String(text || "").split(" ");
+      let line = "";
+      let currentY = y;
+      for (let n = 0; n < words.length; n++) {
+        const testLine = line + words[n] + " ";
+        if (ctx.measureText(testLine).width > maxWidth && n > 0) {
+          ctx.fillText(line.trim(), x, currentY);
+          line = words[n] + " ";
+          currentY += lineHeight;
+        } else {
+          line = testLine;
+        }
+      }
+      ctx.fillText(line.trim(), x, currentY);
+    }
 
     window.setSortMode = function (mode) {
       currentSort = mode;
@@ -2594,13 +2785,64 @@
       showToast("¡Evento Doble Racha aplicado a toda la comunidad!", "🔥");
     };
 
-    window.adminExportCommunityJSON = function () {
+    window.adminResetAllIdeaVotes = async function () {
+      if (!guardAdmin()) return;
+      for (const item of allIdeas) {
+        await updateDoc(doc(db, "artifacts", appId, "public", "data", "heladeria_ideas", item.id), {
+          likes: 1
+        });
+      }
+      showToast("¡Nueva temporada iniciada! Votos reiniciados a 1", "🔄");
+    };
+
+    window.adminToggleMaintenanceNotice = async function () {
+      if (!guardAdmin()) return;
+      const settingsDoc = doc(db, "artifacts", appId, "public", "data", "system_meta", "global_settings");
+      await setDoc(settingsDoc, {
+        announcement: "🎬 ¡COCARDO ESTÁ GRABANDO UN NUEVO CAPÍTULO EN ESTE MOMENTO!",
+        shopStatus: "🎬 Grabando Nuevo Capítulo • Coco's Scoops"
+      }, { merge: true });
+      showToast("Aviso «Grabando Capítulo» activado en toda la web", "🎬");
+    };
+
+    window.adminGiftSpecificFanNumber = async function () {
+      if (!guardAdmin()) return;
+      const targetNum = parseInt(document.getElementById("adm-gift-fannum-input").value, 10);
+      const coinsVal = parseInt(document.getElementById("adm-gift-coins-input").value, 10) || 250;
+      if (!targetNum) {
+        showToast("Escribe el número de Fan (ej: 4)", "⚠️");
+        return;
+      }
+      const foundFan = allRegisteredFans.find((f) => Number(f.fanNumber) === targetNum);
+      if (!foundFan) {
+        showToast(`No existe ningún Fruti-Fan #${targetNum} todavía`, "⚠️");
+        return;
+      }
+      await updateDoc(doc(db, "artifacts", appId, "public", "data", "fan_profiles", foundFan.uid), {
+        coins: increment(coinsVal)
+      });
+      await addDoc(collection(db, "artifacts", appId, "public", "data", "heladeria_chat"), {
+        uid: firebaseUser.uid,
+        fanNumber: 1,
+        displayName: "COCARDO (OFICIAL)",
+        tiktokUser: "frutasalocadasoficiall",
+        photoURL: "cocardo-cara.jpg",
+        text: `🎁 ¡Cocardo ha premiado al Fruti-Fan #${targetNum} (${foundFan.displayName}) con +${coinsVal} Fruti-Coins!`,
+        isAdminMsg: true,
+        reactions: { laugh: 0, fire: 0, coco: 0 },
+        createdAt: Date.now()
+      });
+      showToast(`¡+${coinsVal} 🪙 enviados al Fan #${targetNum}!`, "🎁");
+    };
+
+    window.adminExportBackupJSON = function () {
       if (!guardAdmin()) return;
       const payload = {
         exportedAt: new Date().toISOString(),
         fans: allRegisteredFans,
         ideas: allIdeas,
-        chat: allChatMessages
+        chat: allChatMessages,
+        settings: globalConfig
       };
       const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
       const url = URL.createObjectURL(blob);
@@ -2810,369 +3052,70 @@
           <div class="flex items-center gap-1.5 pt-1 border-t border-white/10 flex-wrap">
             <button onclick="adminGiveUserCoins('${f.uid}', 100)" class="px-2.5 py-1 rounded-lg bg-amber-400/20 text-amber-300 font-bold text-[10px]">
               +100 🪙
-        <div class="grid grid-cols-3 gap-2 pt-0.5">
-            <button onclick="downloadFanPassportPNG('carnet')" class="bg-gradient-to-r from-strawberry to-pink-500 text-white font-display font-bold text-xs sm:text-sm py-3 rounded-2xl shadow-md transition-all active:scale-95">
-              🎫 Carnet VIP
             </button>
-            <button onclick="downloadFanPassportPNG('streak')" class="bg-gradient-to-r from-orange-500 to-amber-400 text-choco-950 font-display font-bold text-xs sm:text-sm py-3 rounded-2xl shadow-md transition-all active:scale-95">
-              🔥 Story Racha
+            <button onclick="adminGiveUserCoins('${f.uid}', 500)" class="px-2.5 py-1 rounded-lg bg-amber-400/30 text-amber-200 font-bold text-[10px]">
+              +500 🪙
             </button>
-            <button onclick="shareFanPassportNative()" class="bg-mint/15 hover:bg-mint/25 border border-mint/30 text-mint font-display font-bold text-xs sm:text-sm py-3 rounded-2xl transition-all active:scale-95">
-              🚀 Compartir
+            <button onclick="adminBoostUserStreak('${f.uid}')" class="px-2.5 py-1 rounded-lg bg-orange-500/20 text-orange-300 font-bold text-[10px]">
+              +1d 🔥
+            </button>
+            <button onclick="adminToggleVerifyUser('${f.uid}', ${Boolean(f.verifiedFan)})" class="px-2.5 py-1 rounded-lg ${f.verifiedFan ? "bg-sky-400 text-choco-950" : "bg-sky-500/20 text-sky-300"} font-bold text-[10px]">
+              ${f.verifiedFan ? "Verificado ✔" : "Verificar ✔"}
             </button>
           </div>
-    async function createPassportCanvas(mode = "carnet") {
-      const fanNum = fanProfile ? `#${fanProfile.fanNumber}` : "#VIP";
-      const displayName = (fanProfile && fanProfile.displayName) || "Fruti-Fan Oficial";
-      const handleText = fanProfile && fanProfile.tiktokUser ? `@${fanProfile.tiktokUser}` : "@frutifan_vip";
-      const streakDays = (fanProfile && fanProfile.streak) || 1;
-      const fanCoins = (fanProfile && fanProfile.coins) || 100;
-      const followersCount = (fanProfile && fanProfile.followersCount) || 0;
-      const rankTitle = (fanProfile && fanProfile.equippedTitle) || "SOCIO OFICIAL DE COCO'S SCOOPS";
-      const isStreakCard = mode === "streak";
-
-      const canvas = document.createElement("canvas");
-      canvas.width = 1080;
-      canvas.height = 1920;
-      const ctx = canvas.getContext("2d");
-
-      // Fondo oscuro elegante con degradado heladería
-      const grad = ctx.createLinearGradient(0, 0, 1080, 1920);
-      grad.addColorStop(0, isStreakCard ? "#7c2d12" : "#2b1914");
-      grad.addColorStop(0.5, "#180d0a");
-      grad.addColorStop(1, "#0f0705");
-      ctx.fillStyle = grad;
-      ctx.fillRect(0, 0, 1080, 1920);
-
-      // Marco doble estilo Carnet VIP Oficial
-      drawRoundedRect(ctx, 48, 56, 984, 1808, 52);
-      ctx.fillStyle = "rgba(18, 10, 8, 0.86)";
-      ctx.fill();
-      ctx.lineWidth = 8;
-      ctx.strokeStyle = isStreakCard ? "#fb923c" : "#ffd166";
-      ctx.stroke();
-
-      drawRoundedRect(ctx, 72, 80, 936, 1760, 40);
-      ctx.lineWidth = 3;
-      ctx.strokeStyle = "rgba(255, 209, 102, 0.35)";
-      ctx.stroke();
-
-      // Foto grupal oficial de toda la tropa junta (tropa-parque.jpg)
-      const groupImg = await loadCanvasImageSafe("tropa-parque.jpg");
-      if (groupImg) {
-        ctx.save();
-        drawRoundedRect(ctx, 98, 106, 884, 380, 34);
-        ctx.clip();
-        ctx.drawImage(groupImg, 98, 106, 884, 380);
-        const shade = ctx.createLinearGradient(0, 310, 0, 486);
-        shade.addColorStop(0, "rgba(18,10,8,0)");
-        shade.addColorStop(1, "rgba(18,10,8,0.95)");
-        ctx.fillStyle = shade;
-        ctx.fillRect(98, 106, 884, 380);
-        ctx.restore();
-
-        drawRoundedRect(ctx, 98, 106, 884, 380, 34);
-        ctx.lineWidth = 4;
-        ctx.strokeStyle = "#ffd166";
-        ctx.stroke();
-      }
-
-      ctx.textAlign = "center";
-      ctx.fillStyle = "#ffd166";
-      ctx.font = "900 30px sans-serif";
-      ctx.fillText("CLUB OFICIAL FRUTINOVELAS • COCO'S SCOOPS", 540, 545);
-
-      ctx.fillStyle = "#ffffff";
-      ctx.font = "900 58px sans-serif";
-      ctx.fillText(isStreakCard ? "RACHA ACTIVA EN VIVO 🔥" : "CARNET OFICIAL VIP", 540, 622);
-
-      ctx.strokeStyle = "#ffd166";
-      ctx.lineWidth = 3;
-      ctx.beginPath();
-      ctx.moveTo(220, 655);
-      ctx.lineTo(860, 655);
-      ctx.stroke();
-
-      ctx.fillStyle = "rgba(255,248,231,0.8)";
-      ctx.font = "bold 32px sans-serif";
-      ctx.fillText("TITULAR VERIFICADO DE LA HELADERÍA:", 540, 725);
-
-      // Nombre y Usuario
-      ctx.fillStyle = "#ffd166";
-      ctx.font = "900 66px sans-serif";
-      ctx.fillText(displayName.toUpperCase(), 540, 815);
-
-      ctx.fillStyle = "#06d6a0";
-      ctx.font = "900 42px sans-serif";
-      ctx.fillText(`${handleText}  •  MIEMBRO ${fanNum}`, 540, 882);
-
-      // Bloque central protagonista
-      drawRoundedRect(ctx, 130, 935, 820, 250, 36);
-      ctx.fillStyle = isStreakCard ? "rgba(249, 115, 22, 0.16)" : "rgba(255, 209, 102, 0.10)";
-      ctx.fill();
-      ctx.lineWidth = 4;
-      ctx.strokeStyle = isStreakCard ? "#fb923c" : "#ffd166";
-      ctx.stroke();
-
-      if (isStreakCard) {
-        ctx.fillStyle = "#fb923c";
-        ctx.font = "900 125px sans-serif";
-        ctx.fillText(`🔥 ${streakDays} ${streakDays === 1 ? "DÍA" : "DÍAS"}`, 540, 1085);
-        ctx.fillStyle = "#fff8e7";
-        ctx.font = "bold 32px sans-serif";
-        ctx.fillText("RACHA CONSECUTIVA EN COCO'S SCOOPS", 540, 1148);
-      } else {
-        ctx.fillStyle = "#ff4d79";
-        ctx.font = "900 120px sans-serif";
-        ctx.fillText(`FAN ${fanNum}`, 540, 1075);
-        ctx.fillStyle = "#fff8e7";
-        ctx.font = "900 32px sans-serif";
-        ctx.fillText(rankTitle.toUpperCase(), 540, 1145);
-      }
-
-      ctx.fillStyle = "rgba(255,248,231,0.88)";
-      ctx.font = "bold 30px sans-serif";
-      ctx.fillText(`🪙 ${fanCoins} Fruti-Coins   •   🔥 ${streakDays}d Racha   •   👥 ${followersCount} Seguidores`, 540, 1260);
-
-      // Sello VIP circular
-      ctx.beginPath();
-      ctx.arc(540, 1385, 76, 0, Math.PI * 2);
-      ctx.fillStyle = "rgba(255, 209, 102, 0.18)";
-      ctx.fill();
-      ctx.lineWidth = 5;
-      ctx.strokeStyle = "#ffd166";
-      ctx.stroke();
-      ctx.fillStyle = "#ffd166";
-      ctx.font = "900 22px sans-serif";
-      ctx.fillText("PASE VIP", 540, 1378);
-      ctx.fillText("OFICIAL", 540, 1406);
-
-      // Pie limpio con el link de tu web
-      ctx.fillStyle = "rgba(255,248,231,0.78)";
-      ctx.font = "bold 30px sans-serif";
-      ctx.fillText("Consigue tu Carnet VIP y únete al club en:", 540, 1545);
-
-      drawRoundedRect(ctx, 110, 1575, 860, 96, 28);
-      ctx.fillStyle = "#ffd166";
-      ctx.fill();
-
-      ctx.fillStyle = "#120a08";
-      ctx.font = "900 36px sans-serif";
-      ctx.fillText("molo123465.github.io/frutinovelas/", 540, 1636);
-
-      ctx.fillStyle = "rgba(255,248,231,0.75)";
-      ctx.font = "bold 30px sans-serif";
-      ctx.fillText("TikTok Oficial: @frutasalocadasoficiall", 540, 1745);
-
-      return { canvas, fanNum };
+        </div>
+      `).join("");
     }
 
-    window.downloadFanPassportPNG = async function (mode = "carnet") {
-      const { canvas, fanNum } = await createPassportCanvas(mode);
-      const link = document.createElement("a");
-      link.download = mode === "streak"
-        ? `Racha_FrutiFan_${fanNum.replace("#", "")}.png`
-        : `Carnet_VIP_FrutiFan_${fanNum.replace("#", "")}.png`;
-      link.href = canvas.toDataURL("image/png");
-      link.click();
-      showToast(mode === "streak" ? "¡Story de Racha descargada!" : `¡Carnet VIP ${fanNum} descargado!`, "🎫");
-    };
-    window.shareFanPassportNative = async function () {
-      const { canvas, fanNum } = await createPassportCanvas("carnet");
-      const shareText = `¡Ya tengo mi Carnet Oficial VIP de Fruti-Fan ${fanNum} en Coco's Scoops! 🍦🥥 Consigue el tuyo aquí: ${OFFICIAL_WEB_URL} @frutasalocadasoficiall`;
-
-      if (navigator.share && navigator.canShare) {
-        try {
-          const blob = await new Promise((res) => canvas.toBlob(res, "image/png"));
-          const file = new File([blob], `Carnet_VIP_FrutiFan_${fanNum.replace("#", "")}.png`, { type: "image/png" });
-          if (navigator.canShare({ files: [file] })) {
-            await navigator.share({
-              title: `Carnet VIP Fruti-Fan ${fanNum}`,
-              text: shareText,
-              files: [file]
-            });
-            return;
-          }
-        } catch (_) {}
-      }
-
-      const ta = document.createElement("textarea");
-      ta.value = shareText;
-      document.body.appendChild(ta);
-      ta.select();
-      document.execCommand("copy");
-      document.body.removeChild(ta);
-      showToast("¡Texto y link oficial copiados para compartir!", "🚀");
-    };
-
     // =========================================================================
-    // COMPARTIR DIRECTO EN WHATSAPP, TIKTOK, INSTAGRAM STORIES Y FACEBOOK
+    // MURO DE HELADERÍA EN TIEMPO REAL
     // =========================================================================
-    window.shareToSocialPlatform = async function (platform, source = "passport") {
-      const fanNum = fanProfile ? `#${fanProfile.fanNumber}` : "#VIP";
-      const shareText = source === "quiz" && finalQuizResult
-        ? `Me ha salido ${finalQuizResult.affinityPct}% ${finalQuizResult.name} (${finalQuizResult.vipCode}) en Coco's Scoops 🍦🥥 Descubre qué personaje eres aquí: ${OFFICIAL_WEB_URL} @frutasalocadasoficiall`
-        : `¡Ya soy Fruti-Fan ${fanNum} en Coco's Scoops! 🍦🥥 Reclama tu Carnet VIP aquí: ${OFFICIAL_WEB_URL} @frutasalocadasoficiall`;
+    function cleanTikTokUser(raw) {
+      return (raw || "").trim().replace(/^@+/, "").replace(/[^a-zA-Z0-9._]/g, "");
+    }
 
-      const encodedText = encodeURIComponent(shareText);
-      const encodedUrl = encodeURIComponent(OFFICIAL_WEB_URL);
+    function getTikTokProfilePic(username) {
+      const clean = cleanTikTokUser(username);
+      if (!clean) return "";
+      return `https://unavatar.io/tiktok/${encodeURIComponent(clean)}?fallback=false`;
+    }
 
-      if (platform === "whatsapp") {
-        window.open(`https://api.whatsapp.com/send?text=${encodedText}`, "_blank", "noopener,noreferrer");
+    function buildIceCreamFallbackAvatar(seedText) {
+      const label = (seedText || "FN").slice(0, 2).toUpperCase();
+      return `https://ui-avatars.com/api/?name=${encodeURIComponent(label)}&background=ff4d79&color=fff8e7&bold=true&size=128`;
+    }
+
+    let ttDebounceTimer = null;
+    window.handleTikTokUsernameDebounce = function (rawVal) {
+      clearTimeout(ttDebounceTimer);
+      const clean = cleanTikTokUser(rawVal);
+      const previewImg = document.getElementById("tt-preview-img");
+      const statusEl = document.getElementById("tt-avatar-status");
+
+      if (!clean) {
+        previewImg.src = buildIceCreamFallbackAvatar("FN");
+        statusEl.textContent = "Escribe tu usuario para ver tu foto de perfil...";
+        statusEl.className = "text-[10px] text-cream/55 truncate mt-0.5";
         return;
       }
 
-      if (platform === "facebook") {
-        window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}&quote=${encodedText}`, "_blank", "noopener,noreferrer");
-        return;
-      }
+      statusEl.textContent = `Buscando foto de @${clean}...`;
+      statusEl.className = "text-[10px] text-vanilla truncate mt-0.5";
 
-      // Para TikTok e Instagram Stories: descarga la tarjeta HD + abre share nativo o app
-      if (source === "quiz" && finalQuizResult) {
-        await downloadStoryPNG();
-      } else {
-        await downloadFanPassportPNG("carnet");
-      }
-
-      const ta = document.createElement("textarea");
-      ta.value = shareText;
-      document.body.appendChild(ta);
-      ta.select();
-      document.execCommand("copy");
-      document.body.removeChild(ta);
-
-      if (platform === "tiktok") {
-        showToast("¡Imagen HD descargada y texto copiado! Súbela a TikTok etiquetando @frutasalocadasoficiall", "🎵");
-        setTimeout(() => {
-          window.open("https://www.tiktok.com/upload", "_blank", "noopener,noreferrer");
-        }, 900);
-      } else if (platform === "instagram") {
-        showToast("¡Imagen HD lista en tu galería! Súbela a tu Story de Instagram", "📸");
-        setTimeout(() => {
-          window.open("https://www.instagram.com/", "_blank", "noopener,noreferrer");
-        }, 900);
-      }
-    };
-
-    // =========================================================================
-    // INSTALACIÓN PWA (iPHONE, ANDROID Y PC)
-    // =========================================================================
-    let deferredInstallPrompt = null;
-
-    function setupDynamicPWAManifest() {
-      try {
-        const iconUrl = new URL("cocardo-cara.jpg", window.location.href).href;
-        const manifestObj = {
-          name: "Coco's Scoops • FrutiNovelas Oficial",
-          short_name: "Coco's Scoops",
-          description: "App oficial de FrutiNovelas (@frutasalocadasoficiall). Chat, rachas diarias, Fruti-Test y Carnet VIP.",
-          start_url: window.location.href,
-          display: "standalone",
-          background_color: "#120a08",
-          theme_color: "#120a08",
-          icons: [
-            { src: iconUrl, sizes: "192x192", type: "image/jpeg" },
-            { src: iconUrl, sizes: "512x512", type: "image/jpeg" }
-          ]
+      ttDebounceTimer = setTimeout(() => {
+        const picUrl = getTikTokProfilePic(clean);
+        previewImg.onload = () => {
+          statusEl.textContent = `✓ Foto de @${clean} cargada`;
+          statusEl.className = "text-[10px] text-mint font-bold truncate mt-0.5";
         };
-        const blob = new Blob([JSON.stringify(manifestObj)], { type: "application/manifest+json" });
-        const manifestEl = document.getElementById("dynamic-pwa-manifest");
-        if (manifestEl) manifestEl.href = URL.createObjectURL(blob);
-      } catch (_) {}
-    }
-    setupDynamicPWAManifest();
-
-    window.addEventListener("beforeinstallprompt", (e) => {
-      e.preventDefault();
-      deferredInstallPrompt = e;
-      const nativeBox = document.getElementById("install-native-action-box");
-      if (nativeBox) nativeBox.classList.remove("hidden");
-    });
-
-    window.triggerInstallApp = function () {
-      const modal = document.getElementById("install-app-modal");
-      const nativeBox = document.getElementById("install-native-action-box");
-      if (deferredInstallPrompt && nativeBox) {
-        nativeBox.classList.remove("hidden");
-      }
-      if (modal) modal.classList.remove("hidden");
-    };
-
-    window.closeInstallModal = function () {
-      const modal = document.getElementById("install-app-modal");
-      if (modal) modal.classList.add("hidden");
-    };
-
-    window.executeNativeInstallPrompt = async function () {
-      if (!deferredInstallPrompt) return;
-      deferredInstallPrompt.prompt();
-      const choice = await deferredInstallPrompt.userChoice;
-      if (choice && choice.outcome === "accepted") {
-        showToast("¡App de Coco's Scoops instalada en tu dispositivo!", "🎉");
-        closeInstallModal();
-      }
-      deferredInstallPrompt = null;
-    };
-    window.adminResetAllStreaksWarning = async function () {
-      if (!guardAdmin()) return;
-      for (const f of allRegisteredFans) {
-        await updateDoc(doc(db, "artifacts", appId, "public", "data", "fan_profiles", f.uid), {
-          streak: increment(1)
-        });
-      }
-      showToast("¡Evento Doble Racha aplicado a toda la comunidad!", "🔥");
-    };
-
-    window.adminResetAllIdeaVotes = async function () {
-      if (!guardAdmin()) return;
-      for (const item of allIdeas) {
-        await updateDoc(doc(db, "artifacts", appId, "public", "data", "heladeria_ideas", item.id), {
-          likes: 1,
-          featured: false
-        });
-      }
-      showToast("¡Votos del muro reiniciados para nueva temporada!", "🔄");
-    };
-
-    window.adminToggleMaintenanceNotice = async function () {
-      if (!guardAdmin()) return;
-      const settingsDoc = doc(db, "artifacts", appId, "public", "data", "system_meta", "global_settings");
-      await setDoc(settingsDoc, {
-        shopStatus: "🎬 Grabando Nuevo Capítulo • Coco's Scoops",
-        announcement: "🎬 ¡Cocardo está grabando un nuevo capítulo ahora mismo! Deja tu idea en el muro."
-      }, { merge: true });
-      showToast("Modo Grabando Capítulo activado en toda la web", "🎬");
-    };
-
-    window.adminGiftSpecificFanNumber = async function () {
-      if (!guardAdmin()) return;
-      const fanNum = parseInt(document.getElementById("adm-gift-fannum-input").value, 10);
-      const amount = parseInt(document.getElementById("adm-gift-coins-input").value, 10) || 100;
-      if (!fanNum) {
-        showToast("Escribe el número de #FrutiFan", "⚠️");
-        return;
-      }
-      const target = allRegisteredFans.find((f) => Number(f.fanNumber) === fanNum);
-      if (!target) {
-        showToast(`No existe ningún Fruti-Fan #${fanNum} todavía`, "❌");
-        return;
-      }
-      await updateDoc(doc(db, "artifacts", appId, "public", "data", "fan_profiles", target.uid), {
-        coins: increment(amount)
-      });
-      const chatCol = collection(db, "artifacts", appId, "public", "data", "heladeria_chat");
-      await addDoc(chatCol, {
-        uid: firebaseUser.uid,
-        fanNumber: 1,
-        displayName: "COCARDO (OFICIAL)",
-        tiktokUser: "frutasalocadasoficiall",
-        photoURL: "cocardo-cara.jpg",
-        text: `🎁 ¡Cocardo ha premiado a ${target.displayName} (Fan #${fanNum}) con +${amount} Fruti-Coins!`,
-        isAdminMsg: true,
-        reactions: { laugh: 0, fire: 0, coco: 0 },
-        createdAt: Date.now()
-      });
-      showToast(`¡+${amount} coins enviados al Fan #${fanNum}!`, "🎁");
+        previewImg.onerror = () => {
+          previewImg.onerror = null;
+          previewImg.src = buildIceCreamFallbackAvatar(clean);
+          statusEl.textContent = `Avatar asignado para @${clean}`;
+          statusEl.className = "text-[10px] text-cream/70 truncate mt-0.5";
+        };
+        previewImg.src = picUrl;
+      }, 380);
     };
 
     document.getElementById("tt-preview-img").src = buildIceCreamFallbackAvatar("FN");
