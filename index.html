@@ -710,14 +710,17 @@
 
           <p id="vip-description" class="text-xs text-cream/90 leading-relaxed mt-3 text-center"></p>
 
-          <div class="mt-4 bg-white/10 rounded-2xl p-2.5 text-center border border-white/15">
-            <p class="text-[11px] font-extrabold text-vanilla">📣 ¡Sube esta foto mencionando a @frutasalocadasoficiall y lo comparto!</p>
+          <div class="mt-4 pt-3 border-t border-white/15 text-center">
+            <p class="text-xs font-black text-vanilla tracking-wide">molo123465.github.io/frutinovelas/</p>
+            <p class="text-[10px] font-bold text-cream/70 mt-0.5">Coco's Scoops Oficial • @frutasalocadasoficiall</p>
           </div>
+        </div>
 
-          <div class="mt-3 pt-2.5 border-t border-white/15 text-center">
-            <p class="text-[11px] font-black text-white">molo123465.github.io/frutinovelas/</p>
-            <p class="text-[10px] font-bold text-vanilla">@frutasalocadasoficiall</p>
-          </div>
+        <!-- Aviso separado fuera de la tarjeta descargable -->
+        <div class="max-w-sm mx-auto bg-gradient-to-r from-strawberry/20 via-pink-500/15 to-vanilla/20 border border-strawberry/40 rounded-2xl p-3 text-center">
+          <p class="text-xs font-extrabold text-cream">
+            📣 ¿Subes esta tarjeta a tu Story o vídeo? ¡Menciona a <span class="text-vanilla">@frutasalocadasoficiall</span> y <span class="text-strawberry underline">lo comparto en mi cuenta</span>!
+          </p>
         </div>
 
         <div class="max-w-sm mx-auto space-y-2.5">
@@ -1077,6 +1080,14 @@
             Cambiar Estado
           </button>
         </div>
+
+        <div class="flex gap-2 pt-1">
+          <input id="adm-broadcast-chat-input" type="text" maxlength="180" placeholder="Enviar mensaje oficial destacado al Chat Común..."
+                 class="flex-1 bg-choco-950/90 text-xs text-cream px-3.5 py-2.5 rounded-xl border border-strawberry/40" />
+          <button onclick="adminSendOfficialChatBroadcast()" class="bg-strawberry text-white font-extrabold text-xs px-4 py-2.5 rounded-xl shrink-0">
+            Publicar en Chat
+          </button>
+        </div>
       </div>
 
       <div class="ice-glass rounded-[28px] p-5 border-cream/15 space-y-3">
@@ -1087,8 +1098,8 @@
       </div>
 
       <div class="ice-glass rounded-[28px] p-5 border-cream/15 space-y-3">
-        <h3 class="font-display font-bold text-base text-cream">5. 👥 Registro de Fruti-Fans (#1 en adelante) y Sanciones</h3>
-        <div id="admin-users-manager" class="space-y-2 max-h-80 overflow-y-auto pr-1">
+        <h3 class="font-display font-bold text-base text-cream">5. 👥 Gestión Avanzada de Fruti-Fans (Coins / Racha / Sanciones)</h3>
+        <div id="admin-users-manager" class="space-y-2.5 max-h-96 overflow-y-auto pr-1">
           <p class="text-xs text-cream/55">Aún no hay fans registrados con Google.</p>
         </div>
       </div>
@@ -1806,8 +1817,18 @@
       ctx.closePath();
     }
 
-    // Genera PNG vertical HD (1080x1920) del resultado del Fruti-Test diseñado al milímetro para Stories
-    window.downloadStoryPNG = function () {
+    function loadCanvasImageSafe(src) {
+      return new Promise((resolve) => {
+        const img = new Image();
+        img.crossOrigin = "anonymous";
+        img.onload = () => resolve(img);
+        img.onerror = () => resolve(null);
+        img.src = src;
+      });
+    }
+
+    // Genera PNG vertical HD (1080x1920) limpio, con foto oficial de la heladería integrada y el link de la web
+    window.downloadStoryPNG = async function () {
       if (!finalQuizResult) return;
       const canvas = document.createElement("canvas");
       canvas.width = 1080;
@@ -1816,122 +1837,118 @@
 
       const grad = ctx.createLinearGradient(0, 0, 1080, 1920);
       grad.addColorStop(0, finalQuizResult.hex1);
-      grad.addColorStop(0.55, "#1c100d");
+      grad.addColorStop(0.5, "#1c100d");
       grad.addColorStop(1, "#120a08");
       ctx.fillStyle = grad;
       ctx.fillRect(0, 0, 1080, 1920);
 
-      // Destellos radiales de fondo
-      const glow = ctx.createRadialGradient(540, 620, 40, 540, 620, 480);
-      glow.addColorStop(0, "rgba(255, 209, 102, 0.28)");
-      glow.addColorStop(1, "rgba(255, 209, 102, 0)");
-      ctx.fillStyle = glow;
-      ctx.fillRect(0, 0, 1080, 1920);
-
-      // Tarjeta Ticket VIP Central
+      // Marco principal elegante
       ctx.save();
-      drawRoundedRect(ctx, 70, 90, 940, 1740, 56);
-      ctx.fillStyle = "rgba(18, 10, 8, 0.72)";
+      drawRoundedRect(ctx, 64, 76, 952, 1768, 56);
+      ctx.fillStyle = "rgba(18, 10, 8, 0.78)";
       ctx.fill();
       ctx.lineWidth = 8;
       ctx.strokeStyle = finalQuizResult.accent;
       ctx.stroke();
       ctx.restore();
 
-      // Cabecera superior
+      // Banner superior con foto oficial de Coco's Scoops si está disponible
+      const bannerImg = await loadCanvasImageSafe("heladeria-saludo.jpg");
+      if (bannerImg) {
+        ctx.save();
+        drawRoundedRect(ctx, 96, 110, 888, 330, 38);
+        ctx.clip();
+        ctx.drawImage(bannerImg, 96, 110, 888, 330);
+        const shade = ctx.createLinearGradient(0, 260, 0, 440);
+        shade.addColorStop(0, "rgba(18,10,8,0)");
+        shade.addColorStop(1, "rgba(18,10,8,0.92)");
+        ctx.fillStyle = shade;
+        ctx.fillRect(96, 110, 888, 330);
+        ctx.restore();
+      }
+
       ctx.fillStyle = finalQuizResult.accent;
-      ctx.font = "900 34px sans-serif";
+      ctx.font = "900 32px sans-serif";
       ctx.textAlign = "center";
-      ctx.fillText("COCO'S SCOOPS • TEST OFICIAL DE PERSONALIDAD", 540, 185);
+      ctx.fillText("COCO'S SCOOPS • TEST OFICIAL FRUTINOVELAS", 540, bannerImg ? 415 : 185);
 
       ctx.fillStyle = "rgba(255,248,231,0.75)";
-      ctx.font = "bold 36px sans-serif";
-      ctx.fillText(`CREDENTIAL ID: ${finalQuizResult.vipCode}`, 540, 245);
+      ctx.font = "bold 34px sans-serif";
+      ctx.fillText(`CREDENTIAL ID: ${finalQuizResult.vipCode}`, 540, bannerImg ? 485 : 245);
 
-      // Círculo avatar personaje
+      // Avatar personaje
+      const circleY = bannerImg ? 670 : 475;
       ctx.beginPath();
-      ctx.arc(540, 460, 155, 0, Math.PI * 2);
+      ctx.arc(540, circleY, 138, 0, Math.PI * 2);
       ctx.fillStyle = "rgba(255,255,255,0.08)";
       ctx.fill();
       ctx.lineWidth = 6;
       ctx.strokeStyle = finalQuizResult.accent;
       ctx.stroke();
 
-      ctx.font = "190px sans-serif";
-      ctx.fillText(finalQuizResult.emoji, 540, 525);
+      ctx.font = "165px sans-serif";
+      ctx.fillText(finalQuizResult.emoji, 540, circleY + 55);
 
       // Nombre personaje
+      const titleY = bannerImg ? 905 : 735;
       ctx.fillStyle = "#ffffff";
-      ctx.font = "900 104px sans-serif";
-      ctx.fillText(finalQuizResult.name, 540, 725);
+      ctx.font = "900 98px sans-serif";
+      ctx.fillText(finalQuizResult.name, 540, titleY);
 
       ctx.fillStyle = finalQuizResult.accent;
-      ctx.font = "bold 40px sans-serif";
-      ctx.fillText(`«${finalQuizResult.subtitle}»`, 540, 795);
+      ctx.font = "bold 38px sans-serif";
+      ctx.fillText(`«${finalQuizResult.subtitle}»`, 540, titleY + 68);
 
-      // Barra de afinidad
-      drawRoundedRect(ctx, 140, 860, 800, 140, 32);
+      // Caja de Match y Mezcla
+      const boxY = bannerImg ? 1030 : 870;
+      drawRoundedRect(ctx, 130, boxY, 820, 145, 32);
       ctx.fillStyle = "rgba(255,255,255,0.07)";
       ctx.fill();
 
       ctx.fillStyle = "#fff8e7";
-      ctx.font = "900 48px sans-serif";
-      ctx.fillText(`${finalQuizResult.affinityPct}% MATCH OFICIAL`, 540, 925);
+      ctx.font = "900 46px sans-serif";
+      ctx.fillText(`${finalQuizResult.affinityPct}% MATCH OFICIAL`, 540, boxY + 65);
 
-      ctx.fillStyle = "rgba(255,248,231,0.75)";
+      ctx.fillStyle = "rgba(255,248,231,0.78)";
       ctx.font = "bold 32px sans-serif";
-      ctx.fillText(`Con un toque de ${finalQuizResult.secondaryPct}% ${finalQuizResult.secondaryName}`, 540, 975);
+      ctx.fillText(`Con un toque de ${finalQuizResult.secondaryPct}% ${finalQuizResult.secondaryName}`, 540, boxY + 115);
 
-      // Descripción ajustada
-      ctx.fillStyle = "rgba(255,248,231,0.9)";
+      // Descripción limpia
+      ctx.fillStyle = "rgba(255,248,231,0.92)";
       ctx.font = "500 34px sans-serif";
-      wrapCanvasText(ctx, finalQuizResult.desc, 540, 1085, 800, 48);
+      wrapCanvasText(ctx, finalQuizResult.desc, 540, boxY + 235, 810, 48);
 
-      // Caja CTA Viral Repost
-      drawRoundedRect(ctx, 120, 1320, 840, 175, 34);
-      ctx.fillStyle = "rgba(255, 77, 121, 0.22)";
-      ctx.fill();
-      ctx.lineWidth = 4;
-      ctx.strokeStyle = "#ff4d79";
-      ctx.stroke();
-
-      ctx.fillStyle = "#ffd166";
-      ctx.font = "900 34px sans-serif";
-      ctx.fillText("📣 ¡SÚBELO A STORY O VÍDEO MENCIONANDO A", 540, 1385);
-      ctx.fillStyle = "#ffffff";
-      ctx.font = "900 38px sans-serif";
-      ctx.fillText("@frutasalocadasoficiall Y LO COMPARTO!", 540, 1445);
-
-      // Pie con enlace oficial grande
+      // Pie oficial elegante con el enlace de la web
       ctx.fillStyle = finalQuizResult.accent;
-      ctx.font = "bold 34px sans-serif";
-      ctx.fillText("Haz el test gratis en la web oficial:", 540, 1595);
+      ctx.font = "bold 32px sans-serif";
+      ctx.fillText("Descubre qué personaje eres tú en:", 540, 1565);
 
-      drawRoundedRect(ctx, 110, 1625, 860, 95, 28);
+      drawRoundedRect(ctx, 110, 1595, 860, 96, 28);
       ctx.fillStyle = "#ffd166";
       ctx.fill();
 
       ctx.fillStyle = "#120a08";
       ctx.font = "900 36px sans-serif";
-      ctx.fillText("molo123465.github.io/frutinovelas/", 540, 1685);
+      ctx.fillText("molo123465.github.io/frutinovelas/", 540, 1656);
 
-      ctx.fillStyle = "rgba(255,248,231,0.7)";
+      ctx.fillStyle = "rgba(255,248,231,0.75)";
       ctx.font = "bold 30px sans-serif";
-      ctx.fillText("TikTok: @frutasalocadasoficiall", 540, 1780);
+      ctx.fillText("TikTok: @frutasalocadasoficiall", 540, 1765);
 
       const link = document.createElement("a");
-      link.download = `Story_FrutiTest_${finalQuizResult.name}.png`;
+      link.download = `FrutiTest_${finalQuizResult.name}.png`;
       link.href = canvas.toDataURL("image/png");
       link.click();
-      showToast("¡Story HD lista! Súbela mencionando @frutasalocadasoficiall", "📲");
+      showToast("¡Tarjeta HD descargada con tu enlace oficial!", "📲");
     };
 
-    function createPassportCanvas() {
+    async function createPassportCanvas() {
       const fanNum = fanProfile ? `#${fanProfile.fanNumber}` : "#VIP";
       const fanName = fanProfile
         ? (fanProfile.tiktokUser ? `@${fanProfile.tiktokUser}` : fanProfile.displayName)
         : "Fruti-Fan Oficial";
       const streakDays = (fanProfile && fanProfile.streak) || 1;
+      const fanCoins = (fanProfile && fanProfile.coins) || 100;
 
       const canvas = document.createElement("canvas");
       canvas.width = 1080;
@@ -1940,113 +1957,121 @@
 
       const grad = ctx.createLinearGradient(0, 0, 1080, 1920);
       grad.addColorStop(0, "#3d241d");
-      grad.addColorStop(0.45, "#1c100d");
+      grad.addColorStop(0.48, "#1c100d");
       grad.addColorStop(1, "#120a08");
       ctx.fillStyle = grad;
       ctx.fillRect(0, 0, 1080, 1920);
 
       // Marco Ticket Dorado VIP
-      drawRoundedRect(ctx, 65, 80, 950, 1760, 60);
-      ctx.fillStyle = "rgba(18, 10, 8, 0.78)";
+      drawRoundedRect(ctx, 64, 76, 952, 1768, 60);
+      ctx.fillStyle = "rgba(18, 10, 8, 0.80)";
       ctx.fill();
       ctx.lineWidth = 10;
       ctx.strokeStyle = "#ffd166";
       ctx.stroke();
 
-      // Línea punteada estilo entrada VIP
+      ctx.fillStyle = "#ffd166";
+      ctx.font = "900 36px sans-serif";
+      ctx.textAlign = "center";
+      ctx.fillText("🎫 PASE VIP OFICIAL • COCO'S SCOOPS", 540, 170);
+
+      ctx.fillStyle = "#06d6a0";
+      ctx.font = "bold 32px sans-serif";
+      ctx.fillText(`MIEMBRO VERIFICADO • RACHA 🔥 ${streakDays}D • 🪙 ${fanCoins}`, 540, 232);
+
+      // Foto oficial de Cocardo con delantal Coco's Scoops centrada en marco dorado
+      const cocardoImg = await loadCanvasImageSafe("cocardo-cara.jpg");
+      if (cocardoImg) {
+        ctx.save();
+        drawRoundedRect(ctx, 355, 285, 370, 410, 44);
+        ctx.clip();
+        ctx.fillStyle = "#ffffff";
+        ctx.fillRect(355, 285, 370, 410);
+        ctx.drawImage(cocardoImg, 355, 285, 370, 410);
+        ctx.restore();
+
+        drawRoundedRect(ctx, 355, 285, 370, 410, 44);
+        ctx.lineWidth = 8;
+        ctx.strokeStyle = "#ffd166";
+        ctx.stroke();
+      } else {
+        ctx.beginPath();
+        ctx.arc(540, 490, 150, 0, Math.PI * 2);
+        ctx.fillStyle = "rgba(255, 209, 102, 0.14)";
+        ctx.fill();
+        ctx.lineWidth = 6;
+        ctx.strokeStyle = "#ffd166";
+        ctx.stroke();
+        ctx.font = "180px sans-serif";
+        ctx.fillText("🥥", 540, 550);
+      }
+
+      // Línea troquelada estilo entrada VIP
       ctx.save();
       ctx.setLineDash([18, 14]);
-      ctx.strokeStyle = "rgba(255, 209, 102, 0.45)";
+      ctx.strokeStyle = "rgba(255, 209, 102, 0.4)";
       ctx.lineWidth = 4;
       ctx.beginPath();
-      ctx.moveTo(100, 320);
-      ctx.lineTo(980, 320);
+      ctx.moveTo(100, 755);
+      ctx.lineTo(980, 755);
       ctx.stroke();
       ctx.restore();
 
-      ctx.fillStyle = "#ffd166";
-      ctx.font = "900 38px sans-serif";
-      ctx.textAlign = "center";
-      ctx.fillText("🎫 PASE VIP OFICIAL • COCO'S SCOOPS", 540, 185);
-
-      ctx.fillStyle = "#06d6a0";
-      ctx.font = "bold 34px sans-serif";
-      ctx.fillText(`MIEMBRO VERIFICADO • RACHA 🔥 ${streakDays}D`, 540, 255);
-
-      // Emblema central
-      ctx.beginPath();
-      ctx.arc(540, 510, 145, 0, Math.PI * 2);
-      ctx.fillStyle = "rgba(255, 209, 102, 0.14)";
-      ctx.fill();
-      ctx.lineWidth = 6;
-      ctx.strokeStyle = "#ffd166";
-      ctx.stroke();
-
-      ctx.font = "175px sans-serif";
-      ctx.fillText("🥥", 540, 570);
-
       ctx.fillStyle = "#fff8e7";
-      ctx.font = "900 52px sans-serif";
-      ctx.fillText("SOY EL FRUTI-FAN", 540, 745);
+      ctx.font = "900 48px sans-serif";
+      ctx.fillText("FRUTI-FAN OFICIAL", 540, 855);
 
       ctx.fillStyle = "#ff4d79";
-      ctx.font = "900 200px sans-serif";
-      ctx.fillText(fanNum, 540, 950);
+      ctx.font = "900 205px sans-serif";
+      ctx.fillText(fanNum, 540, 1065);
+
+      // Pastilla con usuario
+      drawRoundedRect(ctx, 180, 1130, 720, 96, 30);
+      ctx.fillStyle = "rgba(6, 214, 160, 0.16)";
+      ctx.fill();
+      ctx.lineWidth = 3;
+      ctx.strokeStyle = "#06d6a0";
+      ctx.stroke();
 
       ctx.fillStyle = "#06d6a0";
-      ctx.font = "900 54px sans-serif";
-      ctx.fillText(fanName, 540, 1070);
+      ctx.font = "900 46px sans-serif";
+      ctx.fillText(fanName, 540, 1193);
 
       ctx.fillStyle = "rgba(255,248,231,0.8)";
       ctx.font = "600 34px sans-serif";
-      ctx.fillText("La Heladería Oficial de Cocardo", 540, 1145);
+      ctx.fillText("Acreditación Oficial • La Heladería de Cocardo", 540, 1305);
 
-      // Caja de Repost Garantizado
-      drawRoundedRect(ctx, 115, 1230, 850, 195, 36);
-      ctx.fillStyle = "rgba(255, 77, 121, 0.22)";
-      ctx.fill();
-      ctx.lineWidth = 4;
-      ctx.strokeStyle = "#ff4d79";
-      ctx.stroke();
-
+      // Pie limpio con enlace oficial destacado
       ctx.fillStyle = "#ffd166";
-      ctx.font = "900 34px sans-serif";
-      ctx.fillText("📣 ¡SÚBELO A TU STORY O VÍDEO MENCIONANDO A", 540, 1300);
-      ctx.fillStyle = "#ffffff";
-      ctx.font = "900 38px sans-serif";
-      ctx.fillText("@frutasalocadasoficiall Y LO COMPARTO!", 540, 1365);
+      ctx.font = "bold 34px sans-serif";
+      ctx.fillText("Consigue tu Pase VIP gratis aquí:", 540, 1525);
 
-      // Pie con link oficial destacado
-      ctx.fillStyle = "#ffd166";
-      ctx.font = "bold 36px sans-serif";
-      ctx.fillText("Consigue tu número VIP gratis aquí:", 540, 1545);
-
-      drawRoundedRect(ctx, 110, 1580, 860, 98, 28);
+      drawRoundedRect(ctx, 110, 1560, 860, 98, 28);
       ctx.fillStyle = "#ffd166";
       ctx.fill();
 
       ctx.fillStyle = "#120a08";
       ctx.font = "900 36px sans-serif";
-      ctx.fillText("molo123465.github.io/frutinovelas/", 540, 1642);
+      ctx.fillText("molo123465.github.io/frutinovelas/", 540, 1622);
 
       ctx.fillStyle = "rgba(255,248,231,0.75)";
       ctx.font = "bold 32px sans-serif";
-      ctx.fillText("@frutasalocadasoficiall • FrutiNovelas", 540, 1755);
+      ctx.fillText("@frutasalocadasoficiall • FrutiNovelas", 540, 1745);
 
       return { canvas, fanNum };
     }
 
-    window.downloadFanPassportPNG = function () {
-      const { canvas, fanNum } = createPassportCanvas();
+    window.downloadFanPassportPNG = async function () {
+      const { canvas, fanNum } = await createPassportCanvas();
       const link = document.createElement("a");
       link.download = `Pase_VIP_FrutiFan_${fanNum.replace("#", "")}.png`;
       link.href = canvas.toDataURL("image/png");
       link.click();
-      showToast(`¡Pase VIP ${fanNum} descargado! Súbelo mencionándome 📲`, "🎉");
+      showToast(`¡Pase VIP ${fanNum} descargado con foto de Cocardo!`, "🎉");
     };
 
     window.shareFanPassportNative = async function () {
-      const { canvas, fanNum } = createPassportCanvas();
+      const { canvas, fanNum } = await createPassportCanvas();
       const shareText = `¡Ya tengo mi Pase VIP oficial de Fruti-Fan ${fanNum} en Coco's Scoops! 🍦🥥 Consigue el tuyo aquí: ${OFFICIAL_WEB_URL} @frutasalocadasoficiall`;
 
       if (navigator.share && navigator.canShare) {
@@ -2600,6 +2625,44 @@
       showToast(!currentBan ? "Usuario silenciado en el chat" : "Sanción levantada", "🛡️");
     };
 
+    window.adminGiveUserCoins = async function (uid, amount) {
+      if (!guardAdmin()) return;
+      await updateDoc(doc(db, "artifacts", appId, "public", "data", "fan_profiles", uid), {
+        coins: increment(amount)
+      });
+      showToast(`+${amount} Fruti-Coins enviados al fan`, "🪙");
+    };
+
+    window.adminBoostUserStreak = async function (uid) {
+      if (!guardAdmin()) return;
+      await updateDoc(doc(db, "artifacts", appId, "public", "data", "fan_profiles", uid), {
+        streak: increment(1)
+      });
+      showToast("+1 día de racha añadido al fan", "🔥");
+    };
+
+    window.adminSendOfficialChatBroadcast = async function () {
+      if (!guardAdmin()) return;
+      const input = document.getElementById("adm-broadcast-chat-input");
+      const text = input.value.trim();
+      if (!text) return;
+      input.value = "";
+      const chatCol = collection(db, "artifacts", appId, "public", "data", "heladeria_chat");
+      await addDoc(chatCol, {
+        uid: firebaseUser.uid,
+        displayName: "Cocardo Oficial",
+        tiktokUser: "frutasalocadasoficiall",
+        photoURL: "",
+        fanNumber: 1,
+        equippedTitle: "👑 Fundador",
+        isAdmin: true,
+        reactions: { lol: 0, fire: 0, coco: 0 },
+        text: text,
+        createdAt: Date.now()
+      });
+      showToast("Aviso oficial enviado al Chat Común", "📣");
+    };
+
     window.adminExportCommunityJSON = function () {
       if (!guardAdmin()) return;
       const payload = {
@@ -2653,19 +2716,33 @@
         return;
       }
       container.innerHTML = allRegisteredFans.map((f) => `
-        <div class="flex items-center justify-between gap-2 bg-choco-950/90 p-2.5 rounded-xl border border-cream/10 text-xs">
-          <div class="min-w-0">
-            <span class="font-black text-mint">#${f.fanNumber}</span>
-            <strong class="text-cream ml-1">${escapeHTML(f.displayName)}</strong>
-            <span class="text-cream/55 ml-1">${f.tiktokUser ? "(@" + escapeHTML(f.tiktokUser) + ")" : ""}</span>
+        <div class="bg-choco-950/90 p-3 rounded-2xl border border-cream/10 text-xs space-y-2">
+          <div class="flex items-center justify-between gap-2">
+            <div class="min-w-0">
+              <span class="font-black text-mint">#${f.fanNumber}</span>
+              <strong class="text-cream ml-1">${escapeHTML(f.displayName)}</strong>
+              <span class="text-cream/55 ml-1">${f.tiktokUser ? "(@" + escapeHTML(f.tiktokUser) + ")" : ""}</span>
+              <span class="block text-[10px] text-amber-300/85 mt-0.5">🪙 ${f.coins || 0} coins • 🔥 ${f.streak || 1}d racha</span>
+            </div>
+            ${f.email === ADMIN_EMAIL
+              ? `<span class="text-[10px] font-black text-amber-300">ADMIN</span>`
+              : `<button onclick="adminToggleBanUser('${f.uid}', ${Boolean(f.banned)})"
+                         class="px-2.5 py-1 rounded-lg font-extrabold text-[10px] ${f.banned ? "bg-mint text-choco-950" : "bg-red-500/20 text-red-300 border border-red-500/40"}">
+                   ${f.banned ? "Desbanear" : "Silenciar"}
+                 </button>`
+            }
           </div>
-          ${f.email === ADMIN_EMAIL
-            ? `<span class="text-[10px] font-black text-amber-300">ADMIN</span>`
-            : `<button onclick="adminToggleBanUser('${f.uid}', ${Boolean(f.banned)})"
-                       class="px-2.5 py-1 rounded-lg font-extrabold text-[10px] ${f.banned ? "bg-mint text-choco-950" : "bg-red-500/20 text-red-300 border border-red-500/40"}">
-                 ${f.banned ? "Desbanear" : "Silenciar"}
-               </button>`
-          }
+          <div class="flex items-center gap-1.5 pt-1 border-t border-white/10">
+            <button onclick="adminGiveUserCoins('${f.uid}', 100)" class="px-2.5 py-1 rounded-lg bg-amber-400/20 text-amber-300 font-bold text-[10px]">
+              +100 🪙
+            </button>
+            <button onclick="adminGiveUserCoins('${f.uid}', 500)" class="px-2.5 py-1 rounded-lg bg-amber-400/20 text-amber-300 font-bold text-[10px]">
+              +500 🪙
+            </button>
+            <button onclick="adminBoostUserStreak('${f.uid}')" class="px-2.5 py-1 rounded-lg bg-orange-500/20 text-orange-300 font-bold text-[10px]">
+              +1d 🔥
+            </button>
+          </div>
         </div>
       `).join("");
     }
