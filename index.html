@@ -269,45 +269,58 @@
       </div>
 
       <div>
-        <span class="inline-block text-[11px] font-black uppercase tracking-widest px-3 py-1 rounded-full bg-mint/15 text-mint border border-mint/30">
-          Registro Oficial • Coco's Scoops
-        </span>
-        <h2 class="font-display font-bold text-2xl sm:text-3xl text-cream mt-2">
+        <span class="text-[11px] font-black uppercase tracking-widest text-mint">Registro Oficial • Coco's Scoops</span>
+        <h2 class="font-display font-bold text-2xl sm:text-3xl text-cream mt-1">
           ¡Eres el Fruti-Fan <span id="modal-fan-number" class="text-gradient-helado">#1</span>, felicidades!
         </h2>
-        <p class="text-xs sm:text-sm text-cream/80 mt-1.5">
-          Descarga tu Pase VIP oficial y súbelo a tu Story o vídeo mencionando a <strong class="text-vanilla">@frutasalocadasoficiall</strong>. <strong class="text-strawberry">¡Todos los que me mencionen con su pase los comparto!</strong>
+        <p class="text-xs sm:text-sm text-cream/80 mt-1.5 leading-relaxed">
+          Descarga tu Diploma VIP oficial y súbelo a tu Story o vídeo mencionando a <strong class="text-vanilla">@frutasalocadasoficiall</strong>. <strong class="text-strawberry">¡Todos los que me mencionen los comparto!</strong>
         </p>
       </div>
 
-      <div class="bg-choco-950/85 p-4 rounded-2xl border border-cream/15 text-left space-y-2">
-        <label for="modal-tiktok-input" class="block text-[11px] font-extrabold uppercase tracking-wider text-vanilla">
-          Tu usuario de TikTok (sale en tu Pase VIP y en el chat)
-        </label>
-        <div class="flex items-center gap-2.5">
-          <img id="modal-tt-preview" src="" alt="Preview" class="w-11 h-11 rounded-xl object-cover bg-choco-800 border border-vanilla/50 shrink-0" />
-          <div class="flex-1 flex items-center bg-choco-900 px-3 py-2.5 rounded-xl border border-cream/15">
-            <span class="text-strawberry font-extrabold text-sm mr-1">@</span>
-            <input id="modal-tiktok-input" type="text" maxlength="32" placeholder="tu_usuario"
-                   oninput="previewModalTikTok(this.value)"
-                   class="w-full bg-transparent text-sm font-bold text-cream placeholder-cream/35 focus:outline-none" />
+      <div class="bg-choco-950/85 p-4 rounded-2xl border border-cream/15 text-left space-y-3">
+        <div>
+          <label for="modal-displayname-input" class="block text-[11px] font-extrabold uppercase tracking-wider text-mint mb-1">
+            Tu Nombre Visible en la Heladería
+          </label>
+          <input id="modal-displayname-input" type="text" maxlength="26" placeholder="Ej: Alex Heladero"
+                 class="w-full bg-choco-900 px-3 py-2.5 rounded-xl border border-cream/15 text-sm font-bold text-cream placeholder-cream/35 focus:border-mint focus:outline-none" />
+        </div>
+
+        <div>
+          <label for="modal-tiktok-input" class="block text-[11px] font-extrabold uppercase tracking-wider text-vanilla mb-1">
+            Tu @usuario único (no se puede repetir)
+          </label>
+          <div class="flex items-center gap-2.5">
+            <img id="modal-tt-preview" src="" alt="Preview" class="w-11 h-11 rounded-xl object-cover bg-choco-800 border border-vanilla/50 shrink-0" />
+            <div class="flex-1 flex items-center bg-choco-900 px-3 py-2.5 rounded-xl border border-cream/15">
+              <span class="text-strawberry font-extrabold text-sm mr-1">@</span>
+              <input id="modal-tiktok-input" type="text" maxlength="32" placeholder="tu_usuario_unico"
+                     oninput="previewModalTikTok(this.value)"
+                     class="w-full bg-transparent text-sm font-bold text-cream placeholder-cream/35 focus:outline-none" />
+            </div>
           </div>
+          <p id="modal-username-availability" class="text-[10px] text-cream/55 mt-1">Comprobaremos que nadie más tenga ese @usuario.</p>
         </div>
       </div>
 
       <div class="space-y-2">
         <button onclick="saveUserTikTokAndCloseModal()"
                 class="w-full bg-gradient-to-r from-vanilla via-amber-400 to-strawberry text-choco-950 font-display font-bold text-base py-3.5 rounded-2xl shadow-lg active:scale-95 transition-all">
-          🍦 Guardar mi Pase #FrutiFan
+          🍦 Guardar Perfil Único #FrutiFan
         </button>
-        <div class="grid grid-cols-2 gap-2">
-          <button onclick="downloadFanPassportPNG()"
-                  class="bg-choco-900 hover:bg-choco-800 text-vanilla border border-vanilla/40 font-extrabold text-xs py-3 rounded-xl active:scale-95 transition-all">
-            📲 Descargar Pase VIP
+        <div class="grid grid-cols-3 gap-2">
+          <button onclick="downloadFanPassportPNG('diploma')"
+                  class="bg-choco-900 hover:bg-choco-800 text-vanilla border border-vanilla/40 font-extrabold text-[11px] py-3 rounded-xl active:scale-95 transition-all">
+            📜 Diploma VIP
+          </button>
+          <button onclick="downloadFanPassportPNG('streak')"
+                  class="bg-orange-500/20 hover:bg-orange-500/30 text-orange-300 border border-orange-400/40 font-extrabold text-[11px] py-3 rounded-xl active:scale-95 transition-all">
+            🔥 Story Racha
           </button>
           <button onclick="shareFanPassportNative()"
-                  class="bg-strawberry/20 hover:bg-strawberry/30 text-strawberry border border-strawberry/40 font-extrabold text-xs py-3 rounded-xl active:scale-95 transition-all">
-            🚀 Compartir Directo
+                  class="bg-strawberry/20 hover:bg-strawberry/30 text-strawberry border border-strawberry/40 font-extrabold text-[11px] py-3 rounded-xl active:scale-95 transition-all">
+            🚀 Compartir
           </button>
         </div>
       </div>
@@ -403,23 +416,27 @@
                     <span id="passport-rank-badge" class="text-[10px] font-black px-2 py-0.5 rounded-full bg-mint/20 text-mint border border-mint/30">
                       🍦 Aprendiz
                     </span>
+                    <span id="passport-verified-badge" class="hidden text-[10px] font-black px-2 py-0.5 rounded-full bg-sky-400 text-choco-950">
+                      ✔ VERIFICADO
+                    </span>
                     <span id="passport-role-badge" class="hidden text-[10px] font-black px-2 py-0.5 rounded-full bg-strawberry text-white">
                       FUNDADOR / ADMIN
                     </span>
                   </div>
                   <h3 id="passport-name" class="font-display font-bold text-lg text-cream truncate mt-1">Nombre Fan</h3>
-                  <div class="flex items-center gap-2 text-xs font-bold mt-0.5">
+                  <div class="flex items-center gap-2 text-xs font-bold mt-0.5 flex-wrap">
                     <span id="passport-tiktok-handle" class="text-vanilla/90 truncate">@usuario_tiktok</span>
                     <span class="text-cream/30">•</span>
                     <span id="passport-coins-label" class="text-amber-300">🪙 0</span>
                     <span id="passport-streak-label" class="text-orange-400">🔥 1d</span>
+                    <span id="passport-followers-label" class="text-sky-300">👥 0</span>
                   </div>
                 </div>
               </div>
 
               <button onclick="openEditProfileModal()"
                       class="shrink-0 bg-choco-900 hover:bg-choco-800 border border-cream/15 px-3 py-2 rounded-xl text-xs font-bold text-cream/90">
-                ✏️ @TT
+                ✏️ Perfil
               </button>
             </div>
           </div>
@@ -427,7 +444,7 @@
           <!-- Aviso Viral de Repost en TikTok / Stories -->
           <div class="bg-gradient-to-r from-strawberry/20 via-pink-500/15 to-vanilla/20 border border-strawberry/40 rounded-2xl p-3 text-center">
             <p class="text-xs font-extrabold text-cream">
-              📣 ¡Sube tu <span class="text-vanilla">Pase Story</span> o un vídeo mencionando a <span class="text-strawberry">@frutasalocadasoficiall</span> y <span class="underline">lo comparto en mi cuenta</span>!
+              📣 ¡Sube tu <span class="text-vanilla">Diploma Oficial</span> o tu <span class="text-orange-300">Story de Racha 🔥</span> mencionando a <span class="text-strawberry">@frutasalocadasoficiall</span> y <span class="underline">lo comparto en mi cuenta</span>!
             </p>
           </div>
 
@@ -444,14 +461,14 @@
           </div>
 
           <div class="grid grid-cols-3 gap-2 pt-0.5">
-            <button onclick="downloadFanPassportPNG()" class="bg-gradient-to-r from-strawberry to-pink-500 text-white font-display font-bold text-xs sm:text-sm py-3 rounded-2xl shadow-md transition-all active:scale-95">
-              📲 Pase Story
+            <button onclick="downloadFanPassportPNG('diploma')" class="bg-gradient-to-r from-strawberry to-pink-500 text-white font-display font-bold text-xs sm:text-sm py-3 rounded-2xl shadow-md transition-all active:scale-95">
+              📜 Diploma HD
             </button>
-            <button onclick="shareFanPassportNative()" class="bg-vanilla/20 hover:bg-vanilla/30 border border-vanilla/40 text-vanilla font-display font-bold text-xs sm:text-sm py-3 rounded-2xl transition-all active:scale-95">
+            <button onclick="downloadFanPassportPNG('streak')" class="bg-gradient-to-r from-orange-500 to-amber-400 text-choco-950 font-display font-bold text-xs sm:text-sm py-3 rounded-2xl shadow-md transition-all active:scale-95">
+              🔥 Story Racha
+            </button>
+            <button onclick="shareFanPassportNative()" class="bg-mint/15 hover:bg-mint/25 border border-mint/30 text-mint font-display font-bold text-xs sm:text-sm py-3 rounded-2xl transition-all active:scale-95">
               🚀 Compartir
-            </button>
-            <button onclick="switchTab('chat')" class="bg-mint/15 hover:bg-mint/25 border border-mint/30 text-mint font-display font-bold text-xs sm:text-sm py-3 rounded-2xl transition-all active:scale-95">
-              💬 Chat Vivo
             </button>
           </div>
         </div>
@@ -896,14 +913,15 @@
 
           <div>
             <label for="idea-category" class="block text-[11px] font-bold text-cream/80 mb-1.5 px-1">
-              Categoría de la idea
+              ¿Qué quieres proponer para la cuenta?
             </label>
             <select id="idea-category"
                     class="w-full bg-choco-950/90 text-sm font-bold text-cream px-3.5 py-3 rounded-2xl border border-cream/15 focus:border-vanilla focus:outline-none">
-              <option value="Nuevo sabor de helado">🍨 Nuevo sabor de helado</option>
-              <option value="Drama en la heladería">🔥 Drama en la heladería</option>
-              <option value="Nuevo personaje">🎭 Nuevo personaje</option>
-              <option value="Reto para Cocardo">🥥 Reto para Cocardo</option>
+              <option value="🎬 Guion / Vídeo para TikTok">🎬 Guion / Vídeo para TikTok</option>
+              <option value="🍨 Nuevo sabor de helado">🍨 Nuevo sabor de helado</option>
+              <option value="🔥 Drama en la heladería">🔥 Drama en la heladería</option>
+              <option value="🎭 Nuevo personaje">🎭 Nuevo personaje</option>
+              <option value="🥥 Reto para Cocardo">🥥 Reto para Cocardo</option>
             </select>
           </div>
 
@@ -950,16 +968,19 @@
           <button onclick="setCategoryFilter('ALL')" data-cat="ALL" class="cat-chip shrink-0 px-3 py-1.5 rounded-full text-xs font-extrabold bg-vanilla text-choco-950 transition-all">
             Todas
           </button>
-          <button onclick="setCategoryFilter('Nuevo sabor de helado')" data-cat="Nuevo sabor de helado" class="cat-chip shrink-0 px-3 py-1.5 rounded-full text-xs font-bold bg-choco-800/80 text-cream/80 border border-cream/10 transition-all">
+          <button onclick="setCategoryFilter('🎬 Guion / Vídeo para TikTok')" data-cat="🎬 Guion / Vídeo para TikTok" class="cat-chip shrink-0 px-3 py-1.5 rounded-full text-xs font-bold bg-choco-800/80 text-cream/80 border border-cream/10 transition-all">
+            🎬 Vídeos TikTok
+          </button>
+          <button onclick="setCategoryFilter('🍨 Nuevo sabor de helado')" data-cat="🍨 Nuevo sabor de helado" class="cat-chip shrink-0 px-3 py-1.5 rounded-full text-xs font-bold bg-choco-800/80 text-cream/80 border border-cream/10 transition-all">
             🍨 Nuevo sabor
           </button>
-          <button onclick="setCategoryFilter('Drama en la heladería')" data-cat="Drama en la heladería" class="cat-chip shrink-0 px-3 py-1.5 rounded-full text-xs font-bold bg-choco-800/80 text-cream/80 border border-cream/10 transition-all">
+          <button onclick="setCategoryFilter('🔥 Drama en la heladería')" data-cat="🔥 Drama en la heladería" class="cat-chip shrink-0 px-3 py-1.5 rounded-full text-xs font-bold bg-choco-800/80 text-cream/80 border border-cream/10 transition-all">
             🔥 Drama
           </button>
-          <button onclick="setCategoryFilter('Nuevo personaje')" data-cat="Nuevo personaje" class="cat-chip shrink-0 px-3 py-1.5 rounded-full text-xs font-bold bg-choco-800/80 text-cream/80 border border-cream/10 transition-all">
+          <button onclick="setCategoryFilter('🎭 Nuevo personaje')" data-cat="🎭 Nuevo personaje" class="cat-chip shrink-0 px-3 py-1.5 rounded-full text-xs font-bold bg-choco-800/80 text-cream/80 border border-cream/10 transition-all">
             🎭 Personaje
           </button>
-          <button onclick="setCategoryFilter('Reto para Cocardo')" data-cat="Reto para Cocardo" class="cat-chip shrink-0 px-3 py-1.5 rounded-full text-xs font-bold bg-choco-800/80 text-cream/80 border border-cream/10 transition-all">
+          <button onclick="setCategoryFilter('🥥 Reto para Cocardo')" data-cat="🥥 Reto para Cocardo" class="cat-chip shrink-0 px-3 py-1.5 rounded-full text-xs font-bold bg-choco-800/80 text-cream/80 border border-cream/10 transition-all">
             🥥 Reto
           </button>
         </div>
@@ -1071,13 +1092,17 @@
             <span class="text-xs font-extrabold text-vanilla block">💾 Exportar Backup Completo (.JSON)</span>
             <span class="text-[11px] text-cream/60">Descarga fans, ideas y mensajes</span>
           </button>
-        </div>
 
-        <div class="flex gap-2 pt-1">
-          <input id="adm-shop-status-input" type="text" maxlength="45" placeholder="Estado del local (Ej: Heladería en Hora Punta 🔥)"
-                 class="flex-1 bg-choco-950/90 text-xs text-cream px-3.5 py-2.5 rounded-xl border border-cream/15" />
-          <button onclick="adminUpdateShopStatus()" class="bg-mint text-choco-950 font-extrabold text-xs px-4 py-2.5 rounded-xl shrink-0">
-            Cambiar Estado
+          <button onclick="adminMassGiftCoins(150)"
+                  class="bg-amber-500/15 hover:bg-amber-500/25 border border-amber-400/40 p-3 rounded-2xl text-left transition-all">
+            <span class="text-xs font-extrabold text-amber-300 block">🎁 Lluvia de Coins Global (+150 🪙)</span>
+            <span class="text-[11px] text-cream/70">Regala +150 monedas a TODOS los fans</span>
+          </button>
+
+          <button onclick="adminResetAllStreaksWarning()"
+                  class="bg-orange-500/15 hover:bg-orange-500/25 border border-orange-400/40 p-3 rounded-2xl text-left transition-all">
+            <span class="text-xs font-extrabold text-orange-300 block">🔥 Evento Doble Racha (+1d Global)</span>
+            <span class="text-[11px] text-cream/70">Suma +1 día de racha a todos los fans</span>
           </button>
         </div>
 
@@ -1326,6 +1351,9 @@
               dailyVoteDone: "",
               equippedTitle: "",
               ownedTitles: [],
+              following: [],
+              followersCount: 0,
+              verifiedFan: isAdminUser,
               highScore: 0,
               banned: false,
               isAdmin: isAdminUser,
@@ -1337,6 +1365,7 @@
           });
 
           document.getElementById("modal-fan-number").textContent = `#${assignedNumber}`;
+          document.getElementById("modal-displayname-input").value = user.displayName || "FrutiFan";
           document.getElementById("modal-tt-preview").src = user.photoURL || buildIceCreamFallbackAvatar(user.displayName || "FN");
           document.getElementById("welcome-fan-modal").classList.remove("hidden");
         }
@@ -1375,9 +1404,26 @@
     window.previewModalTikTok = function (val) {
       const clean = cleanTikTokUser(val);
       const preview = document.getElementById("modal-tt-preview");
+      const availEl = document.getElementById("modal-username-availability");
       if (!clean) {
         preview.src = (fanProfile && fanProfile.photoURL) || buildIceCreamFallbackAvatar("FN");
+        if (availEl) {
+          availEl.textContent = "Comprobaremos que nadie más tenga ese @usuario.";
+          availEl.className = "text-[10px] text-cream/55 mt-1";
+        }
         return;
+      }
+      const taken = allRegisteredFans.some(
+        (f) => f.uid !== (firebaseUser && firebaseUser.uid) && cleanTikTokUser(f.tiktokUser || "") === clean
+      );
+      if (availEl) {
+        if (taken) {
+          availEl.textContent = `❌ @${clean} ya está pillado por otro Fruti-Fan. Elige otro.`;
+          availEl.className = "text-[10px] font-bold text-red-400 mt-1";
+        } else {
+          availEl.textContent = `✅ @${clean} está disponible para ti.`;
+          availEl.className = "text-[10px] font-bold text-mint mt-1";
+        }
       }
       preview.onerror = () => {
         preview.onerror = null;
@@ -1387,18 +1433,42 @@
     };
 
     window.saveUserTikTokAndCloseModal = async function () {
-      const raw = document.getElementById("modal-tiktok-input").value;
-      const clean = cleanTikTokUser(raw);
-      if (db && firebaseUser && fanProfile && clean) {
-        try {
-          const userDocRef = doc(db, "artifacts", appId, "public", "data", "fan_profiles", firebaseUser.uid);
-          await updateDoc(userDocRef, { tiktokUser: clean });
+      const rawName = (document.getElementById("modal-displayname-input").value || "").trim();
+      const rawUser = document.getElementById("modal-tiktok-input").value;
+      const clean = cleanTikTokUser(rawUser);
+
+      if (clean) {
+        const taken = allRegisteredFans.some(
+          (f) => f.uid !== (firebaseUser && firebaseUser.uid) && cleanTikTokUser(f.tiktokUser || "") === clean
+        );
+        if (taken) {
+          showToast(`El usuario @${clean} ya existe. ¡Elige uno único!`, "🚫");
+          return;
+        }
+      }
+
+      if (db && firebaseUser && fanProfile) {
+        const updates = {};
+        if (rawName) {
+          updates.displayName = rawName;
+          fanProfile.displayName = rawName;
+        }
+        if (clean) {
+          updates.tiktokUser = clean;
           fanProfile.tiktokUser = clean;
-          document.getElementById("tt-username-input").value = clean;
-          handleTikTokUsernameDebounce(clean);
-          showToast(`¡Vinculado @${clean} a tu Pase #${fanProfile.fanNumber}!`, "🍦");
-        } catch (err) {
-          console.error(err);
+        }
+        if (Object.keys(updates).length > 0) {
+          try {
+            const userDocRef = doc(db, "artifacts", appId, "public", "data", "fan_profiles", firebaseUser.uid);
+            await updateDoc(userDocRef, updates);
+            if (clean) {
+              document.getElementById("tt-username-input").value = clean;
+              handleTikTokUsernameDebounce(clean);
+            }
+            showToast(`¡Perfil único guardado (${clean ? "@" + clean : fanProfile.displayName})!`, "🍦");
+          } catch (err) {
+            console.error(err);
+          }
         }
       }
       document.getElementById("welcome-fan-modal").classList.add("hidden");
@@ -1408,6 +1478,7 @@
     window.openEditProfileModal = function () {
       if (!fanProfile) return;
       document.getElementById("modal-fan-number").textContent = `#${fanProfile.fanNumber}`;
+      document.getElementById("modal-displayname-input").value = fanProfile.displayName || "";
       document.getElementById("modal-tiktok-input").value = fanProfile.tiktokUser || "";
       previewModalTikTok(fanProfile.tiktokUser || "");
       document.getElementById("welcome-fan-modal").classList.remove("hidden");
@@ -1465,8 +1536,10 @@
 
         const coins = fanProfile.coins || 0;
         const streak = fanProfile.streak || 1;
+        const followers = fanProfile.followersCount || 0;
         document.getElementById("passport-coins-label").textContent = `🪙 ${coins}`;
         document.getElementById("passport-streak-label").textContent = `🔥 ${streak}d`;
+        document.getElementById("passport-followers-label").textContent = `👥 ${followers}`;
         document.getElementById("arcade-personal-best").textContent = `${fanProfile.highScore || 0} pts`;
         const shopCoinsEl = document.getElementById("shop-user-coins-pill");
         if (shopCoinsEl) shopCoinsEl.textContent = `🪙 ${coins}`;
@@ -1530,6 +1603,10 @@
         if (isAdminUser) roleBadge.classList.remove("hidden");
         else roleBadge.classList.add("hidden");
 
+        const verBadge = document.getElementById("passport-verified-badge");
+        if (fanProfile.verifiedFan) verBadge.classList.remove("hidden");
+        else verBadge.classList.add("hidden");
+
         chatLoginPrompt.classList.add("hidden");
         chatSendForm.classList.remove("hidden");
       } else {
@@ -1542,40 +1619,167 @@
         chatLoginPrompt.classList.remove("hidden");
         chatSendForm.classList.add("hidden");
       }
+
       renderVipTitlesShop();
     }
 
-    // =========================================================================
-    // RULETA DIARIA DE LA HELADERÍA
-    // =========================================================================
-    window.spinDailyIceWheel = async function () {
-      if (!db || !firebaseUser || !fanProfile) {
-        await loginWithGoogle();
-        return;
-      }
-      const todayStr = new Date().toISOString().slice(0, 10);
-      if (fanProfile.lastWheelSpin === todayStr) {
-        showToast("Ya usaste tu tirada gratis de hoy. ¡Vuelve mañana!", "🎡");
-        return;
+    async function createPassportCanvas(mode = "diploma") {
+      const fanNum = fanProfile ? `#${fanProfile.fanNumber}` : "#VIP";
+      const displayName = (fanProfile && fanProfile.displayName) || "Fruti-Fan Oficial";
+      const handleText = fanProfile && fanProfile.tiktokUser ? `@${fanProfile.tiktokUser}` : "@frutifan_vip";
+      const streakDays = (fanProfile && fanProfile.streak) || 1;
+      const fanCoins = (fanProfile && fanProfile.coins) || 100;
+      const followersCount = (fanProfile && fanProfile.followersCount) || 0;
+      const rankTitle = (fanProfile && fanProfile.equippedTitle) || "MIEMBRO FUNDADOR DE COCO'S SCOOPS";
+      const isStreakCard = mode === "streak";
+
+      const canvas = document.createElement("canvas");
+      canvas.width = 1080;
+      canvas.height = 1920;
+      const ctx = canvas.getContext("2d");
+
+      // Fondo pergamino oscuro de lujo + degradado dorado/tropical
+      const grad = ctx.createLinearGradient(0, 0, 1080, 1920);
+      grad.addColorStop(0, isStreakCard ? "#7c2d12" : "#2b1914");
+      grad.addColorStop(0.5, "#180d0a");
+      grad.addColorStop(1, "#0f0705");
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, 1080, 1920);
+
+      // Doble marco ornamental tipo Diploma Oficial
+      drawRoundedRect(ctx, 48, 56, 984, 1808, 52);
+      ctx.fillStyle = "rgba(18, 10, 8, 0.86)";
+      ctx.fill();
+      ctx.lineWidth = 8;
+      ctx.strokeStyle = isStreakCard ? "#fb923c" : "#ffd166";
+      ctx.stroke();
+
+      drawRoundedRect(ctx, 72, 80, 936, 1760, 40);
+      ctx.lineWidth = 3;
+      ctx.strokeStyle = "rgba(255, 209, 102, 0.35)";
+      ctx.stroke();
+
+      // Foto grupal oficial de toda la tropa junta (tropa-parque.jpg)
+      const groupImg = await loadCanvasImageSafe("tropa-parque.jpg");
+      if (groupImg) {
+        ctx.save();
+        drawRoundedRect(ctx, 98, 106, 884, 380, 34);
+        ctx.clip();
+        ctx.drawImage(groupImg, 98, 106, 884, 380);
+        const shade = ctx.createLinearGradient(0, 310, 0, 486);
+        shade.addColorStop(0, "rgba(18,10,8,0)");
+        shade.addColorStop(1, "rgba(18,10,8,0.95)");
+        ctx.fillStyle = shade;
+        ctx.fillRect(98, 106, 884, 380);
+        ctx.restore();
+
+        drawRoundedRect(ctx, 98, 106, 884, 380, 34);
+        ctx.lineWidth = 4;
+        ctx.strokeStyle = "#ffd166";
+        ctx.stroke();
       }
 
-      const prizes = [25, 40, 50, 75, 100, 150, 200];
-      const won = prizes[Math.floor(Math.random() * prizes.length)];
-      const newCoins = (fanProfile.coins || 0) + won;
+      ctx.textAlign = "center";
+      ctx.fillStyle = "#ffd166";
+      ctx.font = "900 30px sans-serif";
+      ctx.fillText("REPÚBLICA TROPICAL DE FRUTINOVELAS • COCO'S SCOOPS", 540, 545);
 
-      try {
-        const userDocRef = doc(db, "artifacts", appId, "public", "data", "fan_profiles", firebaseUser.uid);
-        await updateDoc(userDocRef, {
-          coins: newCoins,
-          lastWheelSpin: todayStr
-        });
-        fanProfile.coins = newCoins;
-        fanProfile.lastWheelSpin = todayStr;
-        updateAuthUI();
-        showToast(`¡La Ruleta te dio +${won} Fruti-Coins! 🎉`, "🎰");
-      } catch (err) {
-        console.error(err);
+      ctx.fillStyle = "#ffffff";
+      ctx.font = "900 58px sans-serif";
+      ctx.fillText(isStreakCard ? "CERTIFICADO DE RACHA 🔥" : "DIPLOMA OFICIAL VIP", 540, 622);
+
+      // Línea ornamental dorada
+      ctx.strokeStyle = "#ffd166";
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+      ctx.moveTo(220, 655);
+      ctx.lineTo(860, 655);
+      ctx.stroke();
+
+      ctx.fillStyle = "rgba(255,248,231,0.8)";
+      ctx.font = "italic 34px sans-serif";
+      ctx.fillText("Por la presente se acredita oficialmente a:", 540, 725);
+
+      // Nombre y Usuario
+      ctx.fillStyle = "#ffd166";
+      ctx.font = "900 66px sans-serif";
+      ctx.fillText(displayName.toUpperCase(), 540, 815);
+
+      ctx.fillStyle = "#06d6a0";
+      ctx.font = "900 42px sans-serif";
+      ctx.fillText(`${handleText}  •  MIEMBRO ${fanNum}`, 540, 882);
+
+      // Bloque central protagonista (Racha gigante o Rango Diploma)
+      drawRoundedRect(ctx, 130, 935, 820, 250, 36);
+      ctx.fillStyle = isStreakCard ? "rgba(249, 115, 22, 0.16)" : "rgba(255, 209, 102, 0.10)";
+      ctx.fill();
+      ctx.lineWidth = 4;
+      ctx.strokeStyle = isStreakCard ? "#fb923c" : "#ffd166";
+      ctx.stroke();
+
+      if (isStreakCard) {
+        ctx.fillStyle = "#fb923c";
+        ctx.font = "900 125px sans-serif";
+        ctx.fillText(`🔥 ${streakDays} ${streakDays === 1 ? "DÍA" : "DÍAS"}`, 540, 1085);
+        ctx.fillStyle = "#fff8e7";
+        ctx.font = "bold 32px sans-serif";
+        ctx.fillText("RACHA ACTIVA EN LA HELADERÍA DE COCARDO", 540, 1148);
+      } else {
+        ctx.fillStyle = "#ff4d79";
+        ctx.font = "900 120px sans-serif";
+        ctx.fillText(`FAN ${fanNum}`, 540, 1075);
+        ctx.fillStyle = "#fff8e7";
+        ctx.font = "900 32px sans-serif";
+        ctx.fillText(rankTitle.toUpperCase(), 540, 1145);
       }
+
+      // Estadísticas verificadas + Sello Oficial Dorado
+      ctx.fillStyle = "rgba(255,248,231,0.88)";
+      ctx.font = "bold 30px sans-serif";
+      ctx.fillText(`🪙 ${fanCoins} Fruti-Coins   •   🔥 ${streakDays}d Racha   •   👥 ${followersCount} Seguidores`, 540, 1260);
+
+      // Sello circular de autenticidad
+      ctx.beginPath();
+      ctx.arc(540, 1385, 76, 0, Math.PI * 2);
+      ctx.fillStyle = "rgba(255, 209, 102, 0.18)";
+      ctx.fill();
+      ctx.lineWidth = 5;
+      ctx.strokeStyle = "#ffd166";
+      ctx.stroke();
+      ctx.fillStyle = "#ffd166";
+      ctx.font = "900 22px sans-serif";
+      ctx.fillText("SELLO", 540, 1378);
+      ctx.fillText("OFICIAL", 540, 1406);
+
+      // Pie limpio con el link de tu web
+      ctx.fillStyle = "rgba(255,248,231,0.78)";
+      ctx.font = "bold 30px sans-serif";
+      ctx.fillText("Reclama tu Diploma VIP y únete al club en:", 540, 1545);
+
+      drawRoundedRect(ctx, 110, 1575, 860, 96, 28);
+      ctx.fillStyle = "#ffd166";
+      ctx.fill();
+
+      ctx.fillStyle = "#120a08";
+      ctx.font = "900 36px sans-serif";
+      ctx.fillText("molo123465.github.io/frutinovelas/", 540, 1636);
+
+      ctx.fillStyle = "rgba(255,248,231,0.75)";
+      ctx.font = "bold 30px sans-serif";
+      ctx.fillText("TikTok Oficial: @frutasalocadasoficiall", 540, 1745);
+
+      return { canvas, fanNum };
+    }
+
+    window.downloadFanPassportPNG = async function (mode = "diploma") {
+      const { canvas, fanNum } = await createPassportCanvas(mode);
+      const link = document.createElement("a");
+      link.download = mode === "streak"
+        ? `Racha_FrutiFan_${fanNum.replace("#", "")}.png`
+        : `Diploma_Oficial_FrutiFan_${fanNum.replace("#", "")}.png`;
+      link.href = canvas.toDataURL("image/png");
+      link.click();
+      showToast(mode === "streak" ? "¡Story de Racha descargada!" : `¡Diploma Oficial ${fanNum} descargado!`, "📜");
     };
 
     // =========================================================================
@@ -1942,145 +2146,17 @@
       showToast("¡Tarjeta HD descargada con tu enlace oficial!", "📲");
     };
 
-    async function createPassportCanvas() {
-      const fanNum = fanProfile ? `#${fanProfile.fanNumber}` : "#VIP";
-      const fanName = fanProfile
-        ? (fanProfile.tiktokUser ? `@${fanProfile.tiktokUser}` : fanProfile.displayName)
-        : "Fruti-Fan Oficial";
-      const streakDays = (fanProfile && fanProfile.streak) || 1;
-      const fanCoins = (fanProfile && fanProfile.coins) || 100;
-
-      const canvas = document.createElement("canvas");
-      canvas.width = 1080;
-      canvas.height = 1920;
-      const ctx = canvas.getContext("2d");
-
-      const grad = ctx.createLinearGradient(0, 0, 1080, 1920);
-      grad.addColorStop(0, "#3d241d");
-      grad.addColorStop(0.48, "#1c100d");
-      grad.addColorStop(1, "#120a08");
-      ctx.fillStyle = grad;
-      ctx.fillRect(0, 0, 1080, 1920);
-
-      // Marco Ticket Dorado VIP
-      drawRoundedRect(ctx, 64, 76, 952, 1768, 60);
-      ctx.fillStyle = "rgba(18, 10, 8, 0.80)";
-      ctx.fill();
-      ctx.lineWidth = 10;
-      ctx.strokeStyle = "#ffd166";
-      ctx.stroke();
-
-      ctx.fillStyle = "#ffd166";
-      ctx.font = "900 36px sans-serif";
-      ctx.textAlign = "center";
-      ctx.fillText("🎫 PASE VIP OFICIAL • COCO'S SCOOPS", 540, 170);
-
-      ctx.fillStyle = "#06d6a0";
-      ctx.font = "bold 32px sans-serif";
-      ctx.fillText(`MIEMBRO VERIFICADO • RACHA 🔥 ${streakDays}D • 🪙 ${fanCoins}`, 540, 232);
-
-      // Foto oficial de Cocardo con delantal Coco's Scoops centrada en marco dorado
-      const cocardoImg = await loadCanvasImageSafe("cocardo-cara.jpg");
-      if (cocardoImg) {
-        ctx.save();
-        drawRoundedRect(ctx, 355, 285, 370, 410, 44);
-        ctx.clip();
-        ctx.fillStyle = "#ffffff";
-        ctx.fillRect(355, 285, 370, 410);
-        ctx.drawImage(cocardoImg, 355, 285, 370, 410);
-        ctx.restore();
-
-        drawRoundedRect(ctx, 355, 285, 370, 410, 44);
-        ctx.lineWidth = 8;
-        ctx.strokeStyle = "#ffd166";
-        ctx.stroke();
-      } else {
-        ctx.beginPath();
-        ctx.arc(540, 490, 150, 0, Math.PI * 2);
-        ctx.fillStyle = "rgba(255, 209, 102, 0.14)";
-        ctx.fill();
-        ctx.lineWidth = 6;
-        ctx.strokeStyle = "#ffd166";
-        ctx.stroke();
-        ctx.font = "180px sans-serif";
-        ctx.fillText("🥥", 540, 550);
-      }
-
-      // Línea troquelada estilo entrada VIP
-      ctx.save();
-      ctx.setLineDash([18, 14]);
-      ctx.strokeStyle = "rgba(255, 209, 102, 0.4)";
-      ctx.lineWidth = 4;
-      ctx.beginPath();
-      ctx.moveTo(100, 755);
-      ctx.lineTo(980, 755);
-      ctx.stroke();
-      ctx.restore();
-
-      ctx.fillStyle = "#fff8e7";
-      ctx.font = "900 48px sans-serif";
-      ctx.fillText("FRUTI-FAN OFICIAL", 540, 855);
-
-      ctx.fillStyle = "#ff4d79";
-      ctx.font = "900 205px sans-serif";
-      ctx.fillText(fanNum, 540, 1065);
-
-      // Pastilla con usuario
-      drawRoundedRect(ctx, 180, 1130, 720, 96, 30);
-      ctx.fillStyle = "rgba(6, 214, 160, 0.16)";
-      ctx.fill();
-      ctx.lineWidth = 3;
-      ctx.strokeStyle = "#06d6a0";
-      ctx.stroke();
-
-      ctx.fillStyle = "#06d6a0";
-      ctx.font = "900 46px sans-serif";
-      ctx.fillText(fanName, 540, 1193);
-
-      ctx.fillStyle = "rgba(255,248,231,0.8)";
-      ctx.font = "600 34px sans-serif";
-      ctx.fillText("Acreditación Oficial • La Heladería de Cocardo", 540, 1305);
-
-      // Pie limpio con enlace oficial destacado
-      ctx.fillStyle = "#ffd166";
-      ctx.font = "bold 34px sans-serif";
-      ctx.fillText("Consigue tu Pase VIP gratis aquí:", 540, 1525);
-
-      drawRoundedRect(ctx, 110, 1560, 860, 98, 28);
-      ctx.fillStyle = "#ffd166";
-      ctx.fill();
-
-      ctx.fillStyle = "#120a08";
-      ctx.font = "900 36px sans-serif";
-      ctx.fillText("molo123465.github.io/frutinovelas/", 540, 1622);
-
-      ctx.fillStyle = "rgba(255,248,231,0.75)";
-      ctx.font = "bold 32px sans-serif";
-      ctx.fillText("@frutasalocadasoficiall • FrutiNovelas", 540, 1745);
-
-      return { canvas, fanNum };
-    }
-
-    window.downloadFanPassportPNG = async function () {
-      const { canvas, fanNum } = await createPassportCanvas();
-      const link = document.createElement("a");
-      link.download = `Pase_VIP_FrutiFan_${fanNum.replace("#", "")}.png`;
-      link.href = canvas.toDataURL("image/png");
-      link.click();
-      showToast(`¡Pase VIP ${fanNum} descargado con foto de Cocardo!`, "🎉");
-    };
-
     window.shareFanPassportNative = async function () {
-      const { canvas, fanNum } = await createPassportCanvas();
-      const shareText = `¡Ya tengo mi Pase VIP oficial de Fruti-Fan ${fanNum} en Coco's Scoops! 🍦🥥 Consigue el tuyo aquí: ${OFFICIAL_WEB_URL} @frutasalocadasoficiall`;
+      const { canvas, fanNum } = await createPassportCanvas("diploma");
+      const shareText = `¡Ya tengo mi Diploma Oficial VIP de Fruti-Fan ${fanNum} en Coco's Scoops! 🍦🥥 Consigue el tuyo aquí: ${OFFICIAL_WEB_URL} @frutasalocadasoficiall`;
 
       if (navigator.share && navigator.canShare) {
         try {
           const blob = await new Promise((res) => canvas.toBlob(res, "image/png"));
-          const file = new File([blob], `Pase_FrutiFan_${fanNum.replace("#", "")}.png`, { type: "image/png" });
+          const file = new File([blob], `Diploma_FrutiFan_${fanNum.replace("#", "")}.png`, { type: "image/png" });
           if (navigator.canShare({ files: [file] })) {
             await navigator.share({
-              title: `Pase VIP Fruti-Fan ${fanNum}`,
+              title: `Diploma VIP Fruti-Fan ${fanNum}`,
               text: shareText,
               files: [file]
             });
@@ -2287,152 +2363,6 @@
       }
     }
 
-    // =========================================================================
-    // CHAT COMÚN EN VIVO
-    // =========================================================================
-    window.sendChatMessage = async function (e) {
-      e.preventDefault();
-      if (!db || !firebaseUser || !fanProfile) {
-        showToast("Inicia sesión con Google para chatear", "🔐");
-        return;
-      }
-
-      if (fanProfile.banned && !isAdminUser) {
-        showToast("Tu cuenta está silenciada en el chat por moderación.", "🚫");
-        return;
-      }
-
-      if (globalConfig.chatLocked && !isAdminUser) {
-        showToast("El chat está cerrado temporalmente por Cocardo.", "🔒");
-        return;
-      }
-
-      const now = Date.now();
-      if (globalConfig.slowMode && !isAdminUser && now - lastChatSentTimestamp < 10000) {
-        const wait = Math.ceil((10000 - (now - lastChatSentTimestamp)) / 1000);
-        showToast(`Modo lento activo: espera ${wait}s`, "⏱️");
-        return;
-      }
-
-      const input = document.getElementById("chat-message-input");
-      const text = input.value.trim();
-      if (!text) return;
-
-      input.value = "";
-      lastChatSentTimestamp = now;
-
-      try {
-        const chatCol = collection(db, "artifacts", appId, "public", "data", "heladeria_chat");
-        await addDoc(chatCol, {
-          uid: firebaseUser.uid,
-          displayName: fanProfile.displayName,
-          tiktokUser: fanProfile.tiktokUser || "",
-          photoURL: fanProfile.photoURL || "",
-          fanNumber: fanProfile.fanNumber,
-          equippedTitle: fanProfile.equippedTitle || "",
-          isAdmin: isAdminUser,
-          reactions: { lol: 0, fire: 0, coco: 0 },
-          text: text,
-          createdAt: now
-        });
-
-        const todayStr = new Date().toISOString().slice(0, 10);
-        if (fanProfile.dailyChatDone !== todayStr) {
-          const newCoins = (fanProfile.coins || 0) + 25;
-          const userDocRef = doc(db, "artifacts", appId, "public", "data", "fan_profiles", firebaseUser.uid);
-          await updateDoc(userDocRef, { dailyChatDone: todayStr, coins: newCoins });
-          fanProfile.dailyChatDone = todayStr;
-          fanProfile.coins = newCoins;
-          updateAuthUI();
-          showToast("¡Misión diaria completada! +25 Fruti-Coins 🪙", "🎯");
-        }
-      } catch (err) {
-        console.error("Error enviando mensaje:", err);
-        showToast("Error al enviar mensaje", "⚠️");
-      }
-    };
-
-    function renderChatMessages() {
-      const box = document.getElementById("chat-messages-box");
-      if (!box) return;
-      if (allChatMessages.length === 0) {
-        box.innerHTML = `
-          <div class="text-center py-12 space-y-1">
-            <p class="text-3xl">💬</p>
-            <p class="font-display font-bold text-sm text-cream">El chat común está listo</p>
-            <p class="text-xs text-cream/55">¡Sé el primer Fruti-Fan en saludar a la comunidad!</p>
-          </div>
-        `;
-        return;
-      }
-
-      box.innerHTML = allChatMessages.map((msg) => {
-        const avatar = msg.tiktokUser
-          ? getTikTokProfilePic(msg.tiktokUser)
-          : (msg.photoURL || buildIceCreamFallbackAvatar(msg.displayName || "FN"));
-        const nameLabel = msg.tiktokUser ? `@${escapeHTML(msg.tiktokUser)}` : escapeHTML(msg.displayName || "Fan");
-        const titleBadge = msg.equippedTitle
-          ? `<span class="text-[9px] font-black px-1.5 py-0.5 rounded bg-vanilla/20 text-vanilla">${escapeHTML(msg.equippedTitle)}</span>`
-          : "";
-        const adminBadge = msg.isAdmin
-          ? `<span class="text-[9px] font-black px-1.5 py-0.5 rounded bg-strawberry text-white">COCARDO / ADMIN</span>`
-          : `<span class="text-[9px] font-bold px-1.5 py-0.5 rounded bg-mint/15 text-mint">Fan #${msg.fanNumber || "?"}</span>`;
-
-        const adminActions = isAdminUser
-          ? `<div class="flex items-center gap-2 mt-1.5 pt-1.5 border-t border-white/10 text-[10px]">
-               <button onclick="adminPinChatMessage('${escapeHTML(msg.text).replace(/'/g, "\\'")}')" class="text-amber-300 font-bold hover:underline">📌 Fijar</button>
-               <button onclick="adminDeleteChatMessage('${msg.id}')" class="text-red-400 font-bold hover:underline">🗑️ Borrar</button>
-             </div>`
-          : "";
-
-        return `
-          <div class="flex items-start gap-2.5 bg-choco-950/75 p-3 rounded-2xl border ${msg.isAdmin ? "border-strawberry/45" : "border-cream/10"}">
-            <img src="${avatar}"
-                 onerror="this.onerror=null;this.src='${buildIceCreamFallbackAvatar(msg.displayName || "FN")}';"
-                 class="w-9 h-9 rounded-xl object-cover shrink-0 border border-cream/20" />
-            <div class="flex-1 min-w-0">
-              <div class="flex items-center justify-between gap-1.5 flex-wrap mb-1">
-                <div class="flex items-center gap-1.5 flex-wrap min-w-0">
-                  <span class="text-xs font-extrabold text-vanilla truncate">${nameLabel}</span>
-                  ${adminBadge}
-                  ${titleBadge}
-                </div>
-                <span class="text-[10px] text-cream/45">${formatRelativeTime(msg.createdAt)}</span>
-              </div>
-              <p class="text-xs sm:text-sm text-cream leading-snug break-words">${escapeHTML(msg.text)}</p>
-              <div class="flex items-center gap-1.5 mt-1.5">
-                <button onclick="reactToChatMessage('${msg.id}', 'lol')" class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-white/5 hover:bg-white/15 text-cream/80 transition-all active:scale-90">
-                  😂 ${(msg.reactions && msg.reactions.lol) || 0}
-                </button>
-                <button onclick="reactToChatMessage('${msg.id}', 'fire')" class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-white/5 hover:bg-white/15 text-cream/80 transition-all active:scale-90">
-                  🔥 ${(msg.reactions && msg.reactions.fire) || 0}
-                </button>
-                <button onclick="reactToChatMessage('${msg.id}', 'coco')" class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-white/5 hover:bg-white/15 text-cream/80 transition-all active:scale-90">
-                  🥥 ${(msg.reactions && msg.reactions.coco) || 0}
-                </button>
-              </div>
-              ${adminActions}
-            </div>
-          </div>
-        `;
-      }).join("");
-
-      box.scrollTop = box.scrollHeight;
-    }
-
-    window.reactToChatMessage = async function (msgId, reactionKey) {
-      if (!db || !firebaseUser) return;
-      const voteKey = `fn_react_${msgId}_${reactionKey}`;
-      if (localStorage.getItem(voteKey)) return;
-      localStorage.setItem(voteKey, "1");
-      try {
-        const msgDoc = doc(db, "artifacts", appId, "public", "data", "heladeria_chat", msgId);
-        await updateDoc(msgDoc, { [`reactions.${reactionKey}`]: increment(1) });
-      } catch (err) {
-        console.error(err);
-      }
-    };
-
     function renderLivePollCard() {
       const card = document.getElementById("live-poll-card");
       if (!card) return;
@@ -2449,42 +2379,95 @@
       const total = v1 + v2;
       document.getElementById("live-poll-total-votes").textContent = `${total} votos`;
 
-      const p1 = total > 0 ? Math.round((v1 / total) * 100) : 0;
-      const p2 = total > 0 ? 100 - p1 : 0;
-      const votedChoice = localStorage.getItem(`fn_poll_${poll.id}`);
+      const p1 = total > 0 ? Math.round((v1 / total) * 100) : 50;
+      const p2 = total > 0 ? 100 - p1 : 50;
+      const userVotedKey = `fn_poll_voted_${poll.id}`;
+      const chosenOpt = localStorage.getItem(userVotedKey);
 
       document.getElementById("live-poll-options").innerHTML = `
-        <button onclick="voteLivePoll(1)" class="w-full text-left p-3.5 rounded-2xl bg-choco-950/90 border ${votedChoice === "1" ? "border-vanilla" : "border-cream/15"} relative overflow-hidden active:scale-[0.99] transition-all">
-          <div class="absolute inset-y-0 left-0 bg-vanilla/20 transition-all duration-500" style="width: ${p1}%"></div>
-          <div class="relative z-10 flex items-center justify-between text-xs sm:text-sm font-extrabold">
-            <span class="text-cream">${escapeHTML(poll.opt1)}</span>
-            <span class="text-vanilla">${p1}% (${v1})</span>
+        <button onclick="voteLivePoll(1)" class="w-full text-left p-3.5 rounded-2xl border ${chosenOpt === "1" ? "border-strawberry bg-strawberry/20" : "border-cream/15 bg-choco-950/80 hover:border-vanilla/40"} relative overflow-hidden transition-all active:scale-[0.98]">
+          <div class="absolute inset-y-0 left-0 bg-strawberry/20 transition-all duration-500" style="width: ${total > 0 ? p1 : 0}%"></div>
+          <div class="relative flex items-center justify-between gap-2 text-xs sm:text-sm font-extrabold text-cream">
+            <span>${escapeHTML(poll.opt1)}</span>
+            <span class="text-vanilla">${total > 0 ? p1 + "%" : "Votar"}</span>
           </div>
         </button>
-        <button onclick="voteLivePoll(2)" class="w-full text-left p-3.5 rounded-2xl bg-choco-950/90 border ${votedChoice === "2" ? "border-strawberry" : "border-cream/15"} relative overflow-hidden active:scale-[0.99] transition-all">
-          <div class="absolute inset-y-0 left-0 bg-strawberry/20 transition-all duration-500" style="width: ${p2}%"></div>
-          <div class="relative z-10 flex items-center justify-between text-xs sm:text-sm font-extrabold">
-            <span class="text-cream">${escapeHTML(poll.opt2)}</span>
-            <span class="text-strawberry">${p2}% (${v2})</span>
+
+        <button onclick="voteLivePoll(2)" class="w-full text-left p-3.5 rounded-2xl border ${chosenOpt === "2" ? "border-mint bg-mint/20" : "border-cream/15 bg-choco-950/80 hover:border-vanilla/40"} relative overflow-hidden transition-all active:scale-[0.98]">
+          <div class="absolute inset-y-0 left-0 bg-mint/20 transition-all duration-500" style="width: ${total > 0 ? p2 : 0}%"></div>
+          <div class="relative flex items-center justify-between gap-2 text-xs sm:text-sm font-extrabold text-cream">
+            <span>${escapeHTML(poll.opt2)}</span>
+            <span class="text-mint">${total > 0 ? p2 + "%" : "Votar"}</span>
           </div>
         </button>
       `;
     }
 
     window.voteLivePoll = async function (optionNum) {
-      const poll = globalConfig.poll;
-      if (!db || !firebaseUser || !poll || !poll.active) return;
-      const key = `fn_poll_${poll.id}`;
+      if (!db || !globalConfig.poll || !globalConfig.poll.active) return;
+      const pollId = globalConfig.poll.id;
+      const key = `fn_poll_voted_${pollId}`;
       if (localStorage.getItem(key)) {
-        showToast("Ya votaste en esta decisión oficial 🗳️", "🍦");
+        showToast("Ya has votado en esta encuesta oficial", "🗳️");
         return;
       }
       localStorage.setItem(key, String(optionNum));
+      const field = optionNum === 1 ? "poll.votes1" : "poll.votes2";
+      const settingsDoc = doc(db, "artifacts", appId, "public", "data", "system_meta", "global_settings");
+      await updateDoc(settingsDoc, { [field]: increment(1) });
+      showToast("¡Voto registrado en la encuesta oficial!", "🔥");
+    };
+
+    window.spinDailyIceWheel = async function () {
+      if (!db || !firebaseUser || !fanProfile) {
+        await loginWithGoogle();
+        return;
+      }
+      const todayStr = new Date().toISOString().slice(0, 10);
+      if (fanProfile.lastWheelSpin === todayStr) {
+        showToast("Ya giraste la ruleta hoy. ¡Vuelve mañana!", "🎡");
+        return;
+      }
+      const prizes = [25, 50, 75, 100, 150, 200];
+      const won = prizes[Math.floor(Math.random() * prizes.length)];
+      const newCoins = (fanProfile.coins || 0) + won;
       try {
-        const settingsDoc = doc(db, "artifacts", appId, "public", "data", "system_meta", "global_settings");
-        const field = optionNum === 1 ? "poll.votes1" : "poll.votes2";
-        await updateDoc(settingsDoc, { [field]: increment(1) });
-        showToast("¡Voto registrado en directo!", "🗳️");
+        const userDocRef = doc(db, "artifacts", appId, "public", "data", "fan_profiles", firebaseUser.uid);
+        await updateDoc(userDocRef, {
+          coins: newCoins,
+          lastWheelSpin: todayStr
+        });
+        fanProfile.coins = newCoins;
+        fanProfile.lastWheelSpin = todayStr;
+        updateAuthUI();
+        showToast(`🎉 ¡La ruleta te dio +${won} Fruti-Coins!`, "🎡");
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    window.toggleFollowFan = async function (targetUid) {
+      if (!db || !firebaseUser || !fanProfile) {
+        await loginWithGoogle();
+        return;
+      }
+      if (!targetUid || targetUid === firebaseUser.uid) return;
+
+      const currentFollowing = Array.isArray(fanProfile.following) ? [...fanProfile.following] : [];
+      const alreadyFollowing = currentFollowing.includes(targetUid);
+      const updatedFollowing = alreadyFollowing
+        ? currentFollowing.filter((id) => id !== targetUid)
+        : [...currentFollowing, targetUid];
+
+      try {
+        const myRef = doc(db, "artifacts", appId, "public", "data", "fan_profiles", firebaseUser.uid);
+        const targetRef = doc(db, "artifacts", appId, "public", "data", "fan_profiles", targetUid);
+        await updateDoc(myRef, { following: updatedFollowing });
+        await updateDoc(targetRef, { followersCount: increment(alreadyFollowing ? -1 : 1) });
+        fanProfile.following = updatedFollowing;
+        renderChatMessages();
+        renderStreakLeaderboard();
+        showToast(alreadyFollowing ? "Dejaste de seguir a este fan" : "¡Ahora sigues a este Fruti-Fan!", "👥");
       } catch (err) {
         console.error(err);
       }
@@ -2641,26 +2624,32 @@
       showToast("+1 día de racha añadido al fan", "🔥");
     };
 
-    window.adminSendOfficialChatBroadcast = async function () {
+    window.adminToggleVerifyUser = async function (uid, currentVerified) {
       if (!guardAdmin()) return;
-      const input = document.getElementById("adm-broadcast-chat-input");
-      const text = input.value.trim();
-      if (!text) return;
-      input.value = "";
-      const chatCol = collection(db, "artifacts", appId, "public", "data", "heladeria_chat");
-      await addDoc(chatCol, {
-        uid: firebaseUser.uid,
-        displayName: "Cocardo Oficial",
-        tiktokUser: "frutasalocadasoficiall",
-        photoURL: "",
-        fanNumber: 1,
-        equippedTitle: "👑 Fundador",
-        isAdmin: true,
-        reactions: { lol: 0, fire: 0, coco: 0 },
-        text: text,
-        createdAt: Date.now()
+      await updateDoc(doc(db, "artifacts", appId, "public", "data", "fan_profiles", uid), {
+        verifiedFan: !currentVerified
       });
-      showToast("Aviso oficial enviado al Chat Común", "📣");
+      showToast(!currentVerified ? "Fan verificado oficialmente ✔" : "Verificación retirada", "✔");
+    };
+
+    window.adminMassGiftCoins = async function (amount) {
+      if (!guardAdmin()) return;
+      for (const f of allRegisteredFans) {
+        await updateDoc(doc(db, "artifacts", appId, "public", "data", "fan_profiles", f.uid), {
+          coins: increment(amount)
+        });
+      }
+      showToast(`¡Lluvia de +${amount} Fruti-Coins enviada a todos!`, "🎁");
+    };
+
+    window.adminResetAllStreaksWarning = async function () {
+      if (!guardAdmin()) return;
+      for (const f of allRegisteredFans) {
+        await updateDoc(doc(db, "artifacts", appId, "public", "data", "fan_profiles", f.uid), {
+          streak: increment(1)
+        });
+      }
+      showToast("¡Evento Doble Racha aplicado a toda la comunidad!", "🔥");
     };
 
     window.adminExportCommunityJSON = function () {
@@ -2681,6 +2670,151 @@
       showToast("Backup JSON descargado", "💾");
     };
 
+    window.adminSendOfficialChatBroadcast = async function () {
+      if (!guardAdmin()) return;
+      const input = document.getElementById("adm-broadcast-chat-input");
+      const text = (input.value || "").trim();
+      if (!text) return;
+      const chatCol = collection(db, "artifacts", appId, "public", "data", "heladeria_chat");
+      await addDoc(chatCol, {
+        uid: firebaseUser.uid,
+        fanNumber: fanProfile ? fanProfile.fanNumber : 1,
+        displayName: "COCARDO (OFICIAL)",
+        tiktokUser: "frutasalocadasoficiall",
+        photoURL: "cocardo-cara.jpg",
+        text,
+        isAdminMsg: true,
+        reactions: { laugh: 0, fire: 0, coco: 0 },
+        createdAt: Date.now()
+      });
+      input.value = "";
+      showToast("Mensaje oficial publicado en el chat", "📣");
+    };
+
+    function renderChatMessages() {
+      const box = document.getElementById("chat-messages-box");
+      if (!box) return;
+      if (allChatMessages.length === 0) {
+        box.innerHTML = `<p class="text-xs text-cream/55 text-center py-8">El chat está listo. ¡Sé el primero en saludar a Coco's Scoops!</p>`;
+        return;
+      }
+
+      const myFollowing = (fanProfile && Array.isArray(fanProfile.following)) ? fanProfile.following : [];
+
+      box.innerHTML = allChatMessages.map((msg) => {
+        const isMine = firebaseUser && msg.uid === firebaseUser.uid;
+        const isFollowing = myFollowing.includes(msg.uid);
+        const r = msg.reactions || { laugh: 0, fire: 0, coco: 0 };
+        const avatar = msg.tiktokUser ? getTikTokProfilePic(msg.tiktokUser) : (msg.photoURL || buildIceCreamFallbackAvatar(msg.displayName || "FN"));
+        const fallback = buildIceCreamFallbackAvatar(msg.displayName || "FN");
+
+        return `
+          <div class="p-3 rounded-2xl border ${msg.isAdminMsg ? "bg-amber-500/15 border-amber-400/50" : "bg-choco-950/85 border-cream/10"} space-y-2">
+            <div class="flex items-center justify-between gap-2">
+              <div class="flex items-center gap-2 min-w-0">
+                <img src="${avatar}" onerror="this.onerror=null;this.src='${fallback}';" class="w-8 h-8 rounded-xl object-cover border border-cream/20 shrink-0" />
+                <div class="min-w-0">
+                  <div class="flex items-center gap-1.5 flex-wrap">
+                    <span class="text-xs font-extrabold ${msg.isAdminMsg ? "text-amber-300" : "text-cream"} truncate">${escapeHTML(msg.displayName || "Fan")}</span>
+                    ${msg.fanNumber ? `<span class="text-[9px] font-black px-1.5 py-0.5 rounded bg-mint/15 text-mint">Fan #${msg.fanNumber}</span>` : ""}
+                    ${msg.tiktokUser ? `<span class="text-[10px] text-vanilla/80">@${escapeHTML(msg.tiktokUser)}</span>` : ""}
+                  </div>
+                </div>
+              </div>
+              <div class="flex items-center gap-1.5 shrink-0">
+                ${!isMine && msg.uid ? `
+                  <button onclick="toggleFollowFan('${msg.uid}')" class="text-[10px] font-extrabold px-2 py-0.5 rounded-lg ${isFollowing ? "bg-mint/20 text-mint" : "bg-vanilla/20 text-vanilla"}">
+                    ${isFollowing ? "Siguiendo" : "+ Seguir"}
+                  </button>
+                ` : ""}
+                ${isAdminUser ? `
+                  <button onclick="adminPinChatMessage('${escapeHTML(msg.text).replace(/'/g, "")}')" class="text-[10px] px-1.5 py-0.5 rounded bg-amber-400/20 text-amber-300">📌</button>
+                  <button onclick="adminDeleteChatMessage('${msg.id}')" class="text-[10px] px-1.5 py-0.5 rounded bg-red-500/20 text-red-300">🗑️</button>
+                ` : ""}
+              </div>
+            </div>
+            <p class="text-xs sm:text-sm text-cream/95 break-words">${escapeHTML(msg.text)}</p>
+            <div class="flex items-center justify-between pt-0.5">
+              <div class="flex items-center gap-1.5">
+                <button onclick="reactToChatMessage('${msg.id}', 'laugh')" class="text-[11px] px-2 py-0.5 rounded-lg bg-white/5 hover:bg-white/10 text-cream/85">😂 ${r.laugh || 0}</button>
+                <button onclick="reactToChatMessage('${msg.id}', 'fire')" class="text-[11px] px-2 py-0.5 rounded-lg bg-white/5 hover:bg-white/10 text-cream/85">🔥 ${r.fire || 0}</button>
+                <button onclick="reactToChatMessage('${msg.id}', 'coco')" class="text-[11px] px-2 py-0.5 rounded-lg bg-white/5 hover:bg-white/10 text-cream/85">🥥 ${r.coco || 0}</button>
+              </div>
+              <span class="text-[10px] text-cream/45">${formatRelativeTime(msg.createdAt)}</span>
+            </div>
+          </div>
+        `;
+      }).join("");
+      box.scrollTop = box.scrollHeight;
+    }
+
+    window.sendChatMessage = async function (e) {
+      e.preventDefault();
+      if (!db || !firebaseUser || !fanProfile) {
+        await loginWithGoogle();
+        return;
+      }
+      if (fanProfile.banned) {
+        showToast("Tu cuenta está silenciada en el chat.", "🚫");
+        return;
+      }
+      if (globalConfig.chatLocked && !isAdminUser) {
+        showToast("El chat está cerrado temporalmente por el fundador.", "🔒");
+        return;
+      }
+      if (globalConfig.slowMode && !isAdminUser && Date.now() - lastChatSentTimestamp < 10000) {
+        showToast("Modo lento activo: espera 10 segundos entre mensajes.", "⏱️");
+        return;
+      }
+
+      const input = document.getElementById("chat-message-input");
+      const text = (input.value || "").trim();
+      if (!text) return;
+
+      lastChatSentTimestamp = Date.now();
+      input.value = "";
+
+      try {
+        const chatCol = collection(db, "artifacts", appId, "public", "data", "heladeria_chat");
+        await addDoc(chatCol, {
+          uid: firebaseUser.uid,
+          fanNumber: fanProfile.fanNumber,
+          displayName: fanProfile.displayName,
+          tiktokUser: fanProfile.tiktokUser || "",
+          photoURL: fanProfile.photoURL || "",
+          text,
+          isAdminMsg: isAdminUser,
+          reactions: { laugh: 0, fire: 0, coco: 0 },
+          createdAt: Date.now()
+        });
+
+        const todayStr = new Date().toISOString().slice(0, 10);
+        if (fanProfile.dailyChatDone !== todayStr) {
+          const newCoins = (fanProfile.coins || 0) + 25;
+          const userDocRef = doc(db, "artifacts", appId, "public", "data", "fan_profiles", firebaseUser.uid);
+          await updateDoc(userDocRef, { dailyChatDone: todayStr, coins: newCoins });
+          fanProfile.dailyChatDone = todayStr;
+          fanProfile.coins = newCoins;
+          updateAuthUI();
+          showToast("¡Misión diaria completada: +25 Fruti-Coins! 🎯", "💬");
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    window.reactToChatMessage = async function (msgId, type) {
+      if (!db || !firebaseUser) return;
+      const key = `fn_react_${msgId}_${type}`;
+      if (localStorage.getItem(key)) return;
+      localStorage.setItem(key, "1");
+      try {
+        await updateDoc(doc(db, "artifacts", appId, "public", "data", "heladeria_chat", msgId), {
+          [`reactions.${type}`]: increment(1)
+        });
+      } catch (_) {}
+    };
+
     function renderAdminIdeasManager() {
       const container = document.getElementById("admin-ideas-manager");
       if (allIdeas.length === 0) {
@@ -2691,19 +2825,18 @@
         <div class="bg-choco-950/90 p-3 rounded-2xl border border-cream/10 space-y-2">
           <div class="flex items-center justify-between text-xs">
             <span class="font-extrabold text-vanilla">@${escapeHTML(item.username)} (❤️ ${item.likes})</span>
-            <div class="flex items-center gap-2">
-              <button onclick="adminToggleFeatureIdea('${item.id}', ${item.featured})" class="text-[11px] font-bold ${item.featured ? "text-amber-300" : "text-cream/60"}">
-                ${item.featured ? "⭐ Destacada" : "☆ Destacar"}
+            <div class="flex items-center gap-1.5">
+              <button onclick="adminToggleFeatureIdea('${item.id}', ${Boolean(item.featured)})" class="px-2 py-0.5 rounded bg-amber-400/20 text-amber-300 font-bold text-[10px]">
+                ${item.featured ? "Quitar ⭐" : "Destacar ⭐"}
               </button>
-              <button onclick="adminDeleteIdea('${item.id}')" class="text-[11px] font-bold text-red-400">🗑️ Borrar</button>
+              <button onclick="adminDeleteIdea('${item.id}')" class="px-2 py-0.5 rounded bg-red-500/20 text-red-300 font-bold text-[10px]">
+                Borrar 🗑️
+              </button>
             </div>
           </div>
-          <div class="flex gap-2">
-            <input id="adm-edit-input-${item.id}" type="text" value="${escapeHTML(item.idea)}"
-                   class="flex-1 bg-choco-900 text-xs text-cream px-2.5 py-1.5 rounded-lg border border-cream/15" />
-            <button onclick="adminEditIdeaText('${item.id}')" class="bg-vanilla text-choco-950 font-extrabold text-[11px] px-3 py-1.5 rounded-lg">
-              Guardar
-            </button>
+          <div class="flex gap-1.5">
+            <input id="adm-edit-input-${item.id}" type="text" value="${escapeHTML(item.idea)}" class="flex-1 bg-choco-900 text-xs text-cream px-2.5 py-1.5 rounded-lg border border-cream/15" />
+            <button onclick="adminEditIdeaText('${item.id}')" class="px-2.5 py-1.5 rounded-lg bg-mint text-choco-950 font-extrabold text-[10px]">Guardar</button>
           </div>
         </div>
       `).join("");
@@ -2722,7 +2855,7 @@
               <span class="font-black text-mint">#${f.fanNumber}</span>
               <strong class="text-cream ml-1">${escapeHTML(f.displayName)}</strong>
               <span class="text-cream/55 ml-1">${f.tiktokUser ? "(@" + escapeHTML(f.tiktokUser) + ")" : ""}</span>
-              <span class="block text-[10px] text-amber-300/85 mt-0.5">🪙 ${f.coins || 0} coins • 🔥 ${f.streak || 1}d racha</span>
+              <span class="block text-[10px] text-amber-300/85 mt-0.5">🪙 ${f.coins || 0} coins • 🔥 ${f.streak || 1}d racha • 👥 ${f.followersCount || 0}</span>
             </div>
             ${f.email === ADMIN_EMAIL
               ? `<span class="text-[10px] font-black text-amber-300">ADMIN</span>`
@@ -2732,7 +2865,7 @@
                  </button>`
             }
           </div>
-          <div class="flex items-center gap-1.5 pt-1 border-t border-white/10">
+          <div class="flex items-center gap-1.5 pt-1 border-t border-white/10 flex-wrap">
             <button onclick="adminGiveUserCoins('${f.uid}', 100)" class="px-2.5 py-1 rounded-lg bg-amber-400/20 text-amber-300 font-bold text-[10px]">
               +100 🪙
             </button>
@@ -2741,6 +2874,9 @@
             </button>
             <button onclick="adminBoostUserStreak('${f.uid}')" class="px-2.5 py-1 rounded-lg bg-orange-500/20 text-orange-300 font-bold text-[10px]">
               +1d 🔥
+            </button>
+            <button onclick="adminToggleVerifyUser('${f.uid}', ${Boolean(f.verifiedFan)})" class="px-2.5 py-1 rounded-lg bg-sky-400/20 text-sky-300 font-bold text-[10px]">
+              ${f.verifiedFan ? "Quitar ✔" : "Verificar ✔"}
             </button>
           </div>
         </div>
