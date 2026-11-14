@@ -1,0 +1,13 @@
+# Robots.txt oficial de FrutiNovelas | Coco's Scoops
+User-agent: *
+Allow: /
+Allow: /*.jpg$
+Allow: /*.png$
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: Googlebot-Image
+Allow: /
+
+Sitemap: https://frutinovelas.bond/sitemap.xml
