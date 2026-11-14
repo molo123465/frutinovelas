@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>FrutiNovelas | La Heladería de Cocardo 🍦🥥</title>
+  <title>FrutiNovelas | Coco's Scoops Oficial 🍦🥥</title>
   
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   
-  <!-- Google Fonts: Fredoka (estilo heladería retro-moderna) + Plus Jakarta Sans -->
+  <!-- Google Fonts: Fredoka + Plus Jakarta Sans -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -37,7 +37,6 @@
           animation: {
             'float': 'float 5s ease-in-out infinite',
             'pop': 'pop 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
-            'drip': 'drip 4s ease-in-out infinite',
             'shimmer': 'shimmer 2.6s linear infinite',
             'bounce-slow': 'bounceSlow 2.2s ease-in-out infinite',
             'wiggle': 'wiggle 0.45s ease-in-out',
@@ -85,7 +84,6 @@
       padding-bottom: calc(5.5rem + env(safe-area-inset-bottom));
     }
 
-    /* Fondo estilo barquillo / heladería oscura premium */
     .waffle-bg {
       background-image: 
         linear-gradient(135deg, rgba(255, 209, 102, 0.03) 25%, transparent 25%),
@@ -96,13 +94,12 @@
       background-size: 40px 40px;
     }
 
-    /* Glassmorphism sabor chocolate y crema */
     .ice-glass {
-      background: rgba(34, 19, 15, 0.8);
+      background: rgba(34, 19, 15, 0.84);
       backdrop-filter: blur(18px);
       -webkit-backdrop-filter: blur(18px);
-      border: 1px solid rgba(255, 248, 231, 0.12);
-      box-shadow: 0 14px 36px -10px rgba(0, 0, 0, 0.65);
+      border: 1px solid rgba(255, 248, 231, 0.13);
+      box-shadow: 0 14px 36px -10px rgba(0, 0, 0, 0.68);
       transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.25s ease;
     }
 
@@ -110,7 +107,7 @@
       background: rgba(18, 10, 8, 0.96);
       backdrop-filter: blur(24px);
       -webkit-backdrop-filter: blur(24px);
-      border-top: 1px solid rgba(255, 209, 102, 0.2);
+      border-top: 1px solid rgba(255, 209, 102, 0.22);
       padding-bottom: env(safe-area-inset-bottom);
     }
 
@@ -125,6 +122,24 @@
       animation: shimmer 3.5s linear infinite;
     }
 
+    .ticket-cutout {
+      position: relative;
+    }
+    .ticket-cutout::before,
+    .ticket-cutout::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      width: 24px;
+      height: 24px;
+      background-color: #120a08;
+      border-radius: 9999px;
+      transform: translateY(-50%);
+      border: 1px solid rgba(255, 209, 102, 0.3);
+    }
+    .ticket-cutout::before { left: -13px; }
+    .ticket-cutout::after { right: -13px; }
+
     @keyframes particleBurst {
       0% { transform: translate(0, 0) scale(1); opacity: 1; }
       100% { transform: translate(var(--tx), var(--ty)) scale(0.3); opacity: 0; }
@@ -138,26 +153,23 @@
       animation: particleBurst 0.75s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
 
-    /* Scrollbar personalizado */
     ::-webkit-scrollbar { width: 6px; }
     ::-webkit-scrollbar-track { background: #120a08; }
     ::-webkit-scrollbar-thumb { background: #3d241d; border-radius: 9999px; }
-
-    /* Ocultar scrollbar en filtros horizontales */
     .no-scrollbar::-webkit-scrollbar { display: none; }
     .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
   </style>
 </head>
 <body class="min-h-screen waffle-bg relative pb-28 selection:bg-strawberry selection:text-white">
 
-  <!-- Luces neón de heladería en el fondo -->
+  <!-- Luces neón de heladería -->
   <div class="fixed inset-0 pointer-events-none overflow-hidden z-0">
     <div class="absolute -top-24 -left-20 w-80 h-80 bg-strawberry/20 rounded-full blur-[110px]"></div>
     <div class="absolute top-1/3 -right-24 w-80 h-80 bg-vanilla/15 rounded-full blur-[115px]"></div>
     <div class="absolute bottom-10 left-1/4 w-72 h-72 bg-mint/15 rounded-full blur-[105px]"></div>
   </div>
 
-  <!-- Toast flotante (reemplazo seguro de alert) -->
+  <!-- Toast flotante -->
   <div id="toast-container" class="fixed top-4 left-1/2 -translate-x-1/2 z-50 pointer-events-none transition-all duration-300 opacity-0 -translate-y-4 w-[92%] max-w-sm">
     <div class="ice-glass border-vanilla/40 px-4 py-3 rounded-2xl flex items-center gap-3 shadow-2xl">
       <span id="toast-icon" class="text-xl shrink-0">🍦</span>
@@ -165,9 +177,7 @@
     </div>
   </div>
 
-  <!-- ===================================================================== -->
-  <!-- BANNER GLOBAL DE ANUNCIOS DEL ADMIN (EN TIEMPO REAL)                  -->
-  <!-- ===================================================================== -->
+  <!-- BANNER GLOBAL DE ANUNCIOS DEL ADMIN -->
   <div id="global-announcement-bar" class="hidden relative z-40 bg-gradient-to-r from-strawberry via-pink-600 to-vanilla text-choco-950 px-4 py-2 text-center shadow-lg">
     <p id="global-announcement-text" class="text-xs sm:text-sm font-extrabold tracking-tight"></p>
   </div>
@@ -176,29 +186,25 @@
   <header class="sticky top-0 z-30 backdrop-blur-xl bg-[#120a08]/85 border-b border-cream/10">
     <div class="max-w-2xl mx-auto px-4 py-3 flex items-center justify-between gap-2">
       <button onclick="switchTab('home')" class="flex items-center gap-2.5 text-left group min-w-0">
-        <div class="w-10 h-10 rounded-2xl bg-gradient-to-br from-vanilla via-strawberry to-mint p-[2px] shadow-lg shadow-strawberry/20 group-hover:scale-105 transition-transform shrink-0">
-          <div class="w-full h-full bg-choco-900 rounded-[14px] flex items-center justify-center text-xl">
-            🍦
-          </div>
+        <div class="w-10 h-10 rounded-2xl bg-gradient-to-br from-vanilla via-strawberry to-mint p-[2px] shadow-lg shadow-strawberry/20 group-hover:scale-105 transition-transform shrink-0 overflow-hidden">
+          <img src="cocardo-cara.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" alt="Cocardo" class="w-full h-full object-cover rounded-[14px]" />
+          <div class="hidden w-full h-full bg-choco-900 rounded-[14px] items-center justify-center text-xl">🥥</div>
         </div>
         <div class="min-w-0">
           <h1 class="font-display font-bold text-base sm:text-xl leading-none tracking-tight text-cream truncate">
             Fruti<span class="text-gradient-helado">Novelas</span>
           </h1>
-          <p id="header-shop-status" class="text-[11px] text-vanilla/85 font-semibold mt-0.5 truncate">Heladería Oficial de Cocardo</p>
+          <p id="header-shop-status" class="text-[11px] text-vanilla/85 font-semibold mt-0.5 truncate">Coco's Scoops • Heladería Oficial</p>
         </div>
       </button>
 
-      <!-- Zona de Cuenta Google / Número FrutiFan / Botón Admin -->
       <div class="flex items-center gap-2 shrink-0">
-        <!-- Botón exclusivo Admin (solo visible si email === ishaktopro@gmail.com) -->
         <button id="admin-header-btn" onclick="switchTab('admin')"
                 class="hidden items-center gap-1.5 bg-gradient-to-r from-amber-400 to-orange-500 text-choco-950 font-extrabold text-xs px-3 py-2 rounded-full shadow-lg shadow-amber-500/30 active:scale-95 transition-all">
           <span>🛡️</span>
           <span>Admin</span>
         </button>
 
-        <!-- Estado de Sesión -->
         <button id="auth-header-btn" onclick="openAuthOrProfileModal()"
                 class="flex items-center gap-2 bg-choco-800/90 hover:bg-choco-700 border border-cream/15 px-3 py-1.5 rounded-full transition-all active:scale-95">
           <img id="header-user-avatar" src="" alt="" class="hidden w-6 h-6 rounded-full object-cover border border-vanilla" />
@@ -208,9 +214,7 @@
     </div>
   </header>
 
-  <!-- =================================================================== -->
-  <!-- MODAL DE ENTRADA DIRECTA PARA INICIAR SESIÓN AL ABRIR LA WEB        -->
-  <!-- =================================================================== -->
+  <!-- MODAL DE ENTRADA DIRECTA PARA INICIAR SESIÓN -->
   <div id="entry-login-modal" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
     <div class="ice-glass rounded-[32px] max-w-md w-full p-6 border-2 border-strawberry/50 relative animate-pop text-center space-y-4">
       <button onclick="dismissEntryLoginModal()" aria-label="Cerrar"
@@ -218,21 +222,20 @@
         ✕
       </button>
 
-      <div class="w-20 h-20 mx-auto rounded-3xl bg-gradient-to-br from-strawberry via-vanilla to-mint p-[3px] shadow-xl">
-        <div class="w-full h-full bg-choco-950 rounded-[21px] flex items-center justify-center text-4xl">
-          🥥
-        </div>
+      <div class="w-24 h-24 mx-auto rounded-3xl bg-gradient-to-br from-strawberry via-vanilla to-mint p-[3px] shadow-xl overflow-hidden">
+        <img src="cocardo-cara.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" alt="Cocardo" class="w-full h-full object-cover rounded-[21px] bg-white" />
+        <div class="hidden w-full h-full bg-choco-950 rounded-[21px] items-center justify-center text-4xl">🥥</div>
       </div>
 
       <div>
         <span class="inline-block text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full bg-vanilla/15 text-vanilla border border-vanilla/30">
-          Acceso Oficial • @frutasalocadasoficiall
+          Coco's Scoops Oficial • @frutasalocadasoficiall
         </span>
         <h2 class="font-display font-bold text-2xl sm:text-3xl text-cream mt-2 leading-tight">
           Entra a <span class="text-gradient-helado">La Heladería de Cocardo</span>
         </h2>
-        <p class="text-xs sm:text-sm text-cream/75 mt-1.5 leading-relaxed">
-          Inicia sesión con Google en 1 toque para reclamar tu número oficial de <strong class="text-vanilla">#FrutiFan</strong>, hablar en el chat común y votar qué pasa en los vídeos.
+        <p class="text-xs sm:text-sm text-cream/80 mt-1.5 leading-relaxed">
+          Inicia sesión con Google en 1 toque para reclamar tu <strong class="text-vanilla">Pase VIP #FrutiFan</strong>. ¡Si lo subes a Story o vídeo mencionándome, <strong class="text-strawberry">lo comparto</strong>!
         </p>
       </div>
 
@@ -256,11 +259,9 @@
     </div>
   </div>
 
-  <!-- =================================================================== -->
-  <!-- MODAL DE BIENVENIDA FRUTIFAN #X & CONFIGURACIÓN DE @TIKTOK          -->
-  <!-- =================================================================== -->
-  <div id="welcome-fan-modal" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
-    <div class="ice-glass rounded-[32px] max-w-md w-full p-6 border-2 border-vanilla/50 relative animate-pop text-center space-y-4">
+  <!-- MODAL DE BIENVENIDA FRUTIFAN #X & PASE VIP PARA STORY -->
+  <div id="welcome-fan-modal" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto">
+    <div class="ice-glass rounded-[32px] max-w-md w-full p-5 sm:p-6 border-2 border-vanilla/50 relative animate-pop text-center space-y-4 my-auto">
       <div class="w-20 h-20 mx-auto rounded-3xl bg-gradient-to-br from-vanilla via-strawberry to-mint p-[3px] shadow-xl">
         <div class="w-full h-full bg-choco-950 rounded-[21px] flex items-center justify-center text-4xl">
           🎉
@@ -269,20 +270,19 @@
 
       <div>
         <span class="inline-block text-[11px] font-black uppercase tracking-widest px-3 py-1 rounded-full bg-mint/15 text-mint border border-mint/30">
-          Registro Oficial Completado
+          Registro Oficial • Coco's Scoops
         </span>
         <h2 class="font-display font-bold text-2xl sm:text-3xl text-cream mt-2">
           ¡Eres el Fruti-Fan <span id="modal-fan-number" class="text-gradient-helado">#1</span>, felicidades!
         </h2>
-        <p class="text-xs sm:text-sm text-cream/75 mt-1.5">
-          Tu número oficial queda guardado para siempre en tu cuenta de La Heladería de Cocardo.
+        <p class="text-xs sm:text-sm text-cream/80 mt-1.5">
+          Descarga tu Pase VIP oficial y súbelo a tu Story o vídeo mencionando a <strong class="text-vanilla">@frutasalocadasoficiall</strong>. <strong class="text-strawberry">¡Todos los que me mencionen con su pase los comparto!</strong>
         </p>
       </div>
 
-      <!-- Vincular su @ de TikTok para el chat y el muro -->
       <div class="bg-choco-950/85 p-4 rounded-2xl border border-cream/15 text-left space-y-2">
         <label for="modal-tiktok-input" class="block text-[11px] font-extrabold uppercase tracking-wider text-vanilla">
-          Tu usuario de TikTok (para tu foto y el chat)
+          Tu usuario de TikTok (sale en tu Pase VIP y en el chat)
         </label>
         <div class="flex items-center gap-2.5">
           <img id="modal-tt-preview" src="" alt="Preview" class="w-11 h-11 rounded-xl object-cover bg-choco-800 border border-vanilla/50 shrink-0" />
@@ -300,10 +300,16 @@
                 class="w-full bg-gradient-to-r from-vanilla via-amber-400 to-strawberry text-choco-950 font-display font-bold text-base py-3.5 rounded-2xl shadow-lg active:scale-95 transition-all">
           🍦 Guardar mi Pase #FrutiFan
         </button>
-        <button onclick="downloadFanPassportPNG()"
-                class="w-full bg-choco-900 hover:bg-choco-800 text-vanilla border border-vanilla/30 font-bold text-xs py-2.5 rounded-xl active:scale-95 transition-all">
-          📲 Descargar mi Pase #FrutiFan para Stories
-        </button>
+        <div class="grid grid-cols-2 gap-2">
+          <button onclick="downloadFanPassportPNG()"
+                  class="bg-choco-900 hover:bg-choco-800 text-vanilla border border-vanilla/40 font-extrabold text-xs py-3 rounded-xl active:scale-95 transition-all">
+            📲 Descargar Pase VIP
+          </button>
+          <button onclick="shareFanPassportNative()"
+                  class="bg-strawberry/20 hover:bg-strawberry/30 text-strawberry border border-strawberry/40 font-extrabold text-xs py-3 rounded-xl active:scale-95 transition-all">
+            🚀 Compartir Directo
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -312,31 +318,51 @@
   <main class="relative z-10 max-w-2xl mx-auto px-4 pt-5">
 
     <!-- =================================================================== -->
-    <!-- PESTAÑA 1: INICIO (BIENVENIDA, ENCUESTA EN VIVO Y PASE FRUTIFAN)    -->
+    <!-- PESTAÑA 1: INICIO                                                   -->
     <!-- =================================================================== -->
     <section id="tab-home" class="space-y-5 animate-pop">
 
-      <!-- Tarjeta de Pase Oficial de Fan / Inicio de Sesión Google -->
-      <div id="fan-passport-card" class="ice-glass rounded-[28px] p-5 sm:p-6 relative overflow-hidden border-vanilla/25">
-        <div class="absolute -right-10 -top-10 w-44 h-44 bg-strawberry/20 rounded-full blur-2xl pointer-events-none"></div>
+      <!-- Banner Visual Coco's Scoops con tu foto oficial del equipo -->
+      <div class="relative rounded-[30px] overflow-hidden border-2 border-vanilla/35 shadow-2xl bg-choco-900">
+        <img src="heladeria-saludo.jpg"
+             onerror="this.parentElement.classList.add('p-6','bg-gradient-to-br','from-amber-900/50','via-choco-900','to-choco-950'); this.style.display='none';"
+             alt="Bienvenidos a Coco's Scoops con Cocardo, Lima y Cherry"
+             class="w-full h-52 sm:h-64 object-cover object-center" />
+        <div class="absolute inset-0 bg-gradient-to-t from-[#120a08] via-[#120a08]/40 to-transparent pointer-events-none"></div>
+        <div class="relative sm:absolute sm:bottom-0 sm:left-0 sm:right-0 p-4 sm:p-5 flex items-end justify-between gap-3">
+          <div>
+            <span class="inline-block text-[10px] font-black uppercase tracking-widest px-2.5 py-1 rounded-full bg-vanilla text-choco-950 shadow">
+              Coco's Scoops • Sede Oficial
+            </span>
+            <h2 class="font-display font-bold text-xl sm:text-2xl text-white mt-1 drop-shadow">
+              ¡La heladería más loca de TikTok!
+            </h2>
+          </div>
+          <span class="shrink-0 text-xs font-extrabold px-3 py-1.5 rounded-full bg-black/70 text-mint border border-mint/40 backdrop-blur-md">
+            ● <span id="home-registered-fans-count">0</span> Fans
+          </span>
+        </div>
+      </div>
 
+      <!-- Tarjeta de Pase Oficial de Fan / Inicio de Sesión Google -->
+      <div id="fan-passport-card" class="ice-glass rounded-[28px] p-5 sm:p-6 relative overflow-hidden border-vanilla/30">
         <!-- Vista cuando NO ha iniciado sesión -->
         <div id="passport-logged-out" class="space-y-4">
           <div class="flex flex-wrap items-center gap-2">
             <span class="text-[11px] font-extrabold uppercase tracking-wider px-3 py-1 rounded-full bg-vanilla/15 text-vanilla border border-vanilla/30">
               🍨 Club Oficial @frutasalocadasoficiall
             </span>
-            <span class="text-[11px] font-bold px-3 py-1 rounded-full bg-mint/15 text-mint border border-mint/30">
-              ● <span id="home-registered-fans-count">0</span> Fruti-Fans unidos
+            <span class="text-[11px] font-extrabold px-3 py-1 rounded-full bg-strawberry/15 text-strawberry border border-strawberry/30">
+              📣 ¡Si me mencionas con tu pase, te comparto!
             </span>
           </div>
 
           <div>
             <h2 class="font-display font-bold text-2xl sm:text-3xl text-cream leading-tight">
-              Consigue tu número oficial de <span class="text-gradient-helado">Fruti-Fan</span>
+              Consigue tu Pase VIP de <span class="text-gradient-helado">Fruti-Fan</span>
             </h2>
-            <p class="text-sm text-cream/75 mt-2 leading-relaxed">
-              Inicia sesión con Google para reclamar tu número único de miembro para siempre, hablar en el chat común de la heladería y votar en las decisiones de los capítulos.
+            <p class="text-sm text-cream/80 mt-2 leading-relaxed">
+              Inicia sesión con Google para reclamar tu número único de miembro para siempre, hablar en el chat común y descargar tu tarjeta oficial para Stories.
             </p>
           </div>
 
@@ -359,41 +385,54 @@
           </div>
         </div>
 
-        <!-- Vista cuando SÍ ha iniciado sesión (Su Carnet Oficial) -->
+        <!-- Vista cuando SÍ ha iniciado sesión (Ticket VIP estilo Pase Oficial) -->
         <div id="passport-logged-in" class="hidden space-y-4">
-          <div class="flex items-center justify-between gap-3">
-            <div class="flex items-center gap-3 min-w-0">
-              <img id="passport-avatar" src="" alt="Avatar" class="w-14 h-14 rounded-2xl object-cover border-2 border-vanilla shadow-md shrink-0" />
-              <div class="min-w-0">
-                <div class="flex items-center gap-1.5 flex-wrap">
-                  <span id="passport-fan-badge" class="text-xs font-black px-2.5 py-0.5 rounded-full bg-gradient-to-r from-vanilla to-amber-500 text-choco-950">
-                    Fruti-Fan #1
-                  </span>
-                  <span id="passport-rank-badge" class="text-[10px] font-black px-2 py-0.5 rounded-full bg-mint/20 text-mint border border-mint/30">
-                    🍦 Aprendiz
-                  </span>
-                  <span id="passport-role-badge" class="hidden text-[10px] font-black px-2 py-0.5 rounded-full bg-strawberry text-white">
-                    FUNDADOR / ADMIN
-                  </span>
-                </div>
-                <h3 id="passport-name" class="font-display font-bold text-lg text-cream truncate mt-1">Nombre Fan</h3>
-                <div class="flex items-center gap-2 text-xs font-bold mt-0.5">
-                  <span id="passport-tiktok-handle" class="text-vanilla/85 truncate">@usuario_tiktok</span>
-                  <span class="text-cream/30">•</span>
-                  <span id="passport-coins-label" class="text-amber-300">🪙 0</span>
-                  <span id="passport-streak-label" class="text-orange-400">🔥 1d</span>
-                </div>
-              </div>
+          <div class="rounded-3xl bg-gradient-to-br from-amber-500/20 via-choco-950 to-strawberry/20 border-2 border-vanilla/45 p-4 ticket-cutout shadow-xl">
+            <div class="flex items-center justify-between gap-2 pb-3 border-b border-dashed border-vanilla/30">
+              <span class="text-[10px] font-black uppercase tracking-widest text-vanilla">🎫 PASE VIP • COCO'S SCOOPS</span>
+              <span id="passport-fan-badge" class="text-xs font-black px-2.5 py-0.5 rounded-full bg-gradient-to-r from-vanilla to-amber-500 text-choco-950">
+                Fruti-Fan #1
+              </span>
             </div>
 
-            <button onclick="openEditProfileModal()"
-                    class="shrink-0 bg-choco-950/80 hover:bg-choco-800 border border-cream/15 px-3 py-2 rounded-xl text-xs font-bold text-cream/85">
-              ✏️ Editar @
-            </button>
+            <div class="flex items-center justify-between gap-3 pt-3">
+              <div class="flex items-center gap-3 min-w-0">
+                <img id="passport-avatar" src="" alt="Avatar" class="w-14 h-14 rounded-2xl object-cover border-2 border-vanilla shadow-md shrink-0" />
+                <div class="min-w-0">
+                  <div class="flex items-center gap-1.5 flex-wrap">
+                    <span id="passport-rank-badge" class="text-[10px] font-black px-2 py-0.5 rounded-full bg-mint/20 text-mint border border-mint/30">
+                      🍦 Aprendiz
+                    </span>
+                    <span id="passport-role-badge" class="hidden text-[10px] font-black px-2 py-0.5 rounded-full bg-strawberry text-white">
+                      FUNDADOR / ADMIN
+                    </span>
+                  </div>
+                  <h3 id="passport-name" class="font-display font-bold text-lg text-cream truncate mt-1">Nombre Fan</h3>
+                  <div class="flex items-center gap-2 text-xs font-bold mt-0.5">
+                    <span id="passport-tiktok-handle" class="text-vanilla/90 truncate">@usuario_tiktok</span>
+                    <span class="text-cream/30">•</span>
+                    <span id="passport-coins-label" class="text-amber-300">🪙 0</span>
+                    <span id="passport-streak-label" class="text-orange-400">🔥 1d</span>
+                  </div>
+                </div>
+              </div>
+
+              <button onclick="openEditProfileModal()"
+                      class="shrink-0 bg-choco-900 hover:bg-choco-800 border border-cream/15 px-3 py-2 rounded-xl text-xs font-bold text-cream/90">
+                ✏️ @TT
+              </button>
+            </div>
           </div>
 
-          <!-- Recompensa Diaria + Acceso Directo -->
-          <div class="flex items-center justify-between gap-2 bg-choco-950/80 p-3 rounded-2xl border border-amber-400/25">
+          <!-- Aviso Viral de Repost en TikTok / Stories -->
+          <div class="bg-gradient-to-r from-strawberry/20 via-pink-500/15 to-vanilla/20 border border-strawberry/40 rounded-2xl p-3 text-center">
+            <p class="text-xs font-extrabold text-cream">
+              📣 ¡Sube tu <span class="text-vanilla">Pase Story</span> o un vídeo mencionando a <span class="text-strawberry">@frutasalocadasoficiall</span> y <span class="underline">lo comparto en mi cuenta</span>!
+            </p>
+          </div>
+
+          <!-- Recompensa Diaria + Ruleta -->
+          <div class="flex items-center justify-between gap-2 bg-choco-950/85 p-3 rounded-2xl border border-amber-400/25">
             <div class="min-w-0">
               <p class="text-xs font-extrabold text-vanilla">🎁 Bonus Diario de la Heladería</p>
               <p id="daily-reward-status" class="text-[11px] text-cream/65 truncate">Reclama +50 Fruti-Coins y sube tu racha</p>
@@ -405,20 +444,33 @@
           </div>
 
           <div class="grid grid-cols-3 gap-2 pt-0.5">
-            <button onclick="switchTab('chat')" class="bg-mint/15 hover:bg-mint/25 border border-mint/30 text-mint font-display font-bold text-xs sm:text-sm py-3 rounded-2xl transition-all active:scale-95">
-              💬 Chat Común
-            </button>
-            <button onclick="switchTab('ranks')" class="bg-vanilla/15 hover:bg-vanilla/25 border border-vanilla/30 text-vanilla font-display font-bold text-xs sm:text-sm py-3 rounded-2xl transition-all active:scale-95">
-              🔥 Top Rachas
-            </button>
-            <button onclick="downloadFanPassportPNG()" class="bg-strawberry/15 hover:bg-strawberry/25 border border-strawberry/30 text-strawberry font-display font-bold text-xs sm:text-sm py-3 rounded-2xl transition-all active:scale-95">
+            <button onclick="downloadFanPassportPNG()" class="bg-gradient-to-r from-strawberry to-pink-500 text-white font-display font-bold text-xs sm:text-sm py-3 rounded-2xl shadow-md transition-all active:scale-95">
               📲 Pase Story
+            </button>
+            <button onclick="shareFanPassportNative()" class="bg-vanilla/20 hover:bg-vanilla/30 border border-vanilla/40 text-vanilla font-display font-bold text-xs sm:text-sm py-3 rounded-2xl transition-all active:scale-95">
+              🚀 Compartir
+            </button>
+            <button onclick="switchTab('chat')" class="bg-mint/15 hover:bg-mint/25 border border-mint/30 text-mint font-display font-bold text-xs sm:text-sm py-3 rounded-2xl transition-all active:scale-95">
+              💬 Chat Vivo
             </button>
           </div>
         </div>
       </div>
 
-      <!-- MISIONES DIARIAS PARA VOLVER CADA DÍA (+FRUTI-COINS) -->
+      <!-- RULETA DIARIA DE LA HELADERÍA (FUNCIÓN EXTRA ENGANCHE) -->
+      <div class="ice-glass rounded-[28px] p-4 sm:p-5 border-vanilla/30 flex items-center justify-between gap-3">
+        <div class="min-w-0">
+          <span class="text-[10px] font-black uppercase tracking-wider text-vanilla">Tirada Gratis Cada 24h</span>
+          <h3 class="font-display font-bold text-base sm:text-lg text-cream">🎡 Ruleta de Coco's Scoops</h3>
+          <p id="wheel-status-text" class="text-xs text-cream/70 mt-0.5">Gira para ganar entre +25 y +200 Fruti-Coins</p>
+        </div>
+        <button id="spin-wheel-btn" onclick="spinDailyIceWheel()"
+                class="shrink-0 bg-gradient-to-r from-vanilla via-amber-400 to-strawberry text-choco-950 font-display font-bold text-xs sm:text-sm px-4 py-3 rounded-2xl shadow-lg active:scale-95 transition-all">
+          🎰 Girar Hoy
+        </button>
+      </div>
+
+      <!-- MISIONES DIARIAS -->
       <div class="ice-glass rounded-[28px] p-4 sm:p-5 border-mint/25 space-y-3">
         <div class="flex items-center justify-between">
           <div>
@@ -455,11 +507,12 @@
         </div>
       </div>
 
-      <!-- COCARDO INTERACTIVO EN VIVO (TOCA PARA REACCIONES Y FRASES) -->
-      <div class="ice-glass rounded-[28px] p-4 sm:p-5 border-amber-400/25 flex items-center gap-4 relative overflow-hidden">
+      <!-- COCARDO INTERACTIVO CON TU IMAGEN REAL DEL DELANTAL -->
+      <div class="ice-glass rounded-[28px] p-4 sm:p-5 border-amber-400/30 flex items-center gap-4 relative overflow-hidden">
         <button id="cocardo-mascot-btn" onclick="pokeCocardoMascot(event)"
-                class="w-20 h-20 rounded-3xl bg-gradient-to-br from-amber-500/30 to-strawberry/25 border-2 border-vanilla/50 flex items-center justify-center text-5xl shrink-0 shadow-lg active:scale-90 transition-transform animate-bounce-slow cursor-pointer select-none">
-          🥥
+                class="w-20 h-24 rounded-3xl bg-white border-2 border-vanilla/70 flex items-center justify-center overflow-hidden shrink-0 shadow-lg active:scale-90 transition-transform animate-bounce-slow cursor-pointer select-none">
+          <img src="cocardo-cara.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='block';" alt="Cocardo" class="w-full h-full object-cover object-top" />
+          <span class="hidden text-5xl">🥥</span>
         </button>
         <div class="flex-1 min-w-0">
           <div class="flex items-center justify-between gap-2">
@@ -467,12 +520,12 @@
             <span id="cocardo-mood-badge" class="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-mint/15 text-mint">Tranquilo</span>
           </div>
           <p id="cocardo-speech-bubble" class="text-xs sm:text-sm font-bold text-cream mt-1.5 leading-snug">
-            «¡Bienvenido a mi heladería! No me rompas ningún cucurucho que hoy no cuadra la caja...»
+            «¡Bienvenido a Coco's Scoops! No me rompas ningún cucurucho que hoy no cuadra la caja...»
           </p>
         </div>
       </div>
 
-      <!-- ENCUESTA OFICIAL EN VIVO (Controlada desde el Panel Admin) -->
+      <!-- ENCUESTA OFICIAL EN VIVO -->
       <div id="live-poll-card" class="hidden ice-glass rounded-[28px] p-5 border-strawberry/35 bg-gradient-to-br from-choco-800/80 to-choco-950/95 space-y-3.5">
         <div class="flex items-center justify-between gap-2">
           <span class="text-xs font-black uppercase tracking-wider text-strawberry flex items-center gap-1.5">
@@ -485,9 +538,7 @@
           Pregunta oficial...
         </h3>
 
-        <div id="live-poll-options" class="space-y-2.5">
-          <!-- Opciones dinámicas de votación -->
-        </div>
+        <div id="live-poll-options" class="space-y-2.5"></div>
       </div>
 
       <!-- Métricas reales en tiempo real -->
@@ -506,7 +557,7 @@
         </div>
       </div>
 
-      <!-- Idea #1 Más votada (solo aparece si existen ideas reales) -->
+      <!-- Idea #1 Más votada -->
       <div id="home-top-idea-box" class="hidden ice-glass rounded-[28px] p-5 border-vanilla/30">
         <div class="flex items-center justify-between mb-2">
           <span class="text-xs font-extrabold text-vanilla uppercase tracking-wider">👑 Idea #1 Más Votada por Fans</span>
@@ -515,11 +566,15 @@
         <div id="home-top-idea-content"></div>
       </div>
 
-      <!-- Elenco Oficial de la Heladería -->
-      <div class="ice-glass rounded-[28px] p-5 border-cream/10">
-        <div class="flex items-center justify-between mb-3.5">
-          <h3 class="font-display font-bold text-lg text-cream">🍧 Elenco de la Heladería</h3>
+      <!-- Elenco Oficial con tu foto grupal en el parque -->
+      <div class="ice-glass rounded-[28px] p-5 border-cream/10 space-y-4">
+        <div class="flex items-center justify-between">
+          <h3 class="font-display font-bold text-lg text-cream">🍧 Elenco de Coco's Scoops</h3>
           <a href="https://www.tiktok.com/@frutasalocadasoficiall" target="_blank" rel="noopener noreferrer" class="text-xs font-bold text-strawberry hover:underline">@frutasalocadasoficiall</a>
+        </div>
+
+        <div class="rounded-2xl overflow-hidden border border-cream/15">
+          <img src="tropa-parque.jpg" onerror="this.parentElement.style.display='none';" alt="Lima, Cocardo, Cherry y Melocotón" class="w-full h-44 sm:h-52 object-cover" />
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -527,7 +582,7 @@
             <div class="w-11 h-11 rounded-2xl bg-amber-500/20 border border-amber-400/30 flex items-center justify-center text-2xl shrink-0">🥥</div>
             <div>
               <h4 class="font-display font-bold text-sm text-vanilla">Cocardo</h4>
-              <p class="text-xs text-cream/70 mt-0.5 leading-snug">El dueño legendario. Vive al límite entre facturas, helados derretidos y clientes imposibles.</p>
+              <p class="text-xs text-cream/70 mt-0.5 leading-snug">El dueño legendario de Coco's Scoops. Vive al límite entre facturas y helados derretidos.</p>
             </div>
           </div>
 
@@ -560,7 +615,7 @@
     </section>
 
     <!-- =================================================================== -->
-    <!-- PESTAÑA 2: CHAT COMÚN EN VIVO DE LA HELADERÍA                       -->
+    <!-- PESTAÑA 2: CHAT COMÚN EN VIVO                                       -->
     <!-- =================================================================== -->
     <section id="tab-chat" class="hidden space-y-4">
       <div class="ice-glass rounded-[28px] p-4 sm:p-5 border-mint/25 space-y-3">
@@ -572,18 +627,15 @@
           <span class="text-[11px] font-bold text-cream/60">100% Real</span>
         </div>
 
-        <!-- Mensaje Fijado por Admin -->
         <div id="pinned-chat-banner" class="hidden bg-amber-400/15 border border-amber-400/40 px-3.5 py-2.5 rounded-2xl flex items-center gap-2">
           <span class="text-sm shrink-0">📌</span>
           <p id="pinned-chat-text" class="text-xs font-extrabold text-vanilla truncate"></p>
         </div>
 
-        <!-- Lista de mensajes en tiempo real -->
         <div id="chat-messages-box" class="space-y-2.5 max-h-[54vh] overflow-y-auto pr-1">
           <p class="text-xs text-cream/55 text-center py-8">Conectando al chat común...</p>
         </div>
 
-        <!-- Aviso si no ha iniciado sesión -->
         <div id="chat-login-prompt" class="bg-choco-950/90 p-4 rounded-2xl border border-cream/15 text-center space-y-2">
           <p class="text-xs font-bold text-cream/80">Inicia sesión con Google para escribir en el chat común con tu número #FrutiFan</p>
           <button onclick="loginWithGoogle()" class="bg-white text-choco-950 font-display font-bold text-xs px-4 py-2.5 rounded-xl shadow active:scale-95">
@@ -591,7 +643,6 @@
           </button>
         </div>
 
-        <!-- Formulario para enviar mensaje -->
         <form id="chat-send-form" onsubmit="sendChatMessage(event)" class="hidden flex items-center gap-2 pt-1">
           <input id="chat-message-input" type="text" maxlength="200" required placeholder="Escribe algo a la comunidad..."
                  class="flex-1 bg-choco-950/90 text-xs sm:text-sm text-cream placeholder-cream/40 px-4 py-3 rounded-2xl border border-cream/15 focus:border-mint focus:outline-none" />
@@ -632,13 +683,13 @@
       <!-- Resultado final del Test -->
       <div id="quiz-result-wrapper" class="hidden space-y-4">
         <div id="story-vip-card" class="max-w-sm mx-auto rounded-[32px] p-6 relative overflow-hidden border-2 shadow-2xl">
-          <div class="flex items-center justify-between text-[10px] font-black uppercase tracking-widest text-cream/80 mb-4">
-            <span>La Heladería de Cocardo</span>
+          <div class="flex items-center justify-between text-[10px] font-black uppercase tracking-widest text-cream/85 mb-4">
+            <span>COCO'S SCOOPS • TEST OFICIAL</span>
             <span id="vip-card-id" class="text-vanilla">#FN-0001</span>
           </div>
 
           <div class="text-center">
-            <div id="vip-avatar-circle" class="w-24 h-24 mx-auto rounded-3xl flex items-center justify-center text-6xl shadow-xl border-2 border-white/25 mb-3">
+            <div id="vip-avatar-circle" class="w-24 h-24 mx-auto rounded-3xl flex items-center justify-center text-6xl shadow-xl border-2 border-white/30 mb-3">
               🥥
             </div>
             <span class="text-[10px] font-extrabold uppercase tracking-widest text-vanilla">Tu resultado oficial es</span>
@@ -646,7 +697,7 @@
             <p id="vip-epic-subtitle" class="text-xs font-bold text-cream/85 mt-1">«El Dueño Estresado»</p>
           </div>
 
-          <div class="mt-4 bg-black/35 p-3.5 rounded-2xl border border-white/10 space-y-2">
+          <div class="mt-4 bg-black/40 p-3.5 rounded-2xl border border-white/15 space-y-2">
             <div class="flex justify-between text-xs font-extrabold">
               <span class="text-cream">Afinidad</span>
               <span id="vip-affinity-pct" class="text-vanilla">90% Match</span>
@@ -654,14 +705,18 @@
             <div class="w-full h-2.5 bg-black/50 rounded-full overflow-hidden">
               <div id="vip-affinity-bar" class="h-full rounded-full bg-vanilla" style="width: 90%"></div>
             </div>
-            <p id="vip-secondary-mix" class="text-[11px] font-semibold text-cream/70">Con un toque de 10% LIMA</p>
+            <p id="vip-secondary-mix" class="text-[11px] font-semibold text-cream/75">Con un toque de 10% LIMA</p>
           </div>
 
           <p id="vip-description" class="text-xs text-cream/90 leading-relaxed mt-3 text-center"></p>
 
-          <div class="mt-4 pt-3 border-t border-white/15 text-center">
-            <p class="text-[10px] font-extrabold text-vanilla">molo123465.github.io/frutinovelas/</p>
-            <p class="text-[10px] font-bold text-cream/65">@frutasalocadasoficiall</p>
+          <div class="mt-4 bg-white/10 rounded-2xl p-2.5 text-center border border-white/15">
+            <p class="text-[11px] font-extrabold text-vanilla">📣 ¡Sube esta foto mencionando a @frutasalocadasoficiall y lo comparto!</p>
+          </div>
+
+          <div class="mt-3 pt-2.5 border-t border-white/15 text-center">
+            <p class="text-[11px] font-black text-white">molo123465.github.io/frutinovelas/</p>
+            <p class="text-[10px] font-bold text-vanilla">@frutasalocadasoficiall</p>
           </div>
         </div>
 
@@ -683,7 +738,7 @@
     </section>
 
     <!-- =================================================================== -->
-    <!-- PESTAÑA 4B: CLASIFICACIÓN DE RACHAS + ARCADE + TIENDA DE TÍTULOS    -->
+    <!-- PESTAÑA 4: CLASIFICACIÓN DE RACHAS + ARCADE + TIENDA DE TÍTULOS     -->
     <!-- =================================================================== -->
     <section id="tab-ranks" class="hidden space-y-5">
 
@@ -707,7 +762,7 @@
         </div>
       </div>
 
-      <!-- TIENDA DE TÍTULOS VIP (Canjeables con Fruti-Coins ganadas por racha y juego) -->
+      <!-- TIENDA DE TÍTULOS VIP -->
       <div class="ice-glass rounded-[28px] p-5 border-vanilla/30 space-y-3">
         <div class="flex items-center justify-between">
           <div>
@@ -735,7 +790,6 @@
           </div>
         </div>
 
-        <!-- HUD del juego -->
         <div class="grid grid-cols-3 gap-2 bg-choco-950/90 p-3 rounded-2xl border border-cream/10 text-center">
           <div>
             <span class="text-[10px] font-bold text-cream/60 block">PUNTOS</span>
@@ -751,7 +805,6 @@
           </div>
         </div>
 
-        <!-- Arena de juego táctil -->
         <div id="arcade-arena" class="relative w-full h-72 sm:h-80 rounded-3xl bg-gradient-to-b from-choco-950 via-choco-900 to-choco-950 border-2 border-cream/15 overflow-hidden select-none touch-manipulation">
           <div id="arcade-overlay" class="absolute inset-0 bg-black/75 backdrop-blur-sm flex flex-col items-center justify-center p-5 text-center z-20 space-y-3">
             <span class="text-5xl animate-bounce">🍨</span>
@@ -766,7 +819,6 @@
           </div>
         </div>
 
-        <!-- Top 10 Arcade -->
         <div class="pt-2 space-y-2">
           <h4 class="font-display font-bold text-sm text-vanilla">🏆 Top 10 Puntuaciones Arcade</h4>
           <div id="arcade-leaderboard-list" class="space-y-2">
@@ -777,9 +829,24 @@
     </section>
 
     <!-- =================================================================== -->
-    <!-- PESTAÑA 4: MURO DE HELADERÍA (IDEAS EN VIVO SIN RELLENO FALSO)      -->
+    <!-- PESTAÑA 5: MURO DE HELADERÍA (IDEAS EN VIVO SIN RELLENO FALSO)      -->
     <!-- =================================================================== -->
     <section id="tab-wall" class="hidden space-y-5">
+
+      <!-- Banner con tu foto de Cocardo y Cherry en el mostrador -->
+      <div class="relative rounded-[28px] overflow-hidden border border-strawberry/35 shadow-xl bg-choco-900">
+        <img src="cocardo-cherry.jpg"
+             onerror="this.style.display='none';"
+             alt="Cocardo y Cherry en el mostrador de Coco's Scoops"
+             class="w-full h-44 sm:h-52 object-cover object-center" />
+        <div class="p-4 bg-gradient-to-r from-choco-950 via-choco-900 to-choco-950 flex items-center justify-between gap-2">
+          <div>
+            <span class="text-[10px] font-black uppercase tracking-wider text-strawberry">Guion Colaborativo</span>
+            <h3 class="font-display font-bold text-base sm:text-lg text-cream">¿Qué pasa en el próximo capítulo?</h3>
+          </div>
+          <span class="text-xs font-extrabold text-vanilla">100% Real</span>
+        </div>
+      </div>
 
       <!-- Formulario para enviar idea global -->
       <div class="ice-glass rounded-[28px] p-5 border-cream/15">
@@ -793,7 +860,6 @@
         </div>
 
         <form id="idea-form" onsubmit="submitIdeaToFirestore(event)" class="space-y-3.5">
-          <!-- Input @usuario TikTok con vista previa de perfil -->
           <div class="flex items-center gap-3 bg-choco-950/80 p-3 rounded-2xl border border-cream/15 focus-within:border-strawberry transition-colors">
             <div class="relative shrink-0">
               <img id="tt-preview-img"
@@ -825,7 +891,6 @@
             </div>
           </div>
 
-          <!-- Selector de Categoría -->
           <div>
             <label for="idea-category" class="block text-[11px] font-bold text-cream/80 mb-1.5 px-1">
               Categoría de la idea
@@ -839,7 +904,6 @@
             </select>
           </div>
 
-          <!-- Texto de la idea -->
           <div>
             <textarea id="idea-content-input"
                       rows="3"
@@ -860,7 +924,7 @@
         </form>
       </div>
 
-      <!-- Barra de Filtros: Más votadas / Más recientes + Categorías -->
+      <!-- Barra de Filtros -->
       <div class="space-y-2.5">
         <div class="flex items-center justify-between gap-2">
           <h3 class="font-display font-bold text-base text-cream flex items-center gap-1.5">
@@ -879,7 +943,6 @@
           </div>
         </div>
 
-        <!-- Filtro rápido por categoría -->
         <div class="flex gap-2 overflow-x-auto no-scrollbar pb-1">
           <button onclick="setCategoryFilter('ALL')" data-cat="ALL" class="cat-chip shrink-0 px-3 py-1.5 rounded-full text-xs font-extrabold bg-vanilla text-choco-950 transition-all">
             Todas
@@ -899,7 +962,7 @@
         </div>
       </div>
 
-      <!-- Feed de Ideas desde Firestore -->
+      <!-- Feed de Ideas -->
       <div id="ideas-live-list" class="space-y-3">
         <div class="ice-glass rounded-3xl p-6 text-center border-cream/10">
           <div class="w-8 h-8 border-4 border-strawberry border-t-transparent rounded-full animate-spin mx-auto mb-2"></div>
@@ -909,7 +972,7 @@
     </section>
 
     <!-- =================================================================== -->
-    <!-- PESTAÑA 5: PANEL DE ADMINISTRACIÓN (SOLO ishaktopro@gmail.com)      -->
+    <!-- PESTAÑA 6: PANEL DE ADMINISTRACIÓN (SOLO ishaktopro@gmail.com)      -->
     <!-- =================================================================== -->
     <section id="tab-admin" class="hidden space-y-5">
       <div class="ice-glass rounded-[28px] p-5 border-2 border-amber-400/50 bg-gradient-to-br from-amber-950/40 via-choco-900 to-choco-950">
@@ -925,7 +988,6 @@
           </div>
         </div>
 
-        <!-- 1. Estadísticas Rápidas del Sistema -->
         <div class="grid grid-cols-4 gap-2 mt-4">
           <div class="bg-choco-950/80 p-2.5 rounded-2xl border border-cream/10 text-center">
             <span class="text-[10px] text-cream/60 block">Fans</span>
@@ -946,7 +1008,6 @@
         </div>
       </div>
 
-      <!-- 2. ANUNCIO GLOBAL EN VIVO (Función Admin #1) -->
       <div class="ice-glass rounded-[28px] p-5 border-cream/15 space-y-3">
         <h3 class="font-display font-bold text-base text-vanilla">1. 📢 Megáfono Global (Banner Superior en Vivo)</h3>
         <p class="text-xs text-cream/65">Aparece arriba del todo a todos los fans conectados al instante.</p>
@@ -962,7 +1023,6 @@
         </div>
       </div>
 
-      <!-- 3. CREADOR DE ENCUESTA OFICIAL EN VIVO (Función Admin #2 y #3) -->
       <div class="ice-glass rounded-[28px] p-5 border-cream/15 space-y-3">
         <div class="flex items-center justify-between">
           <h3 class="font-display font-bold text-base text-strawberry">2. 🗳️ Encuesta Oficial de Guion (En Inicio)</h3>
@@ -981,7 +1041,6 @@
         </button>
       </div>
 
-      <!-- 4. CONTROL DE HELADERÍA Y CHAT (Funciones Admin #4, #5, #6 y #7) -->
       <div class="ice-glass rounded-[28px] p-5 border-cream/15 space-y-3.5">
         <h3 class="font-display font-bold text-base text-mint">3. ⚙️ Control de Sala y Heladería</h3>
         
@@ -1011,7 +1070,6 @@
           </button>
         </div>
 
-        <!-- Estado personalizado del Header -->
         <div class="flex gap-2 pt-1">
           <input id="adm-shop-status-input" type="text" maxlength="45" placeholder="Estado del local (Ej: Heladería en Hora Punta 🔥)"
                  class="flex-1 bg-choco-950/90 text-xs text-cream px-3.5 py-2.5 rounded-xl border border-cream/15" />
@@ -1021,7 +1079,6 @@
         </div>
       </div>
 
-      <!-- 5. MODERACIÓN EN VIVO DE IDEAS (Funciones Admin #8, #9, #10: Editar, Destacar, Borrar) -->
       <div class="ice-glass rounded-[28px] p-5 border-cream/15 space-y-3">
         <h3 class="font-display font-bold text-base text-vanilla">4. 🍨 Moderación del Muro de Ideas (Editar / Destacar / Borrar)</h3>
         <div id="admin-ideas-manager" class="space-y-2.5 max-h-80 overflow-y-auto pr-1">
@@ -1029,7 +1086,6 @@
         </div>
       </div>
 
-      <!-- 6. GESTIÓN DE FRUTI-FANS Y BANEO (Funciones Admin #11 y #12) -->
       <div class="ice-glass rounded-[28px] p-5 border-cream/15 space-y-3">
         <h3 class="font-display font-bold text-base text-cream">5. 👥 Registro de Fruti-Fans (#1 en adelante) y Sanciones</h3>
         <div id="admin-users-manager" class="space-y-2 max-h-80 overflow-y-auto pr-1">
@@ -1039,7 +1095,7 @@
     </section>
   </main>
 
-  <!-- NAVEGACIÓN INFERIOR FIJA ESTILO APP MÓVIL (5 SECCIONES ABAJO) -->
+  <!-- NAVEGACIÓN INFERIOR FIJA ESTILO APP MÓVIL -->
   <nav class="fixed bottom-0 left-0 right-0 z-40 ice-nav shadow-[0_-10px_30px_rgba(0,0,0,0.75)]">
     <div id="bottom-nav-grid" class="max-w-2xl mx-auto px-2 py-2 grid grid-cols-5 gap-1.5">
       <button id="nav-home" onclick="switchTab('home')"
@@ -1076,7 +1132,7 @@
   </nav>
 
   <!-- ===================================================================== -->
-  <!-- MÓDULO PRINCIPAL (GOOGLE AUTH + FRUTIFAN #X + CHAT + ADMIN + WALL)    -->
+  <!-- MÓDULO PRINCIPAL (FIREBASE + PASES STORY PRO + RULETA + ADMIN)        -->
   <!-- ===================================================================== -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
@@ -1086,8 +1142,7 @@
       signInWithPopup,
       signInAnonymously,
       signInWithCustomToken,
-      onAuthStateChanged,
-      signOut
+      onAuthStateChanged
     } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
     import {
       getFirestore,
@@ -1104,10 +1159,8 @@
       increment
     } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-    // =========================================================================
-    // 1. CONFIGURACIÓN DE FIREBASE Y CREDENCIALES DE ADMINISTRADOR
-    // =========================================================================
     const ADMIN_EMAIL = "ishaktopro@gmail.com";
+    const OFFICIAL_WEB_URL = "https://molo123465.github.io/frutinovelas/";
     const appId = typeof __app_id !== "undefined" ? __app_id : "frutinovelas-heladeria";
 
     const defaultWebFirebaseConfig = {
@@ -1128,16 +1181,16 @@
     let auth = null;
     let db = null;
 
-    let firebaseUser = null;      // Usuario Auth (Google o Anónimo)
-    let fanProfile = null;        // Perfil real guardado en Firestore (/fan_profiles/{uid})
-    let isAdminUser = false;      // True únicamente si email === ishaktopro@gmail.com
+    let firebaseUser = null;
+    let fanProfile = null;
+    let isAdminUser = false;
 
     let allIdeas = [];
     let allChatMessages = [];
     let allRegisteredFans = [];
     let globalConfig = {
       announcement: "",
-      shopStatus: "Heladería Oficial de Cocardo",
+      shopStatus: "Coco's Scoops • Heladería Oficial",
       chatLocked: false,
       slowMode: false,
       pinnedMessage: "",
@@ -1160,16 +1213,12 @@
       } catch (_) {}
     }
 
-    // =========================================================================
-    // 2. INICIALIZACIÓN DE AUTH Y SINCRONIZACIÓN DE PERFIL #FRUTIFAN REAL
-    // =========================================================================
     async function initAppCore() {
       try {
         app = initializeApp(firebaseConfig);
         auth = getAuth(app);
         db = getFirestore(app);
 
-        // Si hay token de entorno lo usamos; si no, observamos estado real de Google Auth
         if (typeof __initial_auth_token !== "undefined" && __initial_auth_token) {
           await signInWithCustomToken(auth, __initial_auth_token);
         } else if (!auth.currentUser) {
@@ -1181,7 +1230,6 @@
           if (user) {
             await handleAuthenticatedUser(user);
             startRealtimeListeners();
-            // Si entró como anónimo (no ha iniciado sesión con Google aún), mostrar modal de entrada
             if (user.isAnonymous && !sessionStorage.getItem("fn_entry_modal_dismissed")) {
               document.getElementById("entry-login-modal").classList.remove("hidden");
             }
@@ -1204,7 +1252,6 @@
       document.getElementById("entry-login-modal").classList.add("hidden");
     };
 
-    // Inicia sesión real con cuenta de Google
     window.loginWithGoogle = async function () {
       if (!auth) return;
       try {
@@ -1221,8 +1268,7 @@
       }
     };
 
-    // Comprueba si el usuario de Google ya tiene su #FrutiFan o le asigna el siguiente número atómico real
-    async function handleAuthenticatedUser(user, forceWelcomeIfNew = false) {
+    async function handleAuthenticatedUser(user) {
       if (!db || !user || user.isAnonymous) {
         fanProfile = null;
         isAdminUser = false;
@@ -1241,13 +1287,11 @@
 
         if (existingSnap.exists()) {
           fanProfile = existingSnap.data();
-          // Asegurar bandera admin si entra con ishaktopro@gmail.com
           if (isAdminUser && !fanProfile.isAdmin) {
             await updateDoc(userDocRef, { isAdmin: true });
             fanProfile.isAdmin = true;
           }
         } else {
-          // Transacción atómica real para asignar el número exacto de FrutiFan (#1, #2, #3...)
           const assignedNumber = await runTransaction(db, async (transaction) => {
             const counterSnap = await transaction.get(counterDocRef);
             let nextNum = 1;
@@ -1266,7 +1310,7 @@
               coins: 100,
               streak: 1,
               lastDailyClaim: "",
-              lastActiveDate: new Date().toISOString().slice(0, 10),
+              lastWheelSpin: "",
               dailyChatDone: "",
               dailyVoteDone: "",
               equippedTitle: "",
@@ -1281,16 +1325,13 @@
             return nextNum;
           });
 
-          // Mostrar modal oficial de felicitación con su número real
           document.getElementById("modal-fan-number").textContent = `#${assignedNumber}`;
           document.getElementById("modal-tt-preview").src = user.photoURL || buildIceCreamFallbackAvatar(user.displayName || "FN");
           document.getElementById("welcome-fan-modal").classList.remove("hidden");
         }
 
-        // Verificar si perdió racha por pasar más de 1 día sin reclamar
         await verifyAndSyncStreak();
 
-        // Autocompletar su @ de TikTok en el Muro de Ideas si ya lo configuró
         if (fanProfile && fanProfile.tiktokUser) {
           const wallInput = document.getElementById("tt-username-input");
           if (wallInput && !wallInput.value) {
@@ -1312,7 +1353,6 @@
       const yesterday = new Date(today.getTime() - 86400000).toISOString().slice(0, 10);
 
       if (fanProfile.lastDailyClaim && fanProfile.lastDailyClaim !== todayStr && fanProfile.lastDailyClaim !== yesterday) {
-        // Si pasó más de un día completo sin entrar, la racha vuelve a 1
         try {
           const userDocRef = doc(db, "artifacts", appId, "public", "data", "fan_profiles", firebaseUser.uid);
           await updateDoc(userDocRef, { streak: 1 });
@@ -1420,7 +1460,6 @@
         const shopCoinsEl = document.getElementById("shop-user-coins-pill");
         if (shopCoinsEl) shopCoinsEl.textContent = `🪙 ${coins}`;
 
-        // Rango dinámico según Fruti-Coins acumuladas
         let rankLabel = fanProfile.equippedTitle || "🍦 Aprendiz";
         if (!fanProfile.equippedTitle) {
           if (coins >= 1000) rankLabel = "👑 Socio de Cocardo";
@@ -1429,7 +1468,6 @@
         }
         document.getElementById("passport-rank-badge").textContent = rankLabel;
 
-        // Estado del bonus diario y misiones diarias
         const todayStr = new Date().toISOString().slice(0, 10);
         const claimBtn = document.getElementById("claim-daily-btn");
         const claimStatus = document.getElementById("daily-reward-status");
@@ -1445,6 +1483,18 @@
           claimBtn.textContent = "Reclamar +50 🪙";
           claimBtn.classList.remove("opacity-60");
           claimStatus.textContent = "Reclama +50 Fruti-Coins y sube tu racha";
+        }
+
+        const wheelBtn = document.getElementById("spin-wheel-btn");
+        const wheelText = document.getElementById("wheel-status-text");
+        if (fanProfile.lastWheelSpin === todayStr) {
+          wheelBtn.textContent = "✅ Girada hoy";
+          wheelBtn.classList.add("opacity-60");
+          wheelText.textContent = "Vuelve mañana para otra tirada gratis";
+        } else {
+          wheelBtn.textContent = "🎰 Girar Hoy";
+          wheelBtn.classList.remove("opacity-60");
+          wheelText.textContent = "Gira para ganar entre +25 y +200 Fruti-Coins";
         }
 
         const setMissionBadge = (id, done) => {
@@ -1485,18 +1535,51 @@
     }
 
     // =========================================================================
-    // 8. FRUTI-TEST ANÓNIMO (8 PREGUNTAS SIN PISTAS) Y DESCARGA PNG STORY HD
+    // RULETA DIARIA DE LA HELADERÍA
+    // =========================================================================
+    window.spinDailyIceWheel = async function () {
+      if (!db || !firebaseUser || !fanProfile) {
+        await loginWithGoogle();
+        return;
+      }
+      const todayStr = new Date().toISOString().slice(0, 10);
+      if (fanProfile.lastWheelSpin === todayStr) {
+        showToast("Ya usaste tu tirada gratis de hoy. ¡Vuelve mañana!", "🎡");
+        return;
+      }
+
+      const prizes = [25, 40, 50, 75, 100, 150, 200];
+      const won = prizes[Math.floor(Math.random() * prizes.length)];
+      const newCoins = (fanProfile.coins || 0) + won;
+
+      try {
+        const userDocRef = doc(db, "artifacts", appId, "public", "data", "fan_profiles", firebaseUser.uid);
+        await updateDoc(userDocRef, {
+          coins: newCoins,
+          lastWheelSpin: todayStr
+        });
+        fanProfile.coins = newCoins;
+        fanProfile.lastWheelSpin = todayStr;
+        updateAuthUI();
+        showToast(`¡La Ruleta te dio +${won} Fruti-Coins! 🎉`, "🎰");
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    // =========================================================================
+    // FRUTI-TEST ANÓNIMO (8 PREGUNTAS) + PASES STORY HD DE NIVEL PRO
     // =========================================================================
     const characterProfiles = {
       cocardo: {
         name: "COCARDO",
         emoji: "🥥",
         subtitle: "El Dueño Estresado pero Legendario",
-        desc: "Intentas mantener la heladería a flote mientras todo arde a tu alrededor. Tienes paciencia infinita hasta que te tocan la caja registradora.",
+        desc: "Intentas mantener Coco's Scoops a flote mientras todo arde a tu alrededor. Tienes paciencia infinita hasta que te tocan la caja registradora.",
         cardGradient: "bg-gradient-to-br from-amber-700 via-choco-900 to-choco-950 border-vanilla/60",
         avatarBg: "bg-amber-500/30",
         barColor: "bg-vanilla",
-        hex1: "#92400e",
+        hex1: "#78350f",
         hex2: "#1c100d",
         accent: "#ffd166"
       },
@@ -1508,7 +1591,7 @@
         cardGradient: "bg-gradient-to-br from-rose-700 via-pink-900 to-choco-950 border-strawberry/70",
         avatarBg: "bg-strawberry/30",
         barColor: "bg-strawberry",
-        hex1: "#be123c",
+        hex1: "#9f1239",
         hex2: "#1c100d",
         accent: "#ff4d79"
       },
@@ -1520,7 +1603,7 @@
         cardGradient: "bg-gradient-to-br from-yellow-600 via-orange-900 to-choco-950 border-yellow-300/70",
         avatarBg: "bg-yellow-400/30",
         barColor: "bg-yellow-300",
-        hex1: "#ca8a04",
+        hex1: "#a16207",
         hex2: "#1c100d",
         accent: "#fde047"
       },
@@ -1532,7 +1615,7 @@
         cardGradient: "bg-gradient-to-br from-emerald-700 via-teal-950 to-choco-950 border-mint/70",
         avatarBg: "bg-mint/30",
         barColor: "bg-mint",
-        hex1: "#047857",
+        hex1: "#065f46",
         hex2: "#120a08",
         accent: "#06d6a0"
       }
@@ -1713,7 +1796,17 @@
       renderQuestion();
     };
 
-    // Genera y descarga un PNG vertical HD (1080x1920) del resultado del Fruti-Test para Stories/TikTok
+    function drawRoundedRect(ctx, x, y, w, h, r) {
+      ctx.beginPath();
+      ctx.moveTo(x + r, y);
+      ctx.arcTo(x + w, y, x + w, y + h, r);
+      ctx.arcTo(x + w, y + h, x, y + h, r);
+      ctx.arcTo(x, y + h, x, y, r);
+      ctx.arcTo(x, y, x + w, y, r);
+      ctx.closePath();
+    }
+
+    // Genera PNG vertical HD (1080x1920) del resultado del Fruti-Test diseñado al milímetro para Stories
     window.downloadStoryPNG = function () {
       if (!finalQuizResult) return;
       const canvas = document.createElement("canvas");
@@ -1723,52 +1816,122 @@
 
       const grad = ctx.createLinearGradient(0, 0, 1080, 1920);
       grad.addColorStop(0, finalQuizResult.hex1);
-      grad.addColorStop(1, finalQuizResult.hex2);
+      grad.addColorStop(0.55, "#1c100d");
+      grad.addColorStop(1, "#120a08");
       ctx.fillStyle = grad;
       ctx.fillRect(0, 0, 1080, 1920);
 
-      // Marco interior
+      // Destellos radiales de fondo
+      const glow = ctx.createRadialGradient(540, 620, 40, 540, 620, 480);
+      glow.addColorStop(0, "rgba(255, 209, 102, 0.28)");
+      glow.addColorStop(1, "rgba(255, 209, 102, 0)");
+      ctx.fillStyle = glow;
+      ctx.fillRect(0, 0, 1080, 1920);
+
+      // Tarjeta Ticket VIP Central
+      ctx.save();
+      drawRoundedRect(ctx, 70, 90, 940, 1740, 56);
+      ctx.fillStyle = "rgba(18, 10, 8, 0.72)";
+      ctx.fill();
+      ctx.lineWidth = 8;
       ctx.strokeStyle = finalQuizResult.accent;
-      ctx.lineWidth = 10;
-      ctx.strokeRect(60, 60, 960, 1800);
+      ctx.stroke();
+      ctx.restore();
+
+      // Cabecera superior
+      ctx.fillStyle = finalQuizResult.accent;
+      ctx.font = "900 34px sans-serif";
+      ctx.textAlign = "center";
+      ctx.fillText("COCO'S SCOOPS • TEST OFICIAL DE PERSONALIDAD", 540, 185);
+
+      ctx.fillStyle = "rgba(255,248,231,0.75)";
+      ctx.font = "bold 36px sans-serif";
+      ctx.fillText(`CREDENTIAL ID: ${finalQuizResult.vipCode}`, 540, 245);
+
+      // Círculo avatar personaje
+      ctx.beginPath();
+      ctx.arc(540, 460, 155, 0, Math.PI * 2);
+      ctx.fillStyle = "rgba(255,255,255,0.08)";
+      ctx.fill();
+      ctx.lineWidth = 6;
+      ctx.strokeStyle = finalQuizResult.accent;
+      ctx.stroke();
+
+      ctx.font = "190px sans-serif";
+      ctx.fillText(finalQuizResult.emoji, 540, 525);
+
+      // Nombre personaje
+      ctx.fillStyle = "#ffffff";
+      ctx.font = "900 104px sans-serif";
+      ctx.fillText(finalQuizResult.name, 540, 725);
+
+      ctx.fillStyle = finalQuizResult.accent;
+      ctx.font = "bold 40px sans-serif";
+      ctx.fillText(`«${finalQuizResult.subtitle}»`, 540, 795);
+
+      // Barra de afinidad
+      drawRoundedRect(ctx, 140, 860, 800, 140, 32);
+      ctx.fillStyle = "rgba(255,255,255,0.07)";
+      ctx.fill();
 
       ctx.fillStyle = "#fff8e7";
-      ctx.font = "bold 40px sans-serif";
-      ctx.textAlign = "center";
-      ctx.fillText("LA HELADERÍA DE COCARDO • TEST OFICIAL", 540, 170);
+      ctx.font = "900 48px sans-serif";
+      ctx.fillText(`${finalQuizResult.affinityPct}% MATCH OFICIAL`, 540, 925);
 
-      ctx.fillStyle = finalQuizResult.accent;
-      ctx.font = "bold 46px sans-serif";
-      ctx.fillText(finalQuizResult.vipCode, 540, 250);
+      ctx.fillStyle = "rgba(255,248,231,0.75)";
+      ctx.font = "bold 32px sans-serif";
+      ctx.fillText(`Con un toque de ${finalQuizResult.secondaryPct}% ${finalQuizResult.secondaryName}`, 540, 975);
 
-      ctx.font = "230px sans-serif";
-      ctx.fillText(finalQuizResult.emoji, 540, 560);
+      // Descripción ajustada
+      ctx.fillStyle = "rgba(255,248,231,0.9)";
+      ctx.font = "500 34px sans-serif";
+      wrapCanvasText(ctx, finalQuizResult.desc, 540, 1085, 800, 48);
 
+      // Caja CTA Viral Repost
+      drawRoundedRect(ctx, 120, 1320, 840, 175, 34);
+      ctx.fillStyle = "rgba(255, 77, 121, 0.22)";
+      ctx.fill();
+      ctx.lineWidth = 4;
+      ctx.strokeStyle = "#ff4d79";
+      ctx.stroke();
+
+      ctx.fillStyle = "#ffd166";
+      ctx.font = "900 34px sans-serif";
+      ctx.fillText("📣 ¡SÚBELO A STORY O VÍDEO MENCIONANDO A", 540, 1385);
       ctx.fillStyle = "#ffffff";
-      ctx.font = "900 105px sans-serif";
-      ctx.fillText(finalQuizResult.name, 540, 720);
+      ctx.font = "900 38px sans-serif";
+      ctx.fillText("@frutasalocadasoficiall Y LO COMPARTO!", 540, 1445);
 
+      // Pie con enlace oficial grande
       ctx.fillStyle = finalQuizResult.accent;
-      ctx.font = "bold 44px sans-serif";
-      ctx.fillText("Haz el test y entra en el chat oficial:", 540, 1610);
-      ctx.fillStyle = "#ffffff";
-      ctx.font = "900 44px sans-serif";
-      ctx.fillText("https://molo123465.github.io/frutinovelas/", 540, 1690);
-      ctx.fillStyle = finalQuizResult.accent;
-      ctx.font = "bold 40px sans-serif";
-      ctx.fillText("TikTok: @frutasalocadasoficiall", 540, 1765);
+      ctx.font = "bold 34px sans-serif";
+      ctx.fillText("Haz el test gratis en la web oficial:", 540, 1595);
+
+      drawRoundedRect(ctx, 110, 1625, 860, 95, 28);
+      ctx.fillStyle = "#ffd166";
+      ctx.fill();
+
+      ctx.fillStyle = "#120a08";
+      ctx.font = "900 36px sans-serif";
+      ctx.fillText("molo123465.github.io/frutinovelas/", 540, 1685);
+
+      ctx.fillStyle = "rgba(255,248,231,0.7)";
+      ctx.font = "bold 30px sans-serif";
+      ctx.fillText("TikTok: @frutasalocadasoficiall", 540, 1780);
 
       const link = document.createElement("a");
-      link.download = `FrutiTest_${finalQuizResult.name}.png`;
+      link.download = `Story_FrutiTest_${finalQuizResult.name}.png`;
       link.href = canvas.toDataURL("image/png");
       link.click();
-      showToast("¡Imagen HD con el link de tu web descargada!", "📲");
+      showToast("¡Story HD lista! Súbela mencionando @frutasalocadasoficiall", "📲");
     };
 
-    // Descarga también una tarjeta VIP con su número oficial #FrutiFan para compartir en redes
-    window.downloadFanPassportPNG = function () {
+    function createPassportCanvas() {
       const fanNum = fanProfile ? `#${fanProfile.fanNumber}` : "#VIP";
-      const fanName = fanProfile ? (fanProfile.tiktokUser ? `@${fanProfile.tiktokUser}` : fanProfile.displayName) : "Fruti-Fan Oficial";
+      const fanName = fanProfile
+        ? (fanProfile.tiktokUser ? `@${fanProfile.tiktokUser}` : fanProfile.displayName)
+        : "Fruti-Fan Oficial";
+      const streakDays = (fanProfile && fanProfile.streak) || 1;
 
       const canvas = document.createElement("canvas");
       canvas.width = 1080;
@@ -1776,55 +1939,138 @@
       const ctx = canvas.getContext("2d");
 
       const grad = ctx.createLinearGradient(0, 0, 1080, 1920);
-      grad.addColorStop(0, "#2b1914");
-      grad.addColorStop(0.5, "#1c100d");
+      grad.addColorStop(0, "#3d241d");
+      grad.addColorStop(0.45, "#1c100d");
       grad.addColorStop(1, "#120a08");
       ctx.fillStyle = grad;
       ctx.fillRect(0, 0, 1080, 1920);
 
+      // Marco Ticket Dorado VIP
+      drawRoundedRect(ctx, 65, 80, 950, 1760, 60);
+      ctx.fillStyle = "rgba(18, 10, 8, 0.78)";
+      ctx.fill();
+      ctx.lineWidth = 10;
       ctx.strokeStyle = "#ffd166";
-      ctx.lineWidth = 12;
-      ctx.strokeRect(65, 65, 950, 1790);
+      ctx.stroke();
+
+      // Línea punteada estilo entrada VIP
+      ctx.save();
+      ctx.setLineDash([18, 14]);
+      ctx.strokeStyle = "rgba(255, 209, 102, 0.45)";
+      ctx.lineWidth = 4;
+      ctx.beginPath();
+      ctx.moveTo(100, 320);
+      ctx.lineTo(980, 320);
+      ctx.stroke();
+      ctx.restore();
 
       ctx.fillStyle = "#ffd166";
-      ctx.font = "bold 42px sans-serif";
+      ctx.font = "900 38px sans-serif";
       ctx.textAlign = "center";
-      ctx.fillText("PASE OFICIAL DE MIEMBRO", 540, 210);
-
-      ctx.font = "220px sans-serif";
-      ctx.fillText("🍦", 540, 520);
-
-      ctx.fillStyle = "#fff8e7";
-      ctx.font = "bold 56px sans-serif";
-      ctx.fillText("SOY EL FRUTI-FAN", 540, 680);
-
-      ctx.fillStyle = "#ff4d79";
-      ctx.font = "900 190px sans-serif";
-      ctx.fillText(fanNum, 540, 890);
+      ctx.fillText("🎫 PASE VIP OFICIAL • COCO'S SCOOPS", 540, 185);
 
       ctx.fillStyle = "#06d6a0";
-      ctx.font = "bold 54px sans-serif";
-      ctx.fillText(fanName, 540, 1020);
+      ctx.font = "bold 34px sans-serif";
+      ctx.fillText(`MIEMBRO VERIFICADO • RACHA 🔥 ${streakDays}D`, 540, 255);
 
-      ctx.fillStyle = "rgba(255,248,231,0.85)";
-      ctx.font = "500 40px sans-serif";
-      ctx.fillText("Miembro verificado de La Heladería de Cocardo", 540, 1140);
+      // Emblema central
+      ctx.beginPath();
+      ctx.arc(540, 510, 145, 0, Math.PI * 2);
+      ctx.fillStyle = "rgba(255, 209, 102, 0.14)";
+      ctx.fill();
+      ctx.lineWidth = 6;
+      ctx.strokeStyle = "#ffd166";
+      ctx.stroke();
+
+      ctx.font = "175px sans-serif";
+      ctx.fillText("🥥", 540, 570);
+
+      ctx.fillStyle = "#fff8e7";
+      ctx.font = "900 52px sans-serif";
+      ctx.fillText("SOY EL FRUTI-FAN", 540, 745);
+
+      ctx.fillStyle = "#ff4d79";
+      ctx.font = "900 200px sans-serif";
+      ctx.fillText(fanNum, 540, 950);
+
+      ctx.fillStyle = "#06d6a0";
+      ctx.font = "900 54px sans-serif";
+      ctx.fillText(fanName, 540, 1070);
+
+      ctx.fillStyle = "rgba(255,248,231,0.8)";
+      ctx.font = "600 34px sans-serif";
+      ctx.fillText("La Heladería Oficial de Cocardo", 540, 1145);
+
+      // Caja de Repost Garantizado
+      drawRoundedRect(ctx, 115, 1230, 850, 195, 36);
+      ctx.fillStyle = "rgba(255, 77, 121, 0.22)";
+      ctx.fill();
+      ctx.lineWidth = 4;
+      ctx.strokeStyle = "#ff4d79";
+      ctx.stroke();
 
       ctx.fillStyle = "#ffd166";
-      ctx.font = "bold 42px sans-serif";
-      ctx.fillText("Consigue tu número en:", 540, 1600);
+      ctx.font = "900 34px sans-serif";
+      ctx.fillText("📣 ¡SÚBELO A TU STORY O VÍDEO MENCIONANDO A", 540, 1300);
       ctx.fillStyle = "#ffffff";
-      ctx.font = "900 44px sans-serif";
-      ctx.fillText("https://molo123465.github.io/frutinovelas/", 540, 1680);
-      ctx.fillStyle = "#ff4d79";
-      ctx.font = "bold 40px sans-serif";
-      ctx.fillText("@frutasalocadasoficiall", 540, 1755);
+      ctx.font = "900 38px sans-serif";
+      ctx.fillText("@frutasalocadasoficiall Y LO COMPARTO!", 540, 1365);
 
+      // Pie con link oficial destacado
+      ctx.fillStyle = "#ffd166";
+      ctx.font = "bold 36px sans-serif";
+      ctx.fillText("Consigue tu número VIP gratis aquí:", 540, 1545);
+
+      drawRoundedRect(ctx, 110, 1580, 860, 98, 28);
+      ctx.fillStyle = "#ffd166";
+      ctx.fill();
+
+      ctx.fillStyle = "#120a08";
+      ctx.font = "900 36px sans-serif";
+      ctx.fillText("molo123465.github.io/frutinovelas/", 540, 1642);
+
+      ctx.fillStyle = "rgba(255,248,231,0.75)";
+      ctx.font = "bold 32px sans-serif";
+      ctx.fillText("@frutasalocadasoficiall • FrutiNovelas", 540, 1755);
+
+      return { canvas, fanNum };
+    }
+
+    window.downloadFanPassportPNG = function () {
+      const { canvas, fanNum } = createPassportCanvas();
       const link = document.createElement("a");
-      link.download = `Pase_FrutiFan_${fanNum.replace("#", "")}.png`;
+      link.download = `Pase_VIP_FrutiFan_${fanNum.replace("#", "")}.png`;
       link.href = canvas.toDataURL("image/png");
       link.click();
-      showToast(`¡Pase Fruti-Fan ${fanNum} con tu enlace descargado!`, "🎉");
+      showToast(`¡Pase VIP ${fanNum} descargado! Súbelo mencionándome 📲`, "🎉");
+    };
+
+    window.shareFanPassportNative = async function () {
+      const { canvas, fanNum } = createPassportCanvas();
+      const shareText = `¡Ya tengo mi Pase VIP oficial de Fruti-Fan ${fanNum} en Coco's Scoops! 🍦🥥 Consigue el tuyo aquí: ${OFFICIAL_WEB_URL} @frutasalocadasoficiall`;
+
+      if (navigator.share && navigator.canShare) {
+        try {
+          const blob = await new Promise((res) => canvas.toBlob(res, "image/png"));
+          const file = new File([blob], `Pase_FrutiFan_${fanNum.replace("#", "")}.png`, { type: "image/png" });
+          if (navigator.canShare({ files: [file] })) {
+            await navigator.share({
+              title: `Pase VIP Fruti-Fan ${fanNum}`,
+              text: shareText,
+              files: [file]
+            });
+            return;
+          }
+        } catch (_) {}
+      }
+
+      const ta = document.createElement("textarea");
+      ta.value = shareText;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand("copy");
+      document.body.removeChild(ta);
+      showToast("¡Texto y link oficial copiados para compartir!", "🚀");
     };
 
     function wrapCanvasText(ctx, text, x, y, maxWidth, lineHeight) {
@@ -1845,7 +2091,7 @@
 
     window.copyChallengeText = function () {
       if (!finalQuizResult) return;
-      const msg = `Me ha salido ${finalQuizResult.affinityPct}% ${finalQuizResult.name} (${finalQuizResult.vipCode}) en La Heladería de Cocardo 🍦🥥 Haz el test y consigue tu número de Fruti-Fan aquí: https://molo123465.github.io/frutinovelas/ (@frutasalocadasoficiall)`;
+      const msg = `Me ha salido ${finalQuizResult.affinityPct}% ${finalQuizResult.name} (${finalQuizResult.vipCode}) en Coco's Scoops 🍦🥥 Haz el test y consigue tu Pase VIP aquí: ${OFFICIAL_WEB_URL} (@frutasalocadasoficiall)`;
       const ta = document.createElement("textarea");
       ta.value = msg;
       document.body.appendChild(ta);
@@ -1909,14 +2155,13 @@
     }
 
     // =========================================================================
-    // 3. LISTENERS EN TIEMPO REAL DE FIRESTORE (IDEAS, CHAT, FANS Y AJUSTES)
+    // LISTENERS EN TIEMPO REAL DE FIRESTORE
     // =========================================================================
     let listenersStarted = false;
     function startRealtimeListeners() {
       if (listenersStarted || !db) return;
       listenersStarted = true;
 
-      // 1. Ideas en tiempo real
       const ideasCol = collection(db, "artifacts", appId, "public", "data", "heladeria_ideas");
       onSnapshot(
         ideasCol,
@@ -1931,7 +2176,6 @@
         (err) => console.error("Error listener ideas:", err)
       );
 
-      // 2. Chat común en tiempo real
       const chatCol = collection(db, "artifacts", appId, "public", "data", "heladeria_chat");
       onSnapshot(
         chatCol,
@@ -1948,7 +2192,6 @@
         (err) => console.error("Error listener chat:", err)
       );
 
-      // 3. Perfiles de Fruti-Fans registrados
       const fansCol = collection(db, "artifacts", appId, "public", "data", "fan_profiles");
       onSnapshot(
         fansCol,
@@ -1972,7 +2215,6 @@
         (err) => console.error("Error listener fans:", err)
       );
 
-      // 4. Ajustes globales del sistema (anuncios, encuesta en vivo, bloqueo chat)
       const settingsDoc = doc(db, "artifacts", appId, "public", "data", "system_meta", "global_settings");
       onSnapshot(
         settingsDoc,
@@ -1987,7 +2229,6 @@
     }
 
     function applyGlobalSettingsToUI() {
-      // 1. Banner de anuncio global
       const bar = document.getElementById("global-announcement-bar");
       const barText = document.getElementById("global-announcement-text");
       if (globalConfig.announcement && globalConfig.announcement.trim()) {
@@ -1997,11 +2238,9 @@
         bar.classList.add("hidden");
       }
 
-      // 2. Estado de la heladería en el header
       document.getElementById("header-shop-status").textContent =
-        globalConfig.shopStatus || "Heladería Oficial de Cocardo";
+        globalConfig.shopStatus || "Coco's Scoops • Heladería Oficial";
 
-      // 3. Mensaje fijado en el chat
       const pinBox = document.getElementById("pinned-chat-banner");
       const pinText = document.getElementById("pinned-chat-text");
       if (globalConfig.pinnedMessage && globalConfig.pinnedMessage.trim()) {
@@ -2011,10 +2250,8 @@
         pinBox.classList.add("hidden");
       }
 
-      // 4. Encuesta oficial en vivo
       renderLivePollCard();
 
-      // 5. Actualizar textos en el Panel Admin
       if (isAdminUser) {
         document.getElementById("adm-chat-lock-status").textContent = globalConfig.chatLocked
           ? "Estado: CERRADO (Solo Admin escribe)"
@@ -2026,7 +2263,7 @@
     }
 
     // =========================================================================
-    // 4. CHAT COMÚN EN VIVO
+    // CHAT COMÚN EN VIVO
     // =========================================================================
     window.sendChatMessage = async function (e) {
       e.preventDefault();
@@ -2074,7 +2311,6 @@
           createdAt: now
         });
 
-        // Misión diaria #2: Saludar en el chat (+25 Fruti-Coins una vez al día)
         const todayStr = new Date().toISOString().slice(0, 10);
         if (fanProfile.dailyChatDone !== todayStr) {
           const newCoins = (fanProfile.coins || 0) + 25;
@@ -2230,7 +2466,7 @@
     };
 
     // =========================================================================
-    // 6. LAS +12 FUNCIONES DEL PANEL ADMIN (ishaktopro@gmail.com)
+    // PANEL ADMIN (ishaktopro@gmail.com)
     // =========================================================================
     function guardAdmin() {
       if (!isAdminUser || !db) {
@@ -2240,7 +2476,6 @@
       return true;
     }
 
-    // Función Admin #1: Publicar Anuncio Global
     window.adminSaveAnnouncement = async function () {
       if (!guardAdmin()) return;
       const val = document.getElementById("adm-announcement-input").value.trim();
@@ -2249,7 +2484,6 @@
       showToast("Anuncio global actualizado para todos", "📢");
     };
 
-    // Función Admin #2: Quitar Anuncio Global
     window.adminClearAnnouncement = async function () {
       if (!guardAdmin()) return;
       document.getElementById("adm-announcement-input").value = "";
@@ -2258,7 +2492,6 @@
       showToast("Anuncio global retirado", "✅");
     };
 
-    // Función Admin #3: Lanzar Encuesta Oficial en Vivo
     window.adminLaunchPoll = async function () {
       if (!guardAdmin()) return;
       const q = document.getElementById("adm-poll-question").value.trim();
@@ -2283,7 +2516,6 @@
       showToast("¡Encuesta oficial lanzada en Inicio!", "🗳️");
     };
 
-    // Función Admin #4: Cerrar Encuesta Oficial
     window.adminClosePoll = async function () {
       if (!guardAdmin()) return;
       const settingsDoc = doc(db, "artifacts", appId, "public", "data", "system_meta", "global_settings");
@@ -2291,7 +2523,6 @@
       showToast("Encuesta cerrada", "✅");
     };
 
-    // Función Admin #5: Bloquear / Abrir Chat Común
     window.adminToggleChatLock = async function () {
       if (!guardAdmin()) return;
       const settingsDoc = doc(db, "artifacts", appId, "public", "data", "system_meta", "global_settings");
@@ -2299,7 +2530,6 @@
       showToast(globalConfig.chatLocked ? "Chat desbloqueado" : "Chat bloqueado", "🔒");
     };
 
-    // Función Admin #6: Modo Lento Anti-Spam
     window.adminToggleSlowMode = async function () {
       if (!guardAdmin()) return;
       const settingsDoc = doc(db, "artifacts", appId, "public", "data", "system_meta", "global_settings");
@@ -2307,7 +2537,6 @@
       showToast("Modo lento actualizado", "⏱️");
     };
 
-    // Función Admin #7: Fijar Mensaje en el Chat
     window.adminPinChatMessage = async function (text) {
       if (!guardAdmin()) return;
       const settingsDoc = doc(db, "artifacts", appId, "public", "data", "system_meta", "global_settings");
@@ -2315,14 +2544,12 @@
       showToast("Mensaje fijado arriba en el chat", "📌");
     };
 
-    // Función Admin #8: Borrar Mensaje Individual del Chat
     window.adminDeleteChatMessage = async function (msgId) {
       if (!guardAdmin()) return;
       await deleteDoc(doc(db, "artifacts", appId, "public", "data", "heladeria_chat", msgId));
       showToast("Mensaje eliminado del chat", "🗑️");
     };
 
-    // Función Admin #9: Vaciar Todo el Chat
     window.adminPurgeAllChat = async function () {
       if (!guardAdmin()) return;
       const snap = await getDocs(collection(db, "artifacts", appId, "public", "data", "heladeria_chat"));
@@ -2332,7 +2559,6 @@
       showToast("Chat común vaciado por completo", "🧹");
     };
 
-    // Función Admin #10: Cambiar Estado de la Heladería
     window.adminUpdateShopStatus = async function () {
       if (!guardAdmin()) return;
       const statusText = document.getElementById("adm-shop-status-input").value.trim();
@@ -2342,7 +2568,6 @@
       showToast("Estado de la heladería actualizado", "🍦");
     };
 
-    // Funciones Admin #11, #12, #13: Editar, Destacar y Borrar Ideas del Muro
     window.adminToggleFeatureIdea = async function (ideaId, currentState) {
       if (!guardAdmin()) return;
       await updateDoc(doc(db, "artifacts", appId, "public", "data", "heladeria_ideas", ideaId), {
@@ -2367,7 +2592,6 @@
       showToast("Idea eliminada permanentemente", "🗑️");
     };
 
-    // Función Admin #14: Banear / Desbanear Fan
     window.adminToggleBanUser = async function (uid, currentBan) {
       if (!guardAdmin()) return;
       await updateDoc(doc(db, "artifacts", appId, "public", "data", "fan_profiles", uid), {
@@ -2376,7 +2600,6 @@
       showToast(!currentBan ? "Usuario silenciado en el chat" : "Sanción levantada", "🛡️");
     };
 
-    // Función Admin #15: Exportar Backup JSON
     window.adminExportCommunityJSON = function () {
       if (!guardAdmin()) return;
       const payload = {
@@ -2448,7 +2671,7 @@
     }
 
     // =========================================================================
-    // 7. AVATARES TIKTOK, ENVÍO DE IDEAS REALES Y RENDERIZADO DEL MURO
+    // AVATARES TIKTOK Y MURO DE IDEAS
     // =========================================================================
     function cleanTikTokUser(raw) {
       return raw.trim().replace(/^@+/, "").replace(/[^a-zA-Z0-9._]/g, "").toLowerCase();
@@ -2586,7 +2809,6 @@
           const docRef = doc(db, "artifacts", appId, "public", "data", "heladeria_ideas", ideaId);
           await updateDoc(docRef, { likes: increment(1) });
 
-          // Misión diaria #3: Votar en el muro (+25 Fruti-Coins una vez al día)
           const todayStr = new Date().toISOString().slice(0, 10);
           if (fanProfile && fanProfile.dailyVoteDone !== todayStr) {
             const newCoins = (fanProfile.coins || 0) + 25;
@@ -2604,6 +2826,7 @@
         console.error("Error sumando voto:", err);
       }
     };
+
     function renderIdeasFeed() {
       const listEl = document.getElementById("ideas-live-list");
       const totalCountEl = document.getElementById("wall-total-count");
@@ -2734,7 +2957,7 @@
     }
 
     // =========================================================================
-    // 8. COCARDO INTERACTIVO, RECOMPENSA DIARIA, CLASIFICACIÓN DE RACHAS Y TIENDA
+    // RACHAS, TIENDA DE TÍTULOS VIP, COCARDO INTERACTIVO Y ARCADE
     // =========================================================================
     const vipTitlesCatalog = [
       { id: "coco_taster", title: "🥥 Catador de Coco", cost: 100 },
@@ -2775,7 +2998,7 @@
         return;
       }
       if ((fanProfile.coins || 0) < cost) {
-        showToast(`Necesitas ${cost} Fruti-Coins. ¡Juega o mantén tu racha!`, "🪙");
+        showToast(`Necesitas ${cost} Fruti-Coins. ¡Juega o gira la ruleta!`, "🪙");
         return;
       }
       const newCoins = fanProfile.coins - cost;
@@ -2847,14 +3070,11 @@
       }).join("");
     }
 
-    // =========================================================================
-    // 8. COCARDO INTERACTIVO, RECOMPENSA DIARIA Y MINI-JUEGO CON RANKING GLOBAL
-    // =========================================================================
     let cocardoTapCount = 0;
     const cocardoQuotes = [
-      "«¡Oye! Que el coco no es de goma, deja de picarme que estoy cuadrando las cuentas!»",
+      "«¡Oye! Que el coco no es de goma, deja de picarme que estoy cuadrando las cuentas de Coco's Scoops!»",
       "«Señor Piña acaba de pedir helado de fabada... no puedo más con este local.»",
-      "«Si subes tu Pase #FrutiFan a historias con el link de la web, tienes mis respetos.»",
+      "«Si subes tu Pase VIP a historias mencionando @frutasalocadasoficiall, ¡te comparto seguro!»",
       "«Cherry dice que hoy hay salseo en el mostrador... yo solo quiero cobrar.»",
       "«¡Cuidado con los cucuruchos que cada bola cuesta dinero!»",
       "«¡ME HAS PUESTO NERVIOSO! ¡A TRABAJAR EN EL MINI-JUEGO DE HELADOS!»"
@@ -2881,7 +3101,6 @@
         mood.className = "text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-amber-400/20 text-amber-300";
       }
 
-      // Explosión visual de partículas
       const emojis = ["🥥", "🍦", "✨", "🍒", "🍍"];
       for (let i = 0; i < 6; i++) {
         const p = document.createElement("span");
@@ -2927,7 +3146,6 @@
       }
     };
 
-    // Mini-Juego Arcade con Ranking Top 10 Guardado en Firestore
     let arcadeInterval = null;
     let arcadeSpawner = null;
     let arcadeScore = 0;
@@ -3092,7 +3310,7 @@
     }
 
     // =========================================================================
-    // 9. NAVEGACIÓN ENTRE PESTAÑAS Y ARRANQUE
+    // NAVEGACIÓN ENTRE PESTAÑAS Y ARRANQUE
     // =========================================================================
     window.switchTab = function (tabName) {
       if (tabName === "admin" && !isAdminUser) {
@@ -3140,7 +3358,6 @@
       document.getElementById("idea-char-count").textContent = `${this.value.length}/240`;
     });
 
-    // Arranque inicial
     renderQuestion();
     initAppCore();
   </script>
