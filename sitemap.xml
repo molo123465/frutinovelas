@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <url>
+    <loc>https://frutinovelas.bond/</loc>
+    <lastmod>2026-11-14</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://frutinovelas.bond/heladeria-saludo.jpg</image:loc>
+      <image:title>Coco's Scoops Oficial - Cocardo, Lima y Cherry</image:title>
+      <image:caption>Sede oficial de La Heladería de Cocardo en FrutiNovelas (@frutasalocadasoficiall)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://frutinovelas.bond/cocardo-cara.jpg</image:loc>
+      <image:title>Cocardo - Jefe de Coco's Scoops</image:title>
+      <image:caption>Personaje principal de FrutiNovelas con su delantal oficial de Coco's Scoops</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://frutinovelas.bond/tropa-parque.jpg</image:loc>
+      <image:title>Elenco Oficial de FrutiNovelas</image:title>
+      <image:caption>Lima, Cocardo, Cherry y Melocotón juntos en el parque</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://frutinovelas.bond/cocardo-cherry.jpg</image:loc>
+      <image:title>Cocardo y Cherry en el mostrador de Coco's Scoops</image:title>
+      <image:caption>Escena oficial de Cocardo y Cherry atendiendo la heladería de FrutiNovelas</image:caption>
+    </image:image>
+  </url>
+</urlset>
